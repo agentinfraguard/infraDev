@@ -1,0 +1,125 @@
+
+<section class="manageRolesSec">
+	<div class="leftMenuWrapper">
+		<ul>
+			<li class="activeUserRole"> <a href="#">Create a new role</a></li>
+			<li><a href="#">Manage Group </a></li>
+			<li> <a href="#/manageRole">Manage Role </a></li>
+		</ul>
+	</div>
+	<div class="manageRoleRight">
+		<div class="manageRoleHeading">Create a New Role</div>
+		<p class="pageNavigation"> Manage Role > <a href="#"> Create a new role  </a></p>
+		<div class="roleDetailsSec ">
+			<form>
+				<div class="formWrapper">
+				<label class="formlabel" for="male">Role Name</label>
+				<input type="text" name="role" class="inputTextArea">
+			</div>
+				<div class="clear"></div>
+
+				<div class="policiesMain formWrapper">
+				<label class="formlabel" for="male">Policies</label>
+				<div id="tableMainWrapper">
+
+				<table class="policiesDetails" ng-if = "policies.length>0">
+
+					<thead>
+					<tr>
+						<th>Access</th>
+						<th>Resource</th>
+						<th>Resource Name</th>
+						<th>Action</th>
+						<th>Remove</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="policy in policies">
+							<td>{{policy.access}}</td>
+							<td>{{policy.resource}}</td>
+							<td>{{policy.resourceId}}</td>
+							<td>{{policy.activities}}</td>
+							<td class="removeXicon" ng-click="removeRow(policy.resource,policy.resourceId)"> <i class="fa fa-times" aria-hidden="true"></i> </td>
+						</tr>
+					</tbody>
+				</table>
+					<table class="tbDetailsSec">
+						
+							<tr>
+							<th class="accessDiv">Access</th>
+							<th class="resourceDiv">Resource</th>
+							<th class="resourceDiv">Resource Name</th>
+							<th class="actionDiv">Action</th>
+							<th class="backgroundWhite" rowspan="2">
+							<button class="addPolicyBtn" ng-click="addRow()">Add policy</button>
+						    </th>
+						</tr>
+							<tr>
+								<td class="accessRedio">
+									<label class="radio-inline">
+		      						<input type="radio" name="optradio">Allow
+		      						<span class="checkmark"></span>
+		    						</label>
+		    						<label class="radio-inline">
+		      						<input type="radio" name="optradio">Deny
+		      						<span class="checkmark"></span>
+		    						</label>
+		    					</td>
+								<td>
+
+							<select ng-options="resource for resource in resources" ng-model="newResource" ng-change="getResourceDetails(newResource)"></select>
+							<!-- <select ng-model="newResource">
+								<option>All</option>
+								<option>Company</option>
+								<option>Project</option>
+								<option>Server</option>
+								<option>IAM</option>
+							</select> -->
+
+								</td>
+								<td class="resourceDiv">
+									<select ng-model="newResourceId" ng-options="resource for resource in resourceList" ng-change="getActivityList(newResourceId)" ng-disabled="newResource=='All'">
+										<!-- <option></option>
+										<option>1</option>
+										<option>1</option>
+										<option>1</option>
+										<option>1</option> -->
+									</select>
+
+								</td>
+								<td class="actionInput">
+								<select class="multipleSelect" multiple name="" ng-model="newActivities" ng-options="activity for activity in activityList">
+					                <!-- <option value="Afghanistan">Afganistan</option>
+					                <option value="Albania">Albania</option>
+					                <option value="Algeria">Algeria</option>
+					                <option value="Andorra">Andorra</option>
+					                <option value="Angola">Angola</option> -->
+               
+            					</select>
+            					<script>
+                					$('.multipleSelect').fastselect();
+           						 </script>
+        					</td>
+							</tr>
+					</table>
+				</div>
+                    </div>
+					<div class="clear"></div>
+					
+					<div class="formWrapper">
+					<label class="formlabel"> &nbsp;</label>
+					<button class="createRoleBtn"> Create Role </button>  
+					<button class="cancelRoleBtn"> Cancel</button>
+				</div>
+
+
+			</form>
+		</div>
+	</div>
+</section>
+
+
+
+
+
+

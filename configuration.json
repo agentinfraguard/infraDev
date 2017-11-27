@@ -1,0 +1,7 @@
+{
+   "host": "cantatainfradevdb.cu3ovhtaoa7i.ap-south-1.rds.amazonaws.com",
+   "user": "infraDev",
+   "password": "infraDev3",
+   "database": "infradb",
+   "port":3306
+}

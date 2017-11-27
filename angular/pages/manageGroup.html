@@ -1,0 +1,119 @@
+<section class="manageGroupSection">
+    <div class="manageRoleRight">
+        <div class="manageRoleHeading">Manage Group</div>
+        <div class="roleDetailsSec">
+            <table class="commonTbMain commonThpadding">
+                <tr>
+                    <th>Group Id</th>
+                    <th>Group Name</th>
+                    <th>Number Of Users</th>
+                    <th>Role associated with this group</th>
+                    <th>Action</th>
+                </tr>
+
+                <tr>
+                    <td>Group Id</td>
+                    <td>Group Name</td>
+                    <td>Number Of Users</td>
+                    <td>Role associated with this group</td>
+                    <td class="actionTdwidth paddingTopBottom">
+
+                        <i id="I1" class="fa fa-caret-down" aria-hidden="true"></i>
+
+                        <div class="clear"></div>
+
+                        <ul class="actionList">
+                            <li><a href="#">Action 1 </a></li>
+                            <li><a href="#">Action 2 </a></li>
+                            <li><a href="#">Action 3 </a></li>
+                            <li><a href="#">Action 4 </a></li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Group Id</td>
+                    <td>Group Name</td>
+                    <td>Number Of Users</td>
+                    <td>Role associated with this group</td>
+                    <td class="actionTdwidth paddingTopBottom">
+
+                        <i id="I2" class="fa fa-caret-down" aria-hidden="true"></i>
+
+                        <div class="clear"></div>
+
+                        <ul class="actionList">
+                            <li><a href="#">Action 1 </a></li>
+                            <li><a href="#">Action 2 </a></li>
+                            <li><a href="#">Action 3 </a></li>
+                            <li><a href="#">Action 4 </a></li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Group Id</td>
+                    <td>Group Name</td>
+                    <td>Number Of Users</td>
+                    <td>Role associated with this group</td>
+                    <td class="actionTdwidth paddingTopBottom">
+
+                        <i id="I3" class="fa fa-caret-down" aria-hidden="true"></i>
+
+                        <div class="clear"></div>
+
+                        <ul class="actionList">
+                            <li><a href="#">Action 1 </a></li>
+                            <li><a href="#">Action 2 </a></li>
+                            <li><a href="#">Action 3 </a></li>
+                            <li><a href="#">Action 4 </a></li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Group Id</td>
+                    <td>Group Name</td>
+                    <td>Number Of Users</td>
+                    <td>Role associated with this group</td>
+                    <td class="actionTdwidth paddingTopBottom">
+
+                        <i id="I4" class="fa fa-caret-down" aria-hidden="true"></i>
+
+                        <div class="clear"></div>
+
+                        <ul class="actionList">
+                            <li><a href="#">Action 1 </a></li>
+                            <li><a href="#">Action 2 </a></li>
+                            <li><a href="#">Action 3 </a></li>
+                            <li><a href="#">Action 4 </a></li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#dropdownRoleDetails').on("click", function (e) {
+            e.stopPropagation();
+            if ($('.actionList').hasClass('actionListBlock')) {
+
+                $('.actionList').removeClass('actionListBlock');
+            }
+            else {
+                $('.actionList').addClass('actionListBlock');
+            }
+        });
+
+        $('html').on("click", function (event) {
+            event.stopPropagation();
+            if (!$(event.target).hasClass("actionListBlock")) {
+                $(".actionList").removeClass('actionListBlock');
+            }
+
+        });
+    });
+</script>

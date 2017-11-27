@@ -1,0 +1,31 @@
+{
+  "name": "infraguard",
+  "version": "1.0.0",
+  "description": "cloud app for InfraGuard",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Cantata Technologies Services Pvt. Ltd.",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "keypair": "^1.0.1",
+    "morgan": "^1.7.0",
+    "multer": "^1.2.1",
+    "mysql": "^2.12.0",
+    "node-cron": "^1.2.1",
+    "node-forge": "^0.7.1",
+    "nodemailer": "^4.4.0",
+    "nodemon": "^1.11.0",
+    "orm": "^3.2.3",
+    "qrcode": "^0.8.2",
+    "speakeasy": "^2.0.0"
+  },
+  "devDependencies": {}
+}

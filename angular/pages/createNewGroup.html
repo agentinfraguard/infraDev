@@ -1,0 +1,62 @@
+<section class="CreateNewGroupSec">
+    <div class="leftMenuWrapper">
+        <ul>
+            <li class="activeUserRole"><a href="#">Manage User</a></li>
+            <li><a href="#">Manage Group </a></li>
+            <li><a href="#">Manage Role </a></li>
+        </ul>
+    </div>
+    <div class="manageRoleRight">
+        <div class="manageRoleHeading">Create a New Group</div>
+        <div class="roleDetailsSec">
+            <form class="createNewGroup">
+                <div class="formWrapper">
+                    <label class="formlabel" for="male">Role Name</label>
+                    <input type="text" name="role" class="inputTextArea">
+                </div>
+                <div class="clear"></div>
+                <div class="formWrapper">
+                    <label class="formlabel">Select Group Members</label>
+
+                    <div class="fastselectMainDiv">
+                        <select class="multipleSelect" multiple name="">
+                            <option value="Afghanistan">Afganistan</option>
+                            <option value="Albania">Albania</option>
+                            <option value="Algeria">Algeria</option>
+                            <option value="Andorra">Andorra</option>
+                            <option value="Angola">Angola</option>
+
+                        </select>
+                        <script>
+                            $('.multipleSelect').fastselect();
+                        </script>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="formWrapper">
+                    <label class="formlabel">Select Group Role</label>
+                    <div class="fastselectMainDiv">
+                        <select class="multipleSelect" multiple name="">
+                            <option value="Afghanistan">Afganistan</option>
+                            <option value="Albania">Albania</option>
+                            <option value="Algeria">Algeria</option>
+                            <option value="Andorra">Andorra</option>
+                            <option value="Angola">Angola</option>
+
+                        </select>
+                        <script>
+                            $('.multipleSelect').fastselect();
+                        </script>
+                    </div>
+                     </div>
+
+                    <div class="formWrapper">
+                        <label class="formlabel"> &nbsp;</label>
+                    <button class="createRoleBtn"> Create Group </button>  
+                    <button class="cancelRoleBtn"> Cancel</button>
+                    </div>
+
+            </form>
+        </div>
+    </div>
+</section>

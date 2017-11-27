@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="dashBoard">
+<head>
+    <meta charset="utf-8" />
+    <title>UserProfile</title>
+    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <!-- Font awesome css -->
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+
+    
+    <!-- Custom css -->
+    <link rel="stylesheet" type="text/css" href="css/fastselect.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/site.css" />
+</head>
+<body>
+
+    <section class="headersection">
+        <div class="content-wrapper positionRelative">
+            <header class="header">
+                <div class="headerLogodiv">
+                    <a href="#/">
+                    <img alt="" src="images/logo.png" />
+                    </a>
+                </div>
+                <div class="menuDiv">
+                    <ul class="topLinkUl">
+                        <!-- <li><a href="#/profile" class="menuButton">{{name}}</a></li> -->
+                        <li id="userMenuId" class="menuButton"><span>{{accountname}}  &nbsp; <span class="DorpDownIcon"></span> </span></li>
+                        <!-- <span class="menuButton logoutmenu DorpDownIcon"></span> --> 
+                        <!-- <li><a href="/logout" class="menuButton logoutmenu"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li> -->
+                    </ul>
+                    <div class="plusIconMain">
+              <a href="#" id="addUserDetailsWrapper">
+              <span class="addUserWhiteMain"> <span id="cross"></span> </span>
+              </a>
+            </div>
+                </div>
+            </header>
+            
+            <div id="userDropdown">
+              <ul>
+               <!--<li> <a href="#"> <span class="rightIcon"><i class="fa fa-check" aria-hidden="true"></i> </span> 
+                Account Name 1  </a></li>
+                <li> <a href="#"> Account Name 2 </a></li>  -->
+                
+                <li ng-model="userAccounts" ng-repeat="account in userAccounts">
+<a href="#/" ng-click="getAccountData(account.accountId,account.accountOwnerId)"><span class="rightIcon"> <i ng-if="account.accountId==currentAccountId" class="fa fa-check" aria-hidden="true"></i> </span>{{account.accountName}}</a>
+</li>
+                <li class="upgradeSection"></li> 
+
+                        <li> <a href="#/manageRole"> IAM </a></li> 
+                        <li> <a href="#/profile"> My Profile </a></li>
+
+
+                <li class="upgradeSection"></li> 
+                     
+                      <li> <a href="/logout" class="menuButton logoutmenu textColorgrey">   <span class="userUpgradeBtn">Log Out &nbsp;  <i class="fa fa-sign-out" aria-hidden="true"></i></span></a>  </li> 
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <div class="clear"></div>
+
+    <!-- Body Section -->
+    <section class="Profilesection">
+        <div class="content-wrapper">
+            <div class="ng-view">
+            </div>
+            <div class="clear">&nbsp;</div>
+            
+        </div>
+    </section>
+    <div class="clear"></div>
+    <!-- Body Section End -->
+    <div ng-class="modal_class"></div>
+
+    <div class="modal fade" ng-class="{true: 'fade1'}[visible_help]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('help')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title">What's a Passphrase?</h2>
+              </div>
+              <div class="padding10">
+                    <p>
+                        A passphrase is not a password. It's a phrase that you only enter once when you start your computer, not for each login to another server. It unlocks your private key.
+                        It could be a line from one of your favorite songs, a scripture verse, or a line from a poem, or, most securely, a random collection of words.
+   
+                    </p>
+                </div>
+              <div class="modal-footer">
+                <button type="button" ng-click="close('help')" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" ng-class="{true: 'fade1'}[visible_company]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('company_cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title">Create Company</h2>
+              </div>
+              <form autocomplete="off">
+              <div class="padding10">
+                   <p>
+                        Please enter the new company name. This is invisible to anyone except you invite and can be changed later.
+                    </p>
+                    <input id="Text4" type="text" ng-model="companyName" name="companyName" placeholder="Enter company name" />
+                    <p class="colorRed" ng-show="errName">Company Name must be filled</p>
+                    <p class="colorRed">{{ company_err_msg }}</p>
+                </div>
+              <div class="modal-footer">
+                <button type="button" ng-click="close('company_cancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" ng-click="close('company_ok')" value="OK" class="btn btn-primary" />
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" ng-class="{true: 'fade1'}[visible_command]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('command')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title">Command To Run</h2>
+              </div>
+              <div class="padding10">
+                    <p>
+                        {{ commandText }}
+   
+                    </p>
+                </div>
+              <div class="modal-footer">
+                <button type="button" ng-click="close('command')" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" ng-class="{true: 'fade1'}[visible_server]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('server_cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title">Create Server</h2>
+              </div>
+              <form autocomplete="off">
+              <div class="padding10">
+                   <p>
+                        Please enter the new server name.
+                    </p>
+                    <input id="Text4" type="text" ng-model="serverName" name="serverName" placeholder="Enter server name" />
+                    <p class="colorRed" ng-show="errName">Server Name is required.</p>
+                    <p class="colorRed">{{ server_err_msg }}</p>
+                </div>
+              <div class="modal-footer">
+                <button type="button" ng-click="close('server_cancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" ng-click="close('server_ok')" value="OK" class="btn btn-primary" />
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" ng-class="{true : 'fade1'}[visible_project]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('project_cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title">Create Project</h2>
+              </div>
+              <form>
+              <div class="padding10">
+                   <p>
+                        Please enter the new project name:
+                    </p>
+                    <input id="Text4" type="text" ng-model="projectName" name="projectName" placeholder="Enter project name" />
+                    <p class="colorRed" ng-show="errName">Project Name must be filled</p>
+                    <p class="colorRed">{{ project_err_msg }}</p>
+                </div>
+              <div class="modal-footer">
+                <button type="button" ng-click="close('project_cancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" ng-click="close('project_ok')" value="OK" class="btn btn-primary" />
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" ng-class="{true : 'fade1'}[visible_add_user]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('user_cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title">Add User</h2>
+              </div>
+              <form name="emailForm" autocomplete="off" novalidate>
+              <div class="padding10">
+                   <p>
+                        Please enter the user email:
+                    </p>
+                    <input id="Text4" ng-keyup="showUsers()" ng-model="userEmail" name="userEmail" placeholder="Enter user email" required />
+                    
+                    <div class="usersList" ng-show="users.length > 0 ? listStatus : false">
+                        <ul>
+                            <li ng-repeat="user in users" ng-click="setUser(user)"><a href="javascript:void(0)">{{ user.uname + " - " + user.email}}</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                    <p class="colorRed" ng-show="!emailValid">Email is invalid.</p>
+                    </div>
+                    <p class="colorRed" ng-show="emailForm.userEmail.$error.required">User Email must be filled.</p>
+                </div>
+              <div class="modal-footer">
+                <button type="button" ng-click="close('user_cancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" ng-click="close('user_ok')" value="OK" class="btn btn-primary" />
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" ng-class="{true : 'fade1'}[visible_delete_user]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('deleteUserCancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title">Delete User</h2>
+              </div>
+              <form name="deleteUserForm" autocomplete="off" novalidate>
+              <div class="padding10">
+                   <p>
+                        Please enter existing user name to delete:
+                    </p>
+                    <input id="Text4" ng-keyup="showDeleteUsers()" ng-model="userName" name="userName" placeholder="Enter user name" required />
+                    
+                    <div class="usersList" ng-show="result.length > 0 ? listStatus : false">
+                        <ul>
+                            <li ng-repeat="user in users | filter: userName as result" ng-click="setDeleteUser(user)"><a href="javascript:void(0)">{{ user }}</a></li>
+                        </ul>
+                    </div>
+                    <p class="colorRed" ng-show="!userExist">Please select or type existing user name</p>
+                    <p class="colorRed" ng-show="deleteUserForm.userName.$error.required">User Name is required.</p>
+                </div>
+              <div class="modal-footer">
+                <button type="button" ng-click="close('deleteUserCancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" ng-click="close('deleteUserOk')" value="OK" class="btn btn-primary" />
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" ng-class="{true : 'fade1'}[visible_privilege]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('privilegeCancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title">Change User Privilege</h2>
+              </div>
+              <form name="privilegeForm" autocomplete="off" novalidate>
+              <div class="padding10">
+                   <p>
+                        Please enter existing user name to change privilege:
+                    </p>
+                    <input id="Text4" ng-keyup="showPrivilegeUsers()" ng-model="userName" name="userName" placeholder="Enter user name" required />
+                    
+                    <div class="usersList" ng-show="result.length > 0 ? listStatus : false">
+                        <ul>
+                            <li ng-repeat="user in users | filter: userName as result" ng-click="setPrivilegeUser(user)"><a href="javascript:void(0)">{{ user }}</a></li>
+                        </ul>
+                    </div>
+                    <p class="colorRed" ng-show="!userExist">Please select or type existing user name</p>
+                    <p class="colorRed" ng-show="privilegeForm.userName.$error.required">User Name is required.</p>
+                    <select ng-model="privilege">
+                                <option ng-model="optionUser" value="user">user</option>
+                                <option ng-model="optionRoot" value="root">root</option>
+                    </select>
+                </div>
+              <div class="modal-footer">
+                <button type="button" ng-click="close('privilegeCancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" ng-click="close('privilegeOk')" value="Change" class="btn btn-primary" />
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="modal fade" ng-class="{true: 'fade1'}[visibleLockdown]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('serverLockdownCancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Do you want to lockdown the server ?</h3>
+              </div>
+              
+              <div class="modal-footer">
+                <button type="button" ng-click="close('serverLockdownCancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" ng-click="close('serverLockdownOk')" value="OK" class="btn btn-primary" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" ng-class="{true: 'fade1'}[visibleUnlock]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('serverUnlockCancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Do you want to unlock the server ?</h3>
+              </div>
+              
+              <div class="modal-footer">
+                <button type="button" ng-click="close('serverUnlockCancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" ng-click="close('serverUnlockOk')" value="OK" class="btn btn-primary" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade enableBox" ng-class="{true: 'fade1'}[visibleDMFA]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="closePopup('disableMFAclose')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Do you want to disable MFA? This will revoke your existing credentials.</h3>
+              </div>
+              
+              <div class="modal-footer">
+                <button type="button" ng-click="closePopup('disableMFAclose')" class="btn btn-default modalButton cancelBtn" data-dismiss="modal">Cancel</button>
+                <input type="submit" ng-click="disableMFA()" value="OK" class="btn btn-primary modalButton okBtn" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade enableBox" ng-class="{true: 'fade1'}[visibleEMFA]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="closePopup('enableMFAclose')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Do you want to enable MFA? Please scan the QR Code in any authenticator app and save your one-time backup code.</h3>
+              </div>
+              
+              <div class="modal-footer">
+                <button type="button" ng-click="closePopup('enableMFAclose')" class="btn btn-default modalButton cancelBtn" data-dismiss="modal">Cancel</button>
+                <input type="submit" ng-click="enableMFA()" value="OK" class="btn btn-primary modalButton okBtn" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+ <!--process list code   start-->
+        <div class="modal fade" ng-class="{true: 'fade1'}[visibleProcessList]">
+          <div class="modal-dialog processListClass">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('processListCancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Top Running Process Data</h3>
+                <div class="serverStatus">server status</div>
+              </div>
+ 
+        <div class="modal fade" ng-class="{true: 'fade1'}[visibleGetAccessKey]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('getAccessKeyCancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Do you want to access the server.You will receive an email shortly.</h3>
+              </div>
+              
+              <div class="modal-footer">
+                <button type="button" ng-click="close('getAccessKeyCancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" ng-click="close('getAccessKeyOk')" value="OK" class="btn btn-primary" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" ng-class="{true: 'fade1'}[startServerKeyRotation]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="popupClose('startServerKeyRotation')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Do you want to start the server key auto-rotation policy ?</h3>
+              </div>
+              
+              <div class="modal-footer">
+                <button type="button" ng-click="popupClose('startServerKeyRotation')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" ng-click="popupOk('startServerKeyRotation')" value="OK" class="btn btn-primary" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" ng-class="{true: 'fade1'}[stopServerKeyRotation]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="popupClose('stopServerKeyRotation')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Do you want to stop the server key auto-rotation policy ?</h3>
+              </div>
+              
+              <div class="modal-footer">
+                <button type="button" ng-click="popupClose('stopServerKeyRotation')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" ng-click="popupOk('stopServerKeyRotation')" value="OK" class="btn btn-primary" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" ng-class="{true: 'fade1'}[updateServerKey]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="popupClose('updateServerKey')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Do you want to update all server keys ?</h3>
+              </div>
+              
+              <div class="modal-footer">
+                <button type="button" ng-click="popupClose('updateServerKey')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" ng-click="popupOk('updateServerKey')" value="OK" class="btn btn-primary" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+                    <!-- code to show table with process data -->
+              
+                <div>
+      <div class=serverStatusHead ng-repeat="(key,value) in processLstdata " ng-if="key <5">
+              <div>{{value}}</div>
+            </div>
+                <table>
+                <tr>              
+                  <th>PID</th>
+                    <th>USER</th>
+                    <th>PRIORITY</th>
+                    <th>NICE LEVEL</th>
+                    <th>VIRTUAL MEM</th>
+                    <th>RESIDENT MEM</th>
+                    <th>SHAREABLE MEM</th>
+                    <th>S</th>
+                    <th>%CPU</th>
+                    <th>%MEM</th>
+                    <th>TIME+</th>
+                    <th>COMMAND</th>
+                         </tr>
+                        <tr ng-repeat="x in processLst">
+                        <td>{{x[0]}}</td>
+                        <td>{{x[1]}}</td>
+                        <td>{{x[2]}}</td>
+                        <td>{{x[3]}}</td>
+                        <td>{{x[4]}}</td>
+                        <td>{{x[5]}}</td>
+                        <td>{{x[6]}}</td>
+                        <td>{{x[7]}}</td>
+                        <td>{{x[8]}}</td>
+                        <td>{{x[9]}}</td>
+                        <td>{{x[10]}}</td>
+                        <td>{{x[11]}}</td>
+                        
+                   </tr>
+                </table> 
+
+
+                </div>
+
+              <div class="modal-footer">
+                <button type="button" ng-click="close('refreshProcessList')" class="btn btn-default" data-dismiss="modal">Refresh</button>
+                <button type="button" ng-click="close('processListCancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" ng-click="close('processListOk')" value="OK" class="btn btn-primary" />
+              </div>
+            </div>
+          </div>
+        </div>
+<!--process list code   end-->
+
+ <!-- enviroment variable start dialog-->
+
+
+        <div class="modal fade" ng-class="{true : 'fade1'}[enviroment_variable]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('enviromentVariable_cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title">enviroment variable</h2>
+                <div class="enviromentScopeUser"><div>scope:{{user}}</div></div>
+              </div>
+              <form>
+                <table>
+                <tr>              
+                  <td>key</td>
+                    <th>value</th>
+                         </tr>
+                        <tr ng-repeat="(key,value) in envdata">
+                        <td> {{key}}</td>
+                        <td>{{value}}</td>
+                   </tr>
+                </table>  
+              <div class="modal-footer">
+                <button type="button" ng-click="close('refreshEnvVars')" class="btn btn-default" data-dismiss="modal">Refresh</button>
+                <button type="button" ng-click="close('enviromentVariable_cancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" ng-click="close('enviromentVariable_ok')" value="OK" class="btn btn-primary" />
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- enviroment variable end dialog -->
+
+
+  <script type="text/javascript" src="js/jquery-1.10.0.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  
+  <script type="text/javascript" src="js/angular.min.js"></script>
+  <script type="text/javascript" src="js/angular-route.min.js"></script>
+  <!-- <script type="text/javascript" src="js/angular-ui-router.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular-animate.min.js"></script>
+  <script type="text/javascript" src="js/angular-masonry.min.js"></script>
+  <script type="text/javascript" src="js/masonry.pkgd.min.js"></script>
+  <script type="text/javascript" src="config/dashboardConfig.js"></script>
+  <script type="text/javascript" src="controllers/profileController.js"></script>
+  <script type="text/javascript" src="controllers/HelpController.js"></script>
+  <script type="text/javascript" src="controllers/companyDetailController.js"></script>
+  <script type="text/javascript" src="controllers/projectDetailController.js"></script>
+  <script type="text/javascript" src="controllers/createProjectController.js"></script>
+  <script type="text/javascript" src="controllers/serverController.js"></script>
+  <script type="text/javascript" src="controllers/manageUsersController.js"></script>
+  <script type="text/javascript" src="controllers/mfaPageController.js"></script>
+  <script type="text/javascript" src="controllers/manageRolesController.js"></script>
+  <script type="text/javascript" src="controllers/createRoleController.js"></script>
+  <script type="text/javascript" src="directives/fileUploadDirective.js"></script>
+  <script type="text/javascript" src="services/companyService.js"></script>
+  
+  <!-- <script type="text/javascript" src="js/build.min.js"></script>  -->
+  <script type="text/javascript" src="js/fastselect.min.js"></script>
+  <script type="text/javascript" src="js/fastselect.standalone.min.js"></script>       
+
+<script>
+    $(document).ready(function() {
+     $('#userMenuId').on("click", function(e) {
+        e.stopPropagation();
+          if ($('#userDropdown').hasClass('actionListBlock')) {
+
+            $('#userDropdown').removeClass('actionListBlock');
+    } 
+    else
+    {
+      $('#userDropdown').addClass('actionListBlock');
+    }
+    });
+
+     $('html').on("click", function (event) {
+      event.stopPropagation();
+      if (!$(event.target).hasClass("actionListBlock")) 
+    { 
+      
+        $("#userDropdown").removeClass('actionListBlock');
+        
+    }
+    
+});
+});
+</script>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #cccccc;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+    border: 1px solid #cccccc;
+}
+.enviromentScopeUser {
+    color: #333;
+    text-decoration: none;
+    padding: 0;
+    font-size: 2em;
+    width: 100%;
+    display: block;
+    font-weight: bold;   
+    margin-left: 428px;
+}
+.serverStatus{
+       color: #333;
+    text-decoration: none;
+    padding: 0px;
+    font-size: 1.5em;
+    width: 100%;
+    display: block;
+    font-weight: bold;
+    margin-left: 0px;
+
+}
+.serverStatusHead{
+     color: #333;
+    text-decoration: none;
+    padding: 7px;
+    font-size: 1em
+    width: 100%;
+    display: block;
+    font-weight: bold;   
+}
+
+.processListClass {
+    width: 1053px;
+    margin: 30px auto;
+}
+</style>
+</body>
+</html>

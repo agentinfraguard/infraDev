@@ -1,0 +1,91 @@
+<section class="manageGroupSection">
+    <div class="leftMenuWrapper">
+        <ul>
+            <li class="activeUserRole"><a href="#">Manage User</a></li>
+            <li><a href="#">Manage Group </a></li>
+            <li><a href="#">Manage Role </a></li>
+        </ul>
+    </div>
+    <div class="manageRoleRight">
+        <div class="manageRoleHeading">Manage User</div>
+        <div class="roleDetailsSec">
+            <table class="commonTbMain commonThpadding">
+                <tr>
+                    <th>User Full Name</th>
+                    <th>Email Address</th>
+                    <th>Group</th>
+                    <th>Last Login</th>
+                    <th>Action</th>
+                </tr>
+
+                <tr>
+                    <td> Pratyush Kumar </td>
+                    <td>pratyush.pk3@gmail.com </td>
+                    <td>test, system-admin, data-admin </td>
+                    <td>22 Nov 2017 18:22 </td>
+                     <td class="actionTdwidth paddingTopBottom">
+                        <i id="I4" class="fa fa-caret-down" aria-hidden="true"></i>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td> Pratyush Kumar </td>
+                    <td>pratyush.pk3@gmail.com </td>
+                    <td>test, system-admin, data-admin </td>
+                    <td>22 Nov 2017 18:22 </td>
+                     <td class="actionTdwidth paddingTopBottom">
+                        <i id="I4" class="fa fa-caret-down" aria-hidden="true"></i>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td> Pratyush Kumar </td>
+                    <td>pratyush.pk3@gmail.com </td>
+                    <td>test, system-admin, data-admin  </td>
+                    <td>22 Nov 2017 18:22 </td>
+                     <td class="actionTdwidth paddingTopBottom">
+                        <i id="I4" class="fa fa-caret-down" aria-hidden="true"></i>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td> Pratyush Kumar </td>
+                    <td>pratyush.pk3@gmail.com </td>
+                    <td>test, system-admin, data-admin </td>
+                    <td>22 Nov 2017 18:22 </td>
+                     <td class="actionTdwidth paddingTopBottom">
+                        <i id="I4" class="fa fa-caret-down" aria-hidden="true"></i>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                
+            </table>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#dropdownRoleDetails').on("click", function (e) {
+            e.stopPropagation();
+            if ($('.actionList').hasClass('actionListBlock')) {
+
+                $('.actionList').removeClass('actionListBlock');
+            }
+            else {
+                $('.actionList').addClass('actionListBlock');
+            }
+        });
+
+        $('html').on("click", function (event) {
+            event.stopPropagation();
+            if (!$(event.target).hasClass("actionListBlock")) {
+                $(".actionList").removeClass('actionListBlock');
+            }
+
+        });
+    });
+</script>
