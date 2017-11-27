@@ -2,14 +2,14 @@
 /*------------------------Common Classes------------------------------------*/
 @font-face {
     font-family: 'Gadugi';
-    src: url('Fonts/Gadugi.eot?#iefix') format('embedded-opentype'), url('Fonts/Gadugi.woff') format('woff'), url('Fonts/Gadugi.ttf') format('truetype'), url('Fonts/Gadugi.svg#Gadugi') format('svg');
+    src: url('fonts/Gadugi.eot?#iefix') format('embedded-opentype'), url('fonts/Gadugi.woff') format('woff'), url('fonts/Gadugi.ttf') format('truetype'), url('fonts/Gadugi.svg#Gadugi') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Gadugi-Bold';
-    src: url('Fonts/Gadugi-Bold.eot?#iefix') format('embedded-opentype'), url('Fonts/Gadugi-Bold.woff') format('woff'), url('Fonts/Gadugi-Bold.ttf') format('truetype'), url('Fonts/Gadugi-Bold.svg#Gadugi-Bold') format('svg');
+    src: url('fonts/Gadugi-Bold.eot?#iefix') format('embedded-opentype'), url('fonts/Gadugi-Bold.woff') format('woff'), url('fonts/Gadugi-Bold.ttf') format('truetype'), url('fonts/Gadugi-Bold.svg#Gadugi-Bold') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -195,7 +195,7 @@ p {
         .homeListUl li span {
             height: 15px;
             float: left;
-            background: url(../Images/sprite.png) no-repeat -29px 0;
+            background: url(../images/sprite.png) no-repeat -29px 0;
             width: 20px;
             margin: 4px 4px 0 0;
         }
@@ -258,7 +258,7 @@ hr {
 }
 
 .homeBody {
-    /*background: url(../Images/BannerImg.jpg) no-repeat center center fixed;*/
+    /*background: url(../images/BannerImg.jpg) no-repeat center center fixed;*/
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -805,7 +805,7 @@ a.menuButton:hover {
 
 .companyIconClass {
     margin-top: -5px;
-    background: url(../Images/companyIcon.png) no-repeat;
+    background: url(../images/companyIcon.png) no-repeat;
     width: 35px;
     height: 35px;
     float: left;
@@ -813,7 +813,7 @@ a.menuButton:hover {
 
 .projectIconClass {
     margin-top: -5px;
-    background: url(../Images/companyIcon.png) no-repeat;
+    background: url(../images/companyIcon.png) no-repeat;
     width: 35px;
     height: 35px;
     float: left;
@@ -1397,7 +1397,7 @@ ul.perUser li {
 
 
 .searchUser {
-    background: #e5e5e5 url("../Images/sprite.png") no-repeat top 15px right -73px;
+    background: #e5e5e5 url("../images/sprite.png") no-repeat top 15px right -73px;
     border-bottom: 1px solid #ccc;
     padding: 5px;
     float: left;
@@ -2094,14 +2094,14 @@ a:hover {
 }
 
 .companySettingIcon {
-    background: url(../Images/sprite.png) no-repeat top 5px right -71px;
+    background: url(../images/sprite.png) no-repeat top 5px right -71px;
     width: 25px;
     height: 25px;
     float: left;
 }
 
 .companyArrowIcon {
-    background: url(../Images/sprite.png) no-repeat top 5px right -35px;
+    background: url(../images/sprite.png) no-repeat top 5px right -35px;
     width: 25px;
     height: 18px;
     float: right;
@@ -2283,7 +2283,7 @@ a.userUpgradeBtn {
 }
 
 .DorpDownIcon {
-    background: url(../Images/sprite.png) no-repeat top 5px right -7px;
+    background: url(../images/sprite.png) no-repeat top 5px right -7px;
     width: 25px;
     height: 18px;
     float: right;
