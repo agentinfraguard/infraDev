@@ -1,4 +1,4 @@
-﻿<section class="Profilesection">
+﻿<section>
     <div class="companyDetailsBg">
         <div class="profileHead">Project Details for Company : {{company_name}}</div>
         <div class="topButtonDv">
@@ -16,7 +16,7 @@
             
         <div ng-class="{0 : 'last'}[($index+1) % 4]" class="perCompanyBox" ng-repeat="project in projects">
 
-           <div class="profileHead2"><span class="projectIconClass"> </span><a href="#/server" ng-click="setProjectId(project.id)">{{ project.projectName }} </a></div>
+           <div class="profileHead2"><span class="projectIconClass"> </span><a href="#/server" ng-click="setProjectId(project.id)" class="projectHeading">{{ project.projectName }} </a></div>
            <a href="javascript:void(0)" ng-click="$parent.selectedIndex = $index;showOptions($index)" class="settingsIcon">
             <span class="companySettingIcon"></span> </a>
            <div ng-if="project.servers.length > 0" class="settingsPop" ng-show="$parent.selectedIndex == $index?visible:false">

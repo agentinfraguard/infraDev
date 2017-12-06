@@ -1,7 +1,9 @@
 
+
+
 <section class="manageRolesSec">
 	<div class="leftMenuWrapper">
-		<ul>
+		<ul class="leftMenuMain">
 			<li class="activeUserRole"> <a href="#">Create a new role</a></li>
 			<li><a href="#">Manage Group </a></li>
 			<li> <a href="#/manageRole">Manage Role </a></li>
@@ -14,15 +16,16 @@
 			<form>
 				<div class="formWrapper">
 				<label class="formlabel" for="male">Role Name</label>
-				<input type="text" name="role" class="inputTextArea">
-			</div>
+				<input type="text" name="role" ng-model="roleName" class="inputTextArea">
+				<span style="color:red" ng-if="roleName.length==0"><b>{{roleNameValidation}}</b></span>
+			    </div>
 				<div class="clear"></div>
 
 				<div class="policiesMain formWrapper">
 				<label class="formlabel" for="male">Policies</label>
 				<div id="tableMainWrapper">
 
-				<table class="policiesDetails" ng-if = "policies.length>0">
+				<table class="policiesDetails commonTbMain" ng-if = "policies.length>0">
 
 					<thead>
 					<tr>
@@ -34,17 +37,18 @@
 					</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="policy in policies">
+
+						<tr class="trclass" ng-repeat="policy in policies">
 							<td>{{policy.access}}</td>
 							<td>{{policy.resource}}</td>
 							<td>{{policy.resourceId}}</td>
 							<td>{{policy.activities}}</td>
 							<td class="removeXicon" ng-click="removeRow(policy.resource,policy.resourceId)"> <i class="fa fa-times" aria-hidden="true"></i> </td>
+
 						</tr>
 					</tbody>
 				</table>
-					<table class="tbDetailsSec">
-						
+					<table class="tbDetailsSec commonTbMain">
 							<tr>
 							<th class="accessDiv">Access</th>
 							<th class="resourceDiv">Resource</th>
@@ -53,63 +57,45 @@
 							<th class="backgroundWhite" rowspan="2">
 							<button class="addPolicyBtn" ng-click="addRow()">Add policy</button>
 						    </th>
-						</tr>
+							</tr>
+
 							<tr>
 								<td class="accessRedio">
 									<label class="radio-inline">
-		      						<input type="radio" name="optradio">Allow
+		      						<input type="radio" name="optradio" ng-model="newAccess" value="allow">Allow
 		      						<span class="checkmark"></span>
 		    						</label>
 		    						<label class="radio-inline">
-		      						<input type="radio" name="optradio">Deny
+		      						<input type="radio" name="optradio" ng-model="newAccess" value="deny">Deny
 		      						<span class="checkmark"></span>
 		    						</label>
 		    					</td>
+
 								<td>
+									<select ng-options="resource for resource in resources" ng-model="newResource" ng-change="getResourceDetails(newResource)"></select>
+   								</td>
 
-							<select ng-options="resource for resource in resources" ng-model="newResource" ng-change="getResourceDetails(newResource)"></select>
-							<!-- <select ng-model="newResource">
-								<option>All</option>
-								<option>Company</option>
-								<option>Project</option>
-								<option>Server</option>
-								<option>IAM</option>
-							</select> -->
-
-								</td>
 								<td class="resourceDiv">
-									<select ng-model="newResourceId" ng-options="resource for resource in resourceList" ng-change="getActivityList(newResourceId)" ng-disabled="newResource=='All'">
-										<!-- <option></option>
-										<option>1</option>
-										<option>1</option>
-										<option>1</option>
-										<option>1</option> -->
+									<select ng-model="newResourceId" ng-options="resource for resource in resourceList" ng-change="getActivityList(newResourceId)">
 									</select>
-
 								</td>
 								<td class="actionInput">
-								<select class="multipleSelect" multiple name="" ng-model="newActivities" ng-options="activity for activity in activityList">
-					                <!-- <option value="Afghanistan">Afganistan</option>
-					                <option value="Albania">Albania</option>
-					                <option value="Algeria">Algeria</option>
-					                <option value="Andorra">Andorra</option>
-					                <option value="Angola">Angola</option> -->
-               
-            					</select>
-            					<script>
+									<select class="multipleSelect" multiple name="" ng-model="newActivities" ng-options="activity for activity in activityList">
+									</select>
+            						<script>
                 					$('.multipleSelect').fastselect();
-           						 </script>
-        					</td>
+           						 	</script>
+        						</td>
 							</tr>
 					</table>
+					<p style="color:red"><b>{{policyValidation}}</b></p>
 				</div>
                     </div>
 					<div class="clear"></div>
-					
 					<div class="formWrapper">
 					<label class="formlabel"> &nbsp;</label>
-					<button class="createRoleBtn"> Create Role </button>  
-					<button class="cancelRoleBtn"> Cancel</button>
+					<button class="createRoleBtn" ng-click="createNewRole()"> Create Role </button>
+					<button class="cancelRoleBtn" ng-click="gotoManageRoles()"> Cancel</button>
 				</div>
 
 
@@ -117,7 +103,6 @@
 		</div>
 	</div>
 </section>
-
 
 
 

@@ -8,7 +8,7 @@ var nodemailer = require("nodemailer");
  service: 'gmail',
  auth: {
         user: 'infraguardmail@gmail.com',
-        pass: 'Infr@Gu@rd'
+        pass: 'Infr@Gu@rd3'
     }
 });*/
 
@@ -39,7 +39,7 @@ app.post("/mailUserCredentialsUrl", function(req, res){
         service: 'gmail',
         auth: {
             user: 'infraguardmail@gmail.com',
-            pass: 'Infr@Gu@rd'
+            pass: 'Infr@Gu@rd3'
         }
     });
 
@@ -80,7 +80,7 @@ app.post("/mailMFAResetCredentialsUrl", function(req, res){
         service: 'gmail',
         auth: {
             user: 'infraguardmail@gmail.com',
-            pass: 'Infr@Gu@rd'
+            pass: 'Infr@Gu@rd3'
         }
     });
 
@@ -111,7 +111,7 @@ app.post("/pwdResetCredentialsUrl", function(req, res){
         service: 'gmail',
         auth: {
             user: 'infraguardmail@gmail.com',
-            pass: 'Infr@Gu@rd'
+            pass: 'Infr@Gu@rd3'
         }
     });
 
@@ -156,7 +156,7 @@ app.post("/mailUpdatedKey", function(req, res){
         service: 'gmail',
         auth: {
             user: 'infraguardmail@gmail.com',
-            pass: 'Infr@Gu@rd'
+            pass: 'Infr@Gu@rd3'
         }
     });
 
@@ -190,7 +190,7 @@ app.get("/changePrivilegeEmail", function(req, res){
         service: 'gmail',
         auth: {
             user: 'infraguardmail@gmail.com',
-            pass: 'Infr@Gu@rd'
+            pass: 'Infr@Gu@rd3'
         }
     });
 

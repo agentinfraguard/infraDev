@@ -988,10 +988,10 @@ console.log("refreshEnvironmentVars serverIp = : "+data.serverIp+"   userName = 
 var record = null;
 record = {
 	serverIp: data.serverIp,
-	activityName: "getEnvList",
+	activityName: "getEnv",
 	requiredData: JSON.stringify({
 		userName: data.name,
-		scope:"user"
+		scope:"system_speciifc"
 	}),
 	status: "0"
 };
@@ -1010,14 +1010,14 @@ Promise.all([
 });
 });
 
-app.get("/environmentVariablesData", function(req, res){
+app.post("/environmentVariablesData", function(req, res){
 if(con == null)
 con = db.openCon(con);
-request.query.data
-var envData = request.query.data;
-var serverIp = request.query.serverIp;
-var id = request.query.id;
-var status = request.query.status;
+var envData = req.body.data;
+var serverIp = req.body.serverIp;
+var id = req.body.id;
+var status = req.body.status;
+console.log("serverIp = : "+serverIp+"   id = : "+id+"   status = : "+status+"  envData = : "+envData);
 	if(status==0){
 		Promise.all([
 			new Promise((resolve, reject) => {
@@ -1048,14 +1048,14 @@ var status = request.query.status;
 	}
 });
 
-app.get("/processListData", function(req, res){
+app.post("/processListData", function(req, res){
 if(con == null)
 con = db.openCon(con);
-request.query.data
-var processData = request.query.data;
-var serverIp = request.query.serverIp;
-var id = request.query.id;
-var status = request.query.status;
+var processData = req.body.data;
+var serverIp = req.body.serverIp;
+var id = req.body.id;
+var status = req.body.status;
+console.log("serverIp = : "+serverIp+"   id = : "+id+"   status = : "+status+"  processData = : "+processData);
 	if(status==0){
 		Promise.all([
 			new Promise((resolve, reject) => {
@@ -1078,15 +1078,165 @@ var status = request.query.status;
 				});
 		    })
 		]).then((results) => {
-			res.status(200).json({success: "Environment Variables updated"});
+			res.status(200).json({success: "ProcessListData updated"});
 		});
     }
 	else {
-	res.status(200).json({success: "Environment Variables updated"});
+	res.status(200).json({success: "ProcessListData updated"});
 	}
 });
 
+app.post("/showProcessListData", function(req, res){
+	if(con == null)
+	con = db.openCon(con);
+	con.query("select processList from servers where serverIP like ?", [req.body.serverIp], function(err, result){
+		if(err)console.log(err.stack);
+		res.status(200).json(result);
+	});
+});
 
+app.post("/showEnvironmentVariablesData", function(req, res){
+	if(con == null)
+	con = db.openCon(con);
+	con.query("select envVars from servers where serverIP like ?", [req.body.serverIp], function(err, result){
+		if(err)console.log(err.stack);
+		res.status(200).json(result);
+	});
+});
+
+app.post("/refreshAuditLogin", function(req, res){
+	if(con == null)
+	con = db.openCon(con);
+	var data = req.body;
+	console.log("refreshProcessList serverIp = : "+data.serverIp+"   userName = : "+data.name);
+	var record = null;
+	record = {
+		serverIp: data.serverIp,
+		activityName: "auditLogin",
+		requiredData: JSON.stringify({
+			userName: data.name
+		}),
+		status: "0"
+	};
+	Promise.all([
+		new Promise((resolve, reject) => {
+		con.query("insert into agentActivities set ?", [record], function(err, result){
+			if(err){
+				console.log(err.stack);
+				resolve(null);
+			}
+			resolve(result);
+		});
+	})
+	]).then((results) => {
+		res.status(200).json({success: 1});
+	});
+});
+
+app.post("/showAuditLoginData", function(req, res){
+	if(con == null)
+	con = db.openCon(con);
+	con.query("select auditLogin from servers where serverIP like ?", [req.body.serverIp], function(err, result){
+		if(err)console.log(err.stack);
+		res.status(200).json(result);
+	});
+});
+
+app.post("/auditLoginData", function(req, res){
+if(con == null)
+con = db.openCon(con);
+var auditData = req.body.data;
+var serverIp = req.body.serverIp;
+var id = req.body.id;
+var status = req.body.status;
+console.log("serverIp = : "+serverIp+"   id = : "+id+"   status = : "+status+"  processData = : "+processData);
+	if(status==0){
+		Promise.all([
+			new Promise((resolve, reject) => {
+				con.query("update servers set auditLogin = ? where serverIP = ?", [auditData,serverIp], function(err, result){
+					if(err){
+						console.log(err.stack);
+						resolve(null);
+					}
+					resolve(result);
+				});
+		    }),
+
+			new Promise((resolve, reject) => {
+				con.query("update agentActivities set status = ? where id = ? ", [1,id], function(err, result){
+					if(err){
+						console.log(err.stack);
+						resolve(null);
+					}
+					resolve(result);
+				});
+		    })
+		]).then((results) => {
+			res.status(200).json({success: "AuditLoginData updated"});
+		});
+    }
+	else {
+	res.status(200).json({success: "AuditLoginData updated"});
+	}
+});
+
+app.post("/runSriptOnServer", function(req, res){
+if(con == null)
+con = db.openCon(con);
+var data = req.body;
+console.log("refreshProcessList serverIp = : "+data.serverIp+"   userName = : "+data.name);
+var record = null;
+record = {
+	serverIp: data.serverIp,
+	activityName: "scriptManager",
+	requiredData: JSON.stringify({
+		userName: data.name,
+		script : data.script
+	}),
+	status: "0"
+};
+Promise.all([
+	new Promise((resolve, reject) => {
+	con.query("insert into agentActivities set ?", [record], function(err, result){
+		if(err){
+			console.log(err.stack);
+			resolve(null);
+		}
+		resolve(result);
+	});
+})
+]).then((results) => {
+	res.status(200).json({success: 1});
+});
+});
+
+app.post("/scriptExecuttionStatus", function(req, res){
+if(con == null)
+con = db.openCon(con);
+var auditData = req.body.data;
+var serverIp = req.body.serverIp;
+var id = req.body.id;
+var status = req.body.status;
+console.log("serverIp = : "+serverIp+"   id = : "+id+"   status = : "+status+"  processData = : "+processData);
+	if(status==0){
+		Promise.all([
+			new Promise((resolve, reject) => {
+				con.query("update agentActivities set status = ? where id = ? ", [1,id], function(err, result){
+					if(err){
+						console.log(err.stack);
+						resolve(null);
+					}
+					resolve(result);
+				});
+		    })
+		]).then((results) => {
+			res.status(200).json({success: "ScriptExecutionStatus updated"});
+		});
+    }
+	else {
+	res.status(200).json({success: "ScriptExecutionStatus updated"});
+	}
+});
 
 }
 

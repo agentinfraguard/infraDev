@@ -36,6 +36,26 @@ function($routeProvider){
         templateUrl : "pages/manageroles.html",
         controller : "manageRolesController"
     })
+    .when("/eachServer", {
+        templateUrl : "pages/eachServerDetail.html",
+        controller : "eachServerDetailController"
+    })
+    .when("/manageGroup", {
+        templateUrl : "pages/manageGroup.html",
+        //controller : ""
+    })
+    .when("/createGroup", {
+        templateUrl : "pages/createNewGroup.html",
+        //controller : ""
+    })
+    .when("/manageUsers", {
+        templateUrl : "pages/manageUsers.html",
+        //controller : ""
+    })
+    .when("/inviteUsers", {
+        templateUrl : "pages/inviteUser.html",
+        //controller : ""
+    })
     .otherwise({
         redirectTo : "/"
     });

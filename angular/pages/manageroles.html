@@ -1,7 +1,8 @@
 
 <section class="manageRolesDetailsSec">
+
 	<div class="leftMenuWrapper">
-		<ul>
+		<ul class="leftMenuMain">
 			<li class="activeUserRole"> <a href="#">Manage User</a></li>
 			<li><a href="#">Manage Group </a></li>
 			<li> <a href="#/createrole">Manage Role </a></li>
@@ -12,65 +13,78 @@
 		
 		<div class="roleDetailsSec ">
 
+
             <table class="commonTbMain manageRolesTbMain">
+            
                 <tr>
-                    <th class="paddingTopBottom">Name Role</th>
+                    <th class="paddingTopBottom">Role Name</th>
                     <th>
                         <table class="manageRolesSubTb">
                             <tr>
                                 <th colspan="4" class="borderLeftNone borderRightNone borderTopNone">Policy</th>
                             </tr>
                             <tr>
-                                <th class="accessDetails borderNone">Access</th>
-                                <th class="accessDetails borderBottomNone">Resource</th>
-                                <th class="resourceDetails borderBottomNone">Resource id</th>
-                                <th class="policyActionDetails borderBottomNone">Policy Actions</th>
+                                <th class="borderNone">Access</th>
+                                <th class="borderBottomNone">Resource</th>
+                                <th class="borderBottomNone">Resource id</th>
+                                <th class="borderBottomNone">Policy Actions</th>
                             </tr>
                         </table>
                     </th>
                     <th class="actionTdwidth paddingTopBottom">Action</th>
                 </tr>
 
+                <tr class="trclassEven" ng-repeat="role in rolesData">
 
-
-                <tr>
-                    <td class="paddingTopBottom">Name Role</td>
+                    <td class="paddingTopBottom">{{role.roleName}}</td>
                     <td>
                         <table class="manageRolesSubTb">
-                            <tr>
-                                <td class="accessDetails borderBottomNone borderTopNone borderRightNone borderLeftNone ">Access1</td>
-                                <td class="accessDetails borderBottomNone borderTopNone borderRightNone ">Resource1</td>
-                                <td class="resourceDetails borderBottomNone borderTopNone borderRightNone ">Resource1</td>
-                                <td class="policyActionDetails borderBottomNone borderTopNone borderRightNone">Policy Actions3</td>
+                            <tr ng-repeat="eachpolicy in role.policy">
+                                <td class="borderBottomNone borderTopNone borderRightNone borderLeftNone ">{{eachpolicy.access}}</td>
+                                <td class="borderBottomNone borderTopNone borderRightNone ">{{eachpolicy.resource}}</td>
+                                <td class="borderBottomNone borderTopNone borderRightNone ">{{eachpolicy.resourceId}}</td>
+                                <td class="borderBottomNone borderTopNone borderRightNone">{{eachpolicy.activities}}</td>
                             </tr>
                         </table>
                     </td>
-                    <td class="paddingTopBottom actionTdwidth">Action 1</td>
+                    <td class="actionTdwidth paddingTopBottom">
+
+                        <i id="dropdownRoleDetails" class="fa fa-caret-down" aria-hidden="true" ng-if="role.type =='user-defined'"></i>
+
+                        <div class="clear"></div>
+
+                        <ul class="actionList">
+                            <li><a href="#">Action 1 </a></li>
+                            <li><a href="#">Action 2 </a></li>
+                            <li><a href="#">Action 3 </a></li>
+                            <li><a href="#">Action 4 </a></li>
+                        </ul>
+                    </td>
                 </tr>
 
-                <tr>
+                <!-- <tr class="trclassEven">
                     <td class="paddingTopBottom">Name Role</td>
                     <td>
                         <table class="manageRolesSubTb">
                             <tr>
-                                <td class="accessDetails  borderTopNone borderRightNone borderLeftNone">Access 4</td>
-                                <td class="accessDetails  borderTopNone borderRightNone">Resource 5</td>
-                                <td class="resourceDetails  borderTopNone borderRightNone">Resource 5</td>
-                                <td class="policyActionDetails  borderTopNone borderRightNone">Policy Actions 5</td>
+                                <td class=" borderTopNone borderRightNone borderLeftNone">Access 4</td>
+                                <td class=" borderTopNone borderRightNone">Resource 5</td>
+                                <td class=" borderTopNone borderRightNone">Resource 5</td>
+                                <td class="  borderTopNone borderRightNone">Policy Actions 5</td>
                             </tr>
                             <tr>
-                                <td class="accessDetails  borderTopNone borderRightNone borderLeftNone">Access 6</td>
-                                <td class="accessDetails  borderTopNone borderRightNone">Resource 7</td>
-                                <td class="resourceDetails  borderTopNone borderRightNone">Resource 7</td>
-                                <td class="policyActionDetails  borderTopNone borderRightNone">Policy Actions 8</td>
+                                <td class=" borderTopNone borderRightNone borderLeftNone">Access 6</td>
+                                <td class=" borderTopNone borderRightNone">Resource 7</td>
+                                <td class=" borderTopNone borderRightNone">Resource 7</td>
+                                <td class="  borderTopNone borderRightNone">Policy Actions 8</td>
                             </tr>
 
                             <tr>
 
-                                <td class="accessDetails  borderTopNone borderRightNone borderLeftNone borderBottomNone">Access 9</td>
-                                <td class="accessDetails  borderTopNone borderRightNone borderBottomNone">Resource 10</td>
-                                <td class="resourceDetails  borderTopNone borderRightNone borderBottomNone">Resource 10</td>
-                                <td class="policyActionDetails  borderTopNone borderRightNone borderBottomNone">Policy Actions 11</td>
+                                <td class=" borderTopNone borderRightNone borderLeftNone borderBottomNone">Access 9</td>
+                                <td class=" borderTopNone borderRightNone borderBottomNone">Resource 10</td>
+                                <td class=" borderTopNone borderRightNone borderBottomNone">Resource 10</td>
+                                <td class="  borderTopNone borderRightNone borderBottomNone">Policy Actions 11</td>
 
                             </tr>
                         </table>
@@ -90,35 +104,36 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="trclassEven">
                     <td class="paddingTopBottom">Name Role</td> 
                     <td>
                         <table class="manageRolesSubTb">
                             <tr>
-                                <td class="accessDetails borderBottomNone borderTopNone borderRightNone borderLeftNone">Access1</td>
-                                <td class="accessDetails borderBottomNone borderTopNone borderRightNone ">Resource1</td>
-                                <td class="resourceDetails borderBottomNone borderTopNone borderRightNone ">Resource1</td>
-                                <td class="policyActionDetails borderBottomNone borderTopNone borderRightNone">Policy Actions3</td>
+                                <td class="borderBottomNone borderTopNone borderRightNone borderLeftNone">Access1</td>
+                                <td class="borderBottomNone borderTopNone borderRightNone ">Resource1</td>
+                                <td class="borderBottomNone borderTopNone borderRightNone ">Resource1</td>
+                                <td class=" borderBottomNone borderTopNone borderRightNone">Policy Actions3</td>
                             </tr>
                         </table>
                     </td>
                     <td class="paddingTopBottom">Action 2</td>
                 </tr>
 
-                <tr>
+                <tr class="trclassEven">
                     <td class="paddingTopBottom">Name Role</td>
                     <td>
                         <table class="manageRolesSubTb">
                             <tr>
-                                <td class="accessDetails borderBottomNone borderTopNone borderRightNone borderLeftNone ">Access1</td>
-                                <td class="accessDetails borderBottomNone borderTopNone borderRightNone ">Resource1</td>
-                                <td class="resourceDetails borderBottomNone borderTopNone borderRightNone ">Resource1</td>
-                                <td class="policyActionDetails borderBottomNone borderTopNone borderRightNone">Policy Actions3</td>
+                                <td class="borderBottomNone borderTopNone borderRightNone borderLeftNone ">Access1</td>
+                                <td class="borderBottomNone borderTopNone borderRightNone ">Resource1</td>
+                                <td class="borderBottomNone borderTopNone borderRightNone ">Resource1</td>
+                                <td class=" borderBottomNone borderTopNone borderRightNone">Policy Actions3</td>
                             </tr>
                         </table>
                     </td>
                     <td class="actionTdwidth paddingTopBottom">Action 3</td>
-                </tr>
+                </tr> -->
+           
             </table>
         </div>
     </div>

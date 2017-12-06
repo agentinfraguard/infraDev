@@ -187,12 +187,15 @@ var loadTime = 5000, //Load the data every second
 		}else if (mode == "startKeyAutoRotation") {
 			$rootScope.projectId = projectId;
 			$rootScope.startServerKeyRotation = $rootScope.startServerKeyRotation ? false : true;
+			$rootScope.modal_class = "modal-backdrop fade in";
 		}else if (mode == "stopKeyAutoRotation") {
 			$rootScope.projectId = projectId;
 			$rootScope.stopServerKeyRotation = $rootScope.stopServerKeyRotation ? false : true;
+			$rootScope.modal_class = "modal-backdrop fade in";
 		}else if (mode == "updateServerKey") {
 			$rootScope.projectId = projectId;
 			$rootScope.updateServerKey = $rootScope.updateServerKey ? false : true;
+			$rootScope.modal_class = "modal-backdrop fade in";
 		}
     };
 

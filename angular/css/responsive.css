@@ -1,0 +1,91 @@
+
+/********************
+*   Mobile Styles   *
+********************/
+@media (min-width: 1601px) and (max-width: 2560px) {
+	.content-wrapper {
+    margin: 0 auto;
+    max-width: 1260px;
+}
+.beforeloginBody .footerSection {
+    position: fixed;
+    bottom: 0;
+}
+.Profilesection{
+    min-height: 817px;
+}    
+}
+@media (min-width:1367px) and (max-width:1600px) {
+    .content-wrapper {
+    margin: 0 auto;
+    max-width: 1260px;
+}
+.Profilesection{
+    min-height: 817px;
+}
+    /*---1367 to 1600---*/
+}
+@media (min-width:1280px) and (max-width:1366px) {
+	.content-wrapper {
+    margin: 0 auto;
+    max-width: 1260px;
+}
+.Profilesection{
+    min-height: 495px;
+}  
+}
+@media (min-width:1200px) and (max-width:1279px) {
+	.content-wrapper {
+    margin: 0 auto;
+    max-width: 1170px;
+}
+}
+
+@media (max-width:1199px) {
+
+}
+@media (min-width:992px) and (max-width:1199px) {
+	.content-wrapper {
+    margin: 0 auto;
+    max-width: 900px;
+}
+}
+@media (min-width:768px) and (max-width:991px) {
+	.content-wrapper {
+    margin: 0 auto;
+    max-width: 740px;
+}
+}
+@media (max-width:767px) {
+
+}
+@media (min-width:641px) and (max-width: 767px) {
+	.content-wrapper {
+    margin: 0 auto;
+    max-width: 600px;
+}
+}
+@media (max-width:640px) {
+
+}
+@media (min-width:481px) and (max-width:640px) {
+	.content-wrapper {
+    margin: 0 auto;
+    max-width: 450px;
+}
+}
+@media (max-width:480px) {
+
+}
+@media (min-width:361px) and (max-width:480px) {
+	.content-wrapper {
+    margin: 0 auto;
+    max-width: 300px;
+}
+}
+@media (min-width:320px) and (max-width:360px) {
+	.content-wrapper {
+    margin: 0 auto;
+    max-width: 300px;
+}
+}

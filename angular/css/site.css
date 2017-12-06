@@ -16,7 +16,6 @@
 
 
 html {
-    /*background-color: #e2e2e2;*/
     margin: 0;
     padding: 0;
 }
@@ -30,10 +29,8 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
 }
 
 body {
-    /*background-color: #fff; /*border-top: solid 10px #000;*/
-    color: #666;
-    font-size: 0.85em;
-    /*font-family: Arial, Helvetica, sans-serif;*/
+    color: #333333;
+    font-size: 15px;
     font-family: 'Gadugi';
     line-height: 16px;
     font-weight: normal;
@@ -41,6 +38,14 @@ body {
     padding: 0;
     background: #efefef;
 }
+
+/*----commom class Start----*/
+.boldFont{font-family: 'Gadugi-Bold';}
+
+.textAlign{
+    text-align: center;
+}
+/*----commom class End----*/
 
 a {
     color: #333;
@@ -151,7 +156,6 @@ p {
     -ms-word-wrap: break-word;
     word-wrap: break-word;
     line-height: 20px;
-    font-size: 1em;
 }
 
     p span {
@@ -159,7 +163,7 @@ p {
 
     p a {
         color: #17a0ad;
-        font-size: .85em;
+        font-size: 15px;
         text-decoration: underline;
     }
 
@@ -172,7 +176,6 @@ p {
     margin-left: 64px;
     color: #646464;
     margin: 0 100px 30px;
-    font-size: 16px;
     font-weight: normal;
     line-height: 24px;
 }
@@ -181,7 +184,6 @@ p {
     margin-left: 0;
     color: #646464;
     margin: 20px 100px 49px;
-    font-size: 16px;
     font-weight: normal;
     line-height: 24px;
 }
@@ -326,7 +328,7 @@ hr {
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
-    font-size: 1em;
+ /*   font-size: 1em;*/
     padding: 0;
     text-decoration: none;
     color: #fff !important;
@@ -429,7 +431,7 @@ a.menuButton:hover {
 }
 
 .loginBox {
-    font-size: 16px;
+    /*font-size: 16px;*/
     margin: 20px auto 20px;
     background: #fff;
     width: 450px;
@@ -441,7 +443,6 @@ a.menuButton:hover {
 }
 
 .introBox {
-    font-size: 15px;
     margin: 40px auto 20px;
     background: #efefef;
     width: 100%;
@@ -475,7 +476,6 @@ a.menuButton:hover {
     display: block;
     background-color: #fff;
     float: left;
-    font-size: 16px;
     line-height: normal;
     height: auto;
     border: 1px solid #ccc;
@@ -492,7 +492,7 @@ a.menuButton:hover {
 
 
 
-    input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, select:focus {
+    input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, select:focus, textarea:focus {
         border: 1px solid #709d34;
         -moz-box-shadow: 0 0px 7px #709d34;
         -webkit-box-shadow: 0 0px 7px #709d34;
@@ -505,7 +505,6 @@ a.menuButton:hover {
     background-color: #709d34;
     color: #fff;
     padding: 8px;
-    font-size: 16px;
     float: left;
     -moz-box-shadow: 0px 4px 0px #e6e6e6;
     -webkit-box-shadow: 0px 4px 0px #e6e6e6;
@@ -523,7 +522,6 @@ a.menuButton:hover {
     background-color: #709d34;
     color: #fff;
     padding: 10px 0;
-    font-size: 15px;
     font-weight: bold;
     float: left;
     -moz-box-shadow: 0px 4px 0px #e6e6e6;
@@ -539,13 +537,11 @@ a.menuButton:hover {
 
 .forgotText {
     float: left;
-    font-size: 16px;
     margin: 15px 0 0px 0;
 }
 
 .signUpText {
     float: right;
-    font-size: .7em;
     margin: 10px 0 0 0;
 }
 
@@ -560,7 +556,6 @@ a.menuButton:hover {
     width: 100%;
     display: block;
     float: left;
-    font-size: 15px;
     margin: 10px 0 0 0;
 }
 
@@ -571,7 +566,6 @@ a.menuButton:hover {
 
 .dontHaveText {
     color: #333;
-    font-size: 16px;
     margin: 0 0 25px 0;
 }
 
@@ -581,7 +575,6 @@ a.menuButton:hover {
 
 .loginLabel {
     color: #333;
-    font-size: 16px;
     font-family: 'Gadugi-Bold';
     margin: 0px 0 10px;
 }
@@ -623,7 +616,6 @@ a.menuButton:hover {
 }
 
 .copyrightText {
-    font-size: 16px;
     color: #fff;
     padding: 30px 0;
 }
@@ -631,9 +623,9 @@ a.menuButton:hover {
 
 /*---profile Section Start--*/
 
-.Profilesection {
+/*.Profilesection {
     margin-top: 30px;
-}
+}*/
 
 .profileLeft {
     width: 20%;
@@ -747,9 +739,8 @@ a.menuButton:hover {
         color: #fff;
     }
 
-.profileRight {
-    width: 100%;
-    float: left;
+.profileRight {    
+    float: none;
     background: #fff;
     border: 1px solid #ccc;
     -moz-border-radius: 3px;
@@ -759,6 +750,8 @@ a.menuButton:hover {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    display: inline-block;
+    text-align: left;
 }
 
 .companyDetailsBg {
@@ -775,10 +768,10 @@ a.menuButton:hover {
     width: 23.6%;
     float: left;
     background: #fff;
-    border: 1px solid #ccc;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
+    border: 1px solid #dcdcdc;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
     padding: 20px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -788,6 +781,9 @@ a.menuButton:hover {
     min-height: 190px;
     margin-top: 20px;
     font-family: 'Gadugi';
+-webkit-box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.05);
+-moz-box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.05);
+box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.05);
 }
 
 .addCompanyDetail .perCompanyBox {
@@ -829,7 +825,7 @@ a.menuButton:hover {
 
 .projectUl {
     padding: 0;
-    font-size: 16px;
+    /*font-size: 16px;*/
     width: 100%;
     display: block;
     line-height: 100%;
@@ -837,38 +833,49 @@ a.menuButton:hover {
     float: left;
 }
 
-    .projectUl li {
+.projectUl li {
         list-style: none;
         line-height: 247%;
         float: left;
         width: 100%;
     }
 
-        .projectUl li a {
+.projectUl li a {
             color: #333;
             text-decoration: none;
-        }
+}
 
-        .projectUl li ul {
+.projectUl li ul {
             width: 90%;
             float: right;
-        }
+}
 
-            .projectUl li ul li a {
+.projectUl li ul li a {
                 color: #777;
                 font-weight: normal;
-            }
+}
 
 .moreClass {
     text-decoration: none;
-    font-size: 16px;
+    /*font-size: 16px;*/
     float: right;
     color: #2670b7 !important;
 }
 
-    .moreClass:hover {
-        color: #709d34 !important;
-    }
+.moreClass:hover {
+    color: #709d34 !important;
+}
+
+.companyArrowIcon {
+   background: url(../images/sprite.png) no-repeat -93px 5px;
+    width: 20px;
+    height: 15px;
+    float: right;
+}
+
+.moreClass:hover .companyArrowIcon {
+   background: url(../images/sprite.png) no-repeat -92px -10px;
+}
 
 .topButtonDv {
     float: right;
@@ -888,10 +895,10 @@ a.menuButton:hover {
     padding: 10px 12px;
 }
 
-    .addButton:hover, .addButton:focus {
+.addButton:hover, .addButton:focus {
         background: #109395;
         text-decoration: none;
-    }
+}
 
 .manageButton {
     background: #709d34;
@@ -905,22 +912,46 @@ a.menuButton:hover {
     padding: 10px 12px;
 }
 
-    .manageButton:hover, .manageButton:focus {
+.manageButton:hover, .manageButton:focus {
         background: #588122;
         text-decoration: none;
-    }
-
+}
 .settingsPop {
-    background: #e2e2e2;
-    border: 1px solid #ccc;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
-    position: absolute;
-    right: 17px;
-    top: 46px;
+    right: 8px;
+    top: 55px;
     color: #333;
     padding: 10px 15px;
+    z-index: 10;
+    position: absolute;
+    background: #f5f4f4;
+    border: 1px solid #d8d8d8;
+}
+
+.settingsPop:after, .settingsPop:before {
+    bottom: 100%;
+    left: 85%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.settingsPop:after {
+    border-color: rgba(244, 242, 243, 0);
+    border-bottom-color: #f4f2f3;
+    border-width: 5px;
+    margin-left: -5px;
+}
+.settingsPop:before {
+    border-color: rgba(211, 211, 211, 0);
+    border-bottom-color: #d3d3d3;
+    border-width: 6px;
+    margin-left: -6px;
 }
 
     .settingsPop li {
@@ -928,9 +959,9 @@ a.menuButton:hover {
         line-height: 200%;
     }
 
-        .settingsPop li a {
-            text-decoration: none;
-        }
+.settingsPop li a {
+    text-decoration: none;
+}
 
 .profileHead {
     color: #333;
@@ -941,8 +972,10 @@ a.menuButton:hover {
     display: block;
     line-height: 120%;
     border-bottom: 1px solid #efefef;
-    font-weight: bold;
+    font-family: 'Gadugi-Bold';
     padding-bottom: 10px;
+    text-align: center;
+    margin: 20px;
 }
 
 .profileHead2 {
@@ -964,44 +997,65 @@ a.menuButton:hover {
     position: relative;
 }
 
-.editBtn {
+a.editBtn {
     position: absolute;
     top: -9px;
     right: 0;
-    background: #17a0a2;
-    border: 1px solid #17a0a2;
-    padding: 2px 10px;
+    background: #709d34 url(../images/editIcon.png) no-repeat 14px 6px;
+    border: 1px solid #709d34;
+    padding: 5px 14px 5px 33px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
     text-decoration: none;
-    color: #fff !important;
+    color: #fff;
+    height: 30px;
+    box-sizing: border-box;
+    font-family: 'Gadugi-Bold';
+    font-size: 16px;
+    -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,.2);
+    -moz-box-shadow: 2px 2px 2px 0px rgba(0,0,0,.2);
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,.2);
 }
 
-    .editBtn:hover {
-        background: #f3f3f3;
-        border: 1px solid #ccc;
-        color: #666 !important;
+    a.editBtn:hover {    
+    background: #7ca93f url(../images/editIcon.png) no-repeat 14px 6px;
     }
 
-.divSaveBtn {
+a.divSaveBtn {
     position: absolute;
     top: -9px;
     right: 0;
-    background: #17a0a2;
-    border: 1px solid #17a0a2;
-    padding: 2px 10px;
+    background: #709d34;
+    border: 1px solid #709d34;
+    padding: 5px 10px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
-    border-radius: 2px;
+    border-radius: 1px;
     text-decoration: none;
-    color: #fff !important;
+    color: #fff;
+    width: 80px;
+    height: 30px;
+    box-sizing: border-box;
+    font-family: 'Gadugi-Bold';
+    font-size: 16px;
 }
 
-    .divSaveBtn:hover {
-        background: #f3f3f3;
+    a.divSaveBtn:hover {
+        /*background: #f3f3f3;
         border: 1px solid #ccc;
-        color: #666 !important;
+        color: #666 !important;*/
+
+        color: #333;
+    border: 1px solid #ccc;
+    border-radius: 1px;
+    font-family: 'Gadugi-Bold';
+    font-size: 16px;
+    background: #ffffff;
+    background: -moz-linear-gradient(top, #ffffff 1%, #eae9e9 100%);
+    background: -webkit-linear-gradient(top, #ffffff 1%,#eae9e9 100%);
+    background: linear-gradient(to bottom, #ffffff 1%,#eae9e9 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eae9e9',GradientType=0 );
     }
 
 .profileForm {
@@ -1011,8 +1065,10 @@ a.menuButton:hover {
 
     .profileForm label {
         float: left;
-        width: 100%;
-        margin-bottom: 5px;
+    width: 100%;
+    margin-bottom: 5px;
+    font-family: 'Gadugi-Bold';
+    text-align: left;
     }
 
         .profileForm label span {
@@ -1031,16 +1087,19 @@ a.menuButton:hover {
         resize: none;
         -moz-border-radius: 2px;
         -webkit-border-radius: 2px;
-        border-radius: 2px;
-        padding: 3px 5px;
+            border-radius: 0;
+    padding: 10px 5px;
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
         color: #666;
     }
+.readOnlyInputType{
+    background: #efefef !important;
 
+}
         .remodal input[type="text"]:focus, .profileForm input[type="text"]:focus, input[type="file"]:focus, textarea:focus, select:focus {
-            border: 1px solid #17a0ad;
+            border: 1px solid #709d34;
         }
 
     .profileForm input[type="file"] {
@@ -1050,23 +1109,10 @@ a.menuButton:hover {
         line-height: initial;
         width: 92%;
     }
-/*.profileForm label.cabinet {
-            width: 79px;
-            height: 22px;
-            background: url(btn-choose-file.gif) 0 0 no-repeat;
-            display: block;
-            overflow: hidden;
-            cursor: pointer;
-        }
+    .myProfileMainDv{
+        text-align :center;
+    }
 
-            .profileForm label.cabinet input.file {
-                position: relative;
-                height: 100%;
-                width: auto;
-                opacity: 0;
-                -moz-opacity: 0;
-                filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
-            }*/
 .cabinet {
     border: 1px dashed #ccc;
     padding: 5px 5px 5px 5px;
@@ -1077,20 +1123,7 @@ a.menuButton:hover {
 
     .cabinet:focus {
         border: 1px dashed #17a0ad;
-    }
-
-    .cabinet .saveBtn {
-        background: #17a0ad !important;
-        color: #fff !important;
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: 0;
-        float: left;
-        line-height: 14px;
-        margin: 3px;
-        cursor: pointer;
-    }
+    }    
 
 .profileForm input[type="file"]:focus {
     border: 0 none;
@@ -1105,7 +1138,6 @@ a.menuButton:hover {
     width: 100%;
     display: block;
     float: left;
-    font-size: 1em;
     margin: 0 0 20px 0;
     padding: 0;
 }
@@ -1114,7 +1146,6 @@ a.menuButton:hover {
     font-size: 1em;
     text-transform: uppercase;
     float: right;
-    /*width: 9%;*/
     font-weight: bold;
     color: #df5b37 !important;
     text-decoration: none;
@@ -1125,28 +1156,9 @@ a.menuButton:hover {
     width: 50%;
 }
 
-.profileForm input[type="button"] {
-    padding: 5px 10px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    background: #efefef;
-    color: #333;
-}
 
-    .profileForm input[type="button"]:hover {
-        background: #ccc;
-    }
 
-.profileForm .saveBtn {
-    background: #17a0ad !important;
-    color: #fff !important;
-}
 
-    .profileForm .saveBtn:hover {
-        background: #17a0a2 !important;
-        cursor: pointer;
-    }
 
 
 /*---profile Section End--*/
@@ -1660,10 +1672,14 @@ ul.perUser li {
 
 .colorGreen {
     color: green !important;
+        font-size: 14px;
 }
 
 .colorRed {
     color: red !important;
+    font-size: 14px;
+    float: left;
+    margin-top: 4px;
 }
 
 a:hover {
@@ -1677,6 +1693,7 @@ a:hover {
 .padding10 {
     padding: 10px;
 }
+
 
 .fade1 {
     display: block;
@@ -1781,7 +1798,6 @@ a:hover {
     box-shadow: 3px 4px 0px #dadada;
     border-bottom: 1px solid #ffffff;
     border-right: 1px solid #ffffff;
-    font-size: 16px;
     font-weight: bold;
     line-height: 20px;
 }
@@ -1818,20 +1834,66 @@ a:hover {
     box-shadow: 4px -2px 3px #666;
 }
 
-.setupMFABtn {
-    padding: 5px 10px;
+a.setupMFABtn, .changePasswordBtn, .profileForm .saveBtn {
+    background: #2670b7;
+    border: 1px solid #1d65aa;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
-    background: #efefef;
     text-decoration: none;
-    color: #333;
+    color: #fff !important;
+    margin-right: 10px;
+    padding: auto;
+    float: :left;
+    height: 30px;
+    line-height: 30px;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eae9e9',GradientType=0 );
+    -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,.2);
+    -moz-box-shadow: 2px 2px 2px 0px rgba(0,0,0,.2);
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,.2);
 }
-
-    .setupMFABtn:hover {
-        background: #ccc;
+.changePasswordBtn{
+    background: #2670b7 url(../images/keyIcon.png) no-repeat 16px 7px;
+    padding: 0px 15px 1px 40px;
+    height: 32px;
+}
+.changePasswordBtn:hover{
+    background: #307bc4 url(../images/keyIcon.png) no-repeat 16px 7px;
+}
+a.setupMFABtn{
+    padding: 5px 19px;
+}
+a.setupMFABtn:hover{
+    background: #307bc4;
+}
+.profileForm .saveBtn{
+    background: #709d34;
+    border: 1px solid #709d34;
+    padding: 0px 15px 1px 15px;
+    height: 32px;
+}
+.profileForm .saveBtn:hover{
+    background: #7ca93f;
+}
+.cabinet .saveBtn {
+    background: #709d34;
+    border: 1px solid #709d34;
+    padding: 0px 15px 1px 15px;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    padding: 0px 16px;
+    float: left;
+    line-height: 24px;
+    margin: 3px;
+    cursor: pointer;
+    height: 27px;
+    font-size: 14px;
+}
+.cabinet .saveBtn:hover {
+    background: #7ca93f;
     }
-
 .blueButton {
     background: #2670b7;
     border: 1px solid #1d65aa;
@@ -1975,7 +2037,6 @@ a:hover {
     width: 100%;
     margin: 0 auto;
     background: #2670b7;
-    border:1px solid #598529;
     padding: 10px;
     margin: 10px 0;
     position: relative;;
@@ -1988,6 +2049,7 @@ a:hover {
     right: 5px;
     font-size: 14px;
     color: #fff;
+    cursor: pointer;
 }
 
 
@@ -2016,7 +2078,7 @@ a:hover {
     color: #fff;
 }
 
-.boldFont{font-family: 'Gadugi-Bold';}
+
 
 .headsup-close-button {
     min-width: 2rem;
@@ -2094,18 +2156,16 @@ a:hover {
 }
 
 .companySettingIcon {
-    background: url(../images/sprite.png) no-repeat top 5px right -71px;
+    background: url(../images/sprite.png) no-repeat -57px 4px;
     width: 25px;
     height: 25px;
     float: left;
+    margin-top: 3px;
 }
 
-.companyArrowIcon {
-    background: url(../images/sprite.png) no-repeat top 5px right -35px;
-    width: 25px;
-    height: 18px;
-    float: right;
-}
+
+
+
 
 .addCompanyDetail a {
     color: #333;
@@ -2283,7 +2343,7 @@ a.userUpgradeBtn {
 }
 
 .DorpDownIcon {
-    background: url(../images/sprite.png) no-repeat top 5px right -7px;
+    background: url(../images/sprite.png) no-repeat -111px 9px;
     width: 25px;
     height: 18px;
     float: right;
@@ -2296,20 +2356,21 @@ a.userUpgradeBtn {
     float: left;
 }
 
-.leftMenuWrapper {
-    width: 250px;
+.leftMenuWrapper {    
+    width: 220px;
     float: left;
-    font-size: 16px;
-    margin: 100px 24px 0 0;
-    
+    margin-right: 15px;
 }
 
+.leftMenuMain{
+    margin: 58px 0 0 0;
+}
     .leftMenuWrapper ul li {
         list-style-type: none;
     }
 
         .leftMenuWrapper ul li a {
-            padding: 16px 20px;
+            padding: 16px 10px;
             display: block;
             color: #333333;
         }
@@ -2320,7 +2381,7 @@ a.userUpgradeBtn {
                 -moz-transition: all 0.3s linear;
                 -o-transition: all 0.3s linear;
                 -webkit-transition: all 0.3s linear;
-                transition: all 0.3s linear;
+                transition: all 0.1s linear;
             }
 
 .activeUserRole {
@@ -2336,10 +2397,10 @@ a.userUpgradeBtn {
 .manageRoleRight {
     width: 78%;
     float: left;
+    margin: 35px 0 0 0;
 }
 
 .pageNavigation, {
-    font-size: 16px;
     float: left;
 }
 
@@ -2365,10 +2426,10 @@ a.userUpgradeBtn {
     min-height: 300px;
     height: auto;
     background: #fff;
-    padding: 40px 25px;
-    -webkit-box-shadow: 1px 1px 1px 0px #d9d9d9;
-    -moz-box-shadow: 1px 1px 1px 0px #d9d9d9;
-    box-shadow: 1px 1px 1px 0px #d9d9d9;
+    padding: 20px 20px;
+    -webkit-box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.05);
+    -moz-box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.05);
+    box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.05);
     color: #333333;
 }
 
@@ -2388,7 +2449,6 @@ a.userUpgradeBtn {
 }
 
 .formlabel {
-    font-size: 16px;
     width: 90px;
     float: left;
     margin-right: 10px;
@@ -2413,7 +2473,6 @@ a.userUpgradeBtn {
         border-left: none;
         font-family: 'Gadugi-Bold';
         padding: 10px 0;
-        font-size: 16px;
         color: #333333;
     }
 
@@ -2422,14 +2481,12 @@ a.userUpgradeBtn {
         border-top: none;
         border-left: none;
         padding: 5px 10px 0px;
-        font-size: 15px;
     }
 
 
 .removeXicon {
     text-align: center;
     font-family: 'Gadugi-Bold';
-    font-size: 14px;
     cursor: pointer;
 }
 
@@ -2491,7 +2548,6 @@ a.userUpgradeBtn {
     width: auto;
     padding: 8px 14px;
     border: 1px solid #bdbdbd;
-    font-size: 16px;
     background: #fdfdfd; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(#fdfdfd, #f2f2f2); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(#fdfdfd, #f2f2f2); /* For Opera 11.1 to 12.0 */
@@ -2507,9 +2563,7 @@ a.userUpgradeBtn {
 
 
 .policiesDetails {
-    width: 60%;
-    border: 1px solid #bdbdbd;
-    font-size: 15px;
+    width: 60% !important;
     margin-bottom: 20px;
 }
 
@@ -2544,18 +2598,17 @@ a.userUpgradeBtn {
 }
 
 .createRoleBtn {
-    padding: 9px 18px 13px;
+    padding: 8px 18px 10px;
     float: left;
     background: #2670b7;
     color: #fff;
     font-family: 'Gadugi-Bold';
-    font-size: 16px;
     margin: 0px 15px 0 0;
     border: 1px solid #2670b7;
 }
 
 .cancelRoleBtn {
-    padding: 9px 18px 13px;
+    padding: 8px 18px 10px;
     float: left;
     background: #fdfdfd; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(#fdfdfd, #f2f2f2); /* For Safari 5.1 to 6.0 */
@@ -2564,7 +2617,6 @@ a.userUpgradeBtn {
     background: linear-gradient(#fdfdfd, #f2f2f2); /* Standard syntax */
     color: #333333;
     font-family: 'Gadugi-Bold';
-    font-size: 16px;
     margin: 0px 0;
     border: 1px solid #bdbdbd;
 }
@@ -2664,24 +2716,41 @@ a.userUpgradeBtn {
 }
 
 .commonTbMain tr td{
-    border: 1px solid #bdbdbd;
+    border: 1px solid #dcdcdc;
+    color: #444444;
 }
 
 
-.commonTbMain tr:hover{
-    background: #dcf0fa;
+.commonTbMain .trclass:hover{
+    background: #fcf3d4;
+}
+
+.commonTbMain .trclassEven:hover{
+    background: #fcf3d4;
 }
 
 .commonTbMain tr th{
-    border: 1px solid #bdbdbd;
+    border: 1px solid #dcdcdc;
     text-align: center;
      font-family: 'Gadugi-Bold';
-     font-size: 16px;
-     background: #efefef;
 }
 
 .manageRolesTbMain table {
     width: 100%;
+}
+
+.manageRolesDetailsSec .commonTbMain .trclassEven:nth-child(even) {
+    background: #f4f4f4; 
+}
+.manageRolesDetailsSec .commonTbMain .trclassEven:nth-child(even):hover {
+    background: #fcf3d4;
+}
+
+ .commonTbMain .trclass:nth-child(odd) {
+    background: #f4f4f4; 
+}
+ .commonTbMain .trclass:nth-child(odd):hover {
+    background: #fcf3d4;
 }
 
 
@@ -2692,8 +2761,8 @@ a.userUpgradeBtn {
 }
 
 .manageRolesTbMain table tr td{
-        padding: 10px 0 10px 5px;
-    border: 1px solid #bdbdbd;s
+    padding: 10px 0 10px 5px;
+    border: 1px solid #dcdcdc;
 }
 
 .actionTdwidth{
@@ -2703,17 +2772,30 @@ a.userUpgradeBtn {
     position: relative;
 }
 
-.accessDetails{    
- width: 70px;
-  }
 
-.resourceDetails{
-    width: 90px;
+
+
+.manageRolesDetailsSec .commonTbMain tr td:nth-child(1), 
+.manageRolesDetailsSec .commonTbMain .manageRolesSubTb tr th:nth-child(1),
+.manageRolesDetailsSec .commonTbMain .manageRolesSubTb tr td:nth-child(1)
+{
+    width: 130px;
 }
 
-.policyActionDetails{
-    width: 150px;
-}
+ .manageRolesDetailsSec .commonTbMain .manageRolesSubTb tr th:nth-child(2), 
+ .manageRolesDetailsSec .commonTbMain .manageRolesSubTb tr th:nth-child(3),
+ .manageRolesDetailsSec .commonTbMain .manageRolesSubTb tr td:nth-child(2), 
+ .manageRolesDetailsSec .commonTbMain .manageRolesSubTb tr td:nth-child(3)
+ {
+    width: 180px;
+} 
+
+.manageRolesDetailsSec .commonTbMain .manageRolesSubTb tr th:nth-child(4),
+.manageRolesDetailsSec .commonTbMain .manageRolesSubTb tr td:nth-child(4)
+{
+    width: 210px;
+} 
+
 
 .paddingTopBottom{
     padding: 0px 5px;
@@ -2739,7 +2821,7 @@ a.userUpgradeBtn {
     position: absolute;
     background: #fff;
     width:90px;
-    border: 1px solid #bdbdbd;
+    border: 1px solid #b9b9b9;
     -webkit-box-shadow: 1px 1px 1px 1px #bdbdbd;
     -moz-box-shadow: 1px 1px 1px 0px #bdbdbd;
     box-shadow: 1px 1px 1px 0px #bdbdbd;
@@ -2752,7 +2834,7 @@ a.userUpgradeBtn {
 .actionList li{
     list-style-type: none;
     padding:5px;
-    border-bottom: 1px solid #bdbdbd;
+    border-bottom: 1px solid #b9b9b9;
     cursor: pointer;
 }
 
@@ -2820,10 +2902,564 @@ a.userUpgradeBtn {
 }
 
 .commonThpadding tr td{
-    padding: 10px 5px;
+    padding: 8px 5px;
 
 }
+
+/*.modal-dialog {
+    margin: 130px auto 50px !important;
+}*/
 
 
 
 /*----Manage group section End----*/
+a.projectHeading, a.serverHeading{
+    color:#333;
+}
+a.projectHeading:hover, a.serverHeading:hover{
+    color:#666;
+}
+.modalPopUpTbMain {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.modalPopUpTbMain td, .modalPopUpTbMain th {
+    border: 1px solid #bdbdbd;
+    text-align: left;
+    padding: 8px;
+    border-collapse: collapse;
+
+}
+
+.modalPopUpTbMain th{
+    font-family: 'Gadugi-Bold';
+    background: #efefef;
+
+}
+
+/*.modalPopUpTbMain tr:nth-child(even) {
+    background-color: #dddddd;
+    border: 1px solid #cccccc;
+}*/
+
+.enviromentScopeUser {
+    text-decoration: none;
+    padding: 0;
+    font-size: 20px;
+    width: 100%;
+    display: block;
+    font-family: 'Gadugi-Bold'; 
+}
+.serverStatus{
+    color: #333333;
+    text-decoration: none;
+    padding: 0px;
+    font-size: 1.5em;
+    width: 100%;
+    display: block;
+    font-weight: bold;
+    margin-left: 0px;
+
+}
+.serverStatusHead{
+     color: #333;
+    text-decoration: none;
+    padding: 7px;
+    font-size: 1em
+    width: 100%;
+    display: block;
+    font-weight: bold;   
+}
+
+.processListClass {
+    width: 1053px;
+    margin: 30px auto;
+}
+
+.modal-footer {
+    padding: 15px 0;
+    border: none;
+}
+
+.modal-footer .createRoleBtn {
+    float: right;
+    margin: 0px 0px 0px 10px;
+}
+
+
+.modal-footer .cancelRoleBtn{
+    float: right;
+    margin: 0px 0px 0px 10px;
+
+}
+
+
+/*----Each Server Detail Section Start----*/
+ .leftMenuWrapper{
+    background: #fff;
+}
+
+.serverNameSec {
+    float: left;
+    width: 100%;
+    text-align: justify;
+}
+
+
+
+.hostNameIconCommon{
+       width: 66px;
+    height: 66px;
+    float: left;
+}
+
+.textCommon{
+    font-family: 'Gadugi-Bold';
+    text-align: center; 
+    margin: 10px 0 0 0;
+}
+
+.serverBoxCommon {
+    vertical-align: top;
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    width: 234px;
+    padding: 15px 10px;
+    border-radius: 5px;
+    margin: 0 0 15px;
+    -webkit-box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.05);
+    -moz-box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.05);
+    box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.05);
+    transition:all 0.2s ease;
+    color:#333; 
+
+}
+
+
+.serverNameHeading{
+    font-size: 20px;
+    color: #6c6b6b;
+}
+
+.serverBoxCommon p{
+    color: #6c6b6b;
+}
+.serverBoxCommon:hover  {
+    background: #2670b7;
+    color: #fff;
+}
+
+.serverBoxCommon:hover .textCommon p  {
+    color: #fff;
+}
+.serverNameSec:after {
+    content: '';
+    width: 100%;
+    display: inline-block;
+}
+
+.textCommon p{
+    font-family: 'Gadugi';
+    text-align: center;
+}
+
+
+.serverHostNameIcon {
+    background: url(../images/sprite.png) no-repeat -7px -36px;
+    width: 57px;
+    height: 60px;
+    margin: 2px 0 0 0;
+}
+
+.serverBoxCommon:hover .serverHostNameIcon {
+     background: url(../images/sprite.png) no-repeat -7px -109px;
+}
+
+
+.serverCpuIcon {
+    background: url(../images/sprite.png) no-repeat -85px -37px;
+    width: 60px;
+    height: 61px;
+    margin: 2px 0 0 0;
+}
+
+.serverBoxCommon:hover .serverCpuIcon {
+   background: url(../images/sprite.png) no-repeat -85px -110px;
+}
+
+.ServerRamIcon {
+    background: url(../images/sprite.png) no-repeat -167px -48px;
+    width: 74px;
+    height: 42px;
+    float: left;
+    margin: 14px 0 0 0;
+}
+
+.serverBoxCommon:hover .ServerRamIcon {
+    background: url(../images/sprite.png) no-repeat -167px -121px;
+}
+
+.ServerStorageIcon {
+    background: url(../images/sprite.png) no-repeat -261px -44px;
+    width: 48px;
+    height: 50px;
+    margin: 7px 0 0 0;
+}
+
+.serverBoxCommon:hover .ServerStorageIcon {
+    background:  url(../images/sprite.png) no-repeat -261px -117px;
+}
+
+.ServeripIcon {
+        background: url(../images/sprite.png) no-repeat -328px -42px;
+        width: 53px;
+        height: 52px;
+        margin: 6px 0 0 0;
+}
+
+
+.serverBoxCommon:hover .ServeripIcon {
+    background:  url(../images/sprite.png) no-repeat -328px -115px;
+}
+
+.ServerKeyRotationIcon {
+        background: url(../images/sprite.png) no-repeat -396px -36px;
+        width: 57px;
+        height: 63px;
+}
+
+.serverBoxCommon:hover .ServerKeyRotationIcon {
+  background: url(../images/sprite.png) no-repeat -396px -109px;
+}
+.ServerLockDownIcon {
+    background: url(../images/sprite.png) no-repeat -464px -53px;
+    width: 55px;
+    height: 44px;
+    margin: 12px 0 0 0;
+}
+
+.serverBoxCommon:hover .ServerLockDownIcon {
+  background: url(../images/sprite.png) no-repeat -464px -120px;
+}
+
+.ServerAccessIcon {
+    background: url(../images/sprite.png) no-repeat -542px -42px;
+    width: 55px;
+    height: 58px;
+    margin: 3px 0 0 0;
+}
+.serverBoxCommon:hover .ServerAccessIcon{
+    background: url(../images/sprite.png) no-repeat -542px -114px;
+
+}
+/*.rootButton{
+    padding: 1px 5px 3px 5px;
+    background: #709d34;
+    width: 80px;
+    color: #fff;
+    border-radius: 2px;
+    margin: 0 10px;
+    border: 1px solid #709d34;
+    text-align: center;
+    float: left;
+    cursor: pointer;
+}*/
+
+.rootButton {
+    padding: 1px 5px 3px 5px;
+    background: #709d34;
+    width: 80px;
+    color: #fff;
+    border-radius: 2px;
+    margin: 0 8px;
+    border: 1px solid #709d34;
+    text-align: center;
+    display: inline-block; 
+}
+
+.rootGreyButton{
+    padding: 1px 0 3px 0;
+    background: rgb(255,255,255);
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(234,232,232,1) 46%, rgba(234,232,232,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(234,232,232,1) 46%,rgba(234,232,232,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(234,232,232,1) 46%,rgba(234,232,232,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eae8e8',GradientType=0 ); /* IE6-9 */
+    width: 80px;
+    border-radius: 2px;
+    margin: 0 8px;
+    border: 1px solid #d9d9d9;
+    text-align: center;
+    display: inline-block;
+}
+
+.rightSignIcon{ 
+    float: left;
+    margin: 0 0px 0 6px;
+    background: url(../images/sprite.png) no-repeat -258px 1px;
+    width: 13px;
+    height: 14px;
+ }
+
+
+.deleteIconButton{
+    color: #a60404;
+    margin: 0 auto;
+    padding: 1px 7px 3px 4px;
+    float: none;
+}
+
+.deleteIcon{
+    float: left;
+    margin: 0 0px 0 6px;
+    background: url(../images/sprite.png) no-repeat -286px 0px;
+    width: 13px;
+    height: 15px;
+}
+
+/* .commonTbMain tbody tr:nth-child(odd) {
+    background: #f4f4f4;
+}
+
+ .commonTbMain tbody tr:nth-child(odd):hover {
+    background: #fcf3d4;
+}
+.manageRolesDetailsSec */
+
+
+
+
+
+
+.eachServiceDetailsSec .commonTbMain tr td:nth-child(4), .eachServiceDetailsSec .commonTbMain tr td:nth-child(5) {
+   text-align: center;
+}
+
+.addUserButton{    
+    width: 120px;
+    float: right;
+    padding: 7px 15px 5px;
+    background: #2670b7;
+    color: #fff;
+    border-radius: 3px; 
+    text-align: center;
+    margin: 0px 0 20px;
+    -webkit-box-shadow: 5px 5px 1px -3px rgba(224,224,224,1);
+    -moz-box-shadow: 5px 5px 1px -3px rgba(224,224,224,1);
+    box-shadow: 5px 5px 1px -3px rgba(224,224,224,1);
+}
+
+.eachAdduserIcon{
+    width: 23px;
+    height: 20px;
+    float: left;
+    background: url(../images/sprite.png) no-repeat -317px 0px;
+}
+
+.blueHeading{
+    font-size: 20px;
+    float: left;
+    width:auto;
+    min-width: 100px;
+    color:#2670b7;
+    margin: 10px 0 10px 0;
+}
+
+
+.paginationMain{
+    width: auto;
+    float: left;
+    color: #000000;
+    margin: 10px 15px;
+}
+
+.material-iconsright{
+    width: 18px;
+    height: 16px;
+    float: left;
+    background: url(../images/sprite.png) no-repeat -385px 0px;
+    cursor: pointer;
+    margin: 6px 0;
+}
+
+.material-iconsleft{
+    width: 18px;
+    height: 16px;
+    float: left;
+    background: url(../images/sprite.png) no-repeat -358px -15px;
+    cursor: pointer;
+    margin: 6px 0;
+}
+
+.pagination li {
+    display: inline-block;
+    font-size: 14px;
+    padding: 0 5px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.pagination li a {
+    color: #000;
+  border: none;
+}
+
+.pagination li.active a {
+  color: #fff;
+  background-color: #709d34;
+  width: 30px;
+  height: 30px;
+   border-radius: 50%;
+   padding: 5px 0;
+}
+
+.pagination li.active {
+  background-color:none;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color:#709d34;
+    border-color: #709d34;
+}
+
+.pagination li.disabled a {
+  cursor: default;
+  color: #999;
+}
+
+.pagination li i {
+  font-size: 2.2em;
+  vertical-align: middle;
+}
+
+.pagination li.pages ul li {
+  display: inline-block;
+  float: none;
+}
+
+#Modal720 .modal-dialog{
+    width: 720px;
+}
+
+.modal-content{
+    border-radius: 0;
+    background: #eaeaea;
+    border: 0 none;
+    box-shadow: 0 0px 8px rgba(0, 0, 0, .5);
+}
+.modal-footer {
+    background: #fff;
+    padding: 30px 0;
+    border: none;
+    text-align: center;
+    margin-top: 40px;
+}
+.modal-header {
+    border: 0 none;
+    padding: 15px 30px;
+}
+.modal-title {
+    font-family: 'Gadugi-Bold';
+    line-height: 120%;
+}
+.modal-content input[type='text'] {
+    width: 100%;
+    border: 1px solid #bdbdbd;
+    padding: 8px 6px 12px 6px;
+}
+
+.modal-content input[type='text']:focus{
+    border: 1px solid #709d34;
+}
+.modal-content select {
+    width: 100%;
+    border: 1px solid #bdbdbd;
+    padding: 5px 6px 8px 6px;
+    border-radius: 0;
+}
+.modal-content select:focus {
+    border: 1px solid #709d34;
+}
+
+.bodyModal{
+    padding: 7px 30px 10px 30px;
+}
+.btn-default{
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 1px;
+    padding: 8px 30px;
+    font-family: 'Gadugi-Bold';
+    font-size: 16px;
+    background: #ffffff;
+    background: -moz-linear-gradient(top, #ffffff 1%, #eae9e9 100%);
+    background: -webkit-linear-gradient(top, #ffffff 1%,#eae9e9 100%);
+    background: linear-gradient(to bottom, #ffffff 1%,#eae9e9 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eae9e9',GradientType=0 );
+    -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,.2);
+    -moz-box-shadow: 2px 2px 2px 0px rgba(0,0,0,.2);
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,.2);
+}
+.btn-primary {
+    color: #fff;
+    background-color: #337ab7;
+    border: 1px solid #2670b7;
+    border-radius: 1px;
+    padding: 8px 30px;
+    font-family: 'Gadugi-Bold';
+    font-size: 16px;
+    -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,.2);
+    -moz-box-shadow: 2px 2px 2px 0px rgba(0,0,0,.2);
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,.2);
+}
+.modalLabel{
+    font-family: 'Gadugi-Bold';
+    font-size: 16px;
+    color: #333;
+    padding: 10px 0 13px 0;
+}
+
+.processListTbSec{
+    overflow-x: scroll; 
+}
+.processListTbSec .commonTbMain {
+    width: 1200px;
+    text-align: center;
+}
+
+.processUpdateDetails p{
+    color: #a3a3a3;
+    display: block;
+    line-height: 10px;
+}
+
+.processUpdateDetails{
+    margin-bottom: 20px;
+    float: left;
+}
+
+.inviteUserSection .fstMultipleMode .fstQueryInput, .CreateNewGroupSec .fstMultipleMode .fstQueryInput  {
+    text-align: left;   
+}
+
+ .tooltip > .tooltip-inner {
+        background-color: #fff;
+        color: #000;
+        border: 1px solid #fff;
+    } 
+    .tooltip.bottom > .tooltip-arrow {
+    border-bottom: 5px solid #fff;   
+}
+.SelectOnProfile{
+        padding: 6px 5px 8px;
+}
+
+.minHeightBodyPortion{
+    min-height:817px;
+}
+
+/*----Each Server Detail Section End----*/

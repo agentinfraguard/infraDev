@@ -1,4 +1,4 @@
-<section class="Profilesection">
+<section>
             <div class="companyDetailsBg">
                 <div class="profileHead">Server Details For Project : {{project.projectName}}</div>
                 <div class="topButtonDv">
@@ -13,9 +13,9 @@
             </div>
 
             <div class="clear">&nbsp;</div>
-                <div data-masonry data-masonry-options='{ "columnWidth": 100 }'>
-                <div data-masonry-item ng-class="{0 : 'last'}[($index+1) % 4]" class="perCompanyBox  masonry-brick"  data-ng-repeat="server in servers">
-                    <div class="profileHead2"><a href="javascript:void(0)" ng-click="setCompanyId(project.id)"><span class="projectIconClass"> </span>{{ server.serverName }}</a></div>
+               
+                <div ng-class="{0 : 'last'}[($index+1) % 4]" class="perCompanyBox "  data-ng-repeat="server in servers">
+                    <div class="profileHead2"><a href="#/eachServer" ng-click="setCompanyId(project.id)" class="serverHeading"><span class="serverIconClass"> </span>{{ server.serverName }}</a></div>
                     <a href="javascript:void(0)" ng-click="$parent.selectedIndex = $index;showOptions($index)" class="settingsIcon"><span class="companySettingIcon"></span></a>
                     <div class="settingsPop" ng-show="$parent.selectedIndex == $index?visible:false">
                         <ul>
@@ -27,16 +27,16 @@
                             <li ng-if = "server.lockedDown==1"><a href="javascript:void(0)" ng-click="showUserModal('serverUnlock', server.serverIP)">Unlock Server</a></li>
                               <li><a href="javascript:void(0)" ng-click="showUserModal('enviromentVariable', server.serverIP)">Enviroment variable</a></li>
                              <li><a href="javascript:void(0)" ng-click="showUserModal('processList', server.serverIP)">Process List</a></li>
+                             <li><a href="javascript:void(0)" ng-click="showUserModal('auditLogin', server.serverIP)">AuditLogin List</a></li>
+                              <li><a href="javascript:void(0)" ng-click="showUserModal('runScript', server.serverIP)">Run Script</a></li>
                         </ul>
                     </div>
                     <ul class="projectUl">
-                       <li ng-repeat="user in server.users" ng-if="$index <= 9"><a href="javascript:void(0)" ng-click="setCompanyId(company.id)">{{ user }}</a></li>
+                       <li ng-repeat="user in server.users" ng-if="$index <= 1"><a href="#/eachServer" ng-click="setCompanyId(company.id)">{{ user }}</a></li>
                     </ul>
                     <a class="moreClass" ng-click="setCompanyId(company.id)
-                    " ng-if="server.users.length > 9" href="javascript:void(0)">more <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                    " ng-if="server.users.length > 1" href="#/eachServer">more <span class="companyArrowIcon"> </span></a>
                 </div>
-            </div>
-                
-                
+            
             </div>
 </section>
