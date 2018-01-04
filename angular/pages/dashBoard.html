@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width" />
 
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    
     <!-- Font awesome css -->
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
-
-    
+   
     <!-- Custom css -->
-    <link rel="stylesheet" type="text/css" href="css/fastselect.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/multiple-select.css"/>
     <link rel="stylesheet" type="text/css" href="css/site.css" />
     <link rel="stylesheet" type="text/css" href="css/responsive.css" />
 </head>
@@ -20,21 +20,18 @@
 
     <section class="headersection">
         <div class="content-wrapper positionRelative">
-            <header class="header">
+              <header class="header">
                 <div class="headerLogodiv">
-                    <a href="#/">
-                    <img alt="" src="images/logo.png" />
-                    </a>
+                <a href="#/">
+                <img alt="" src="images/logo.png" />
+                </a>
                 </div>
                 <div class="menuDiv">
                     <ul class="topLinkUl">
-                        <!-- <li><a href="#/profile" class="menuButton">{{name}}</a></li> -->
-                        <li id="userMenuId" class="menuButton"><span>{{accountname}}  &nbsp; <span class="DorpDownIcon"></span> </span></li>
-                        <!-- <span class="menuButton logoutmenu DorpDownIcon"></span> --> 
-                        <!-- <li><a href="/logout" class="menuButton logoutmenu"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li> -->
-                    </ul>
+                        <li id="userMenuId" class="menuButton"><span> {{accountname}}  &nbsp; <span class="DorpDownIcon"></span> </span></li>
+                   </ul>
                     <div class="plusIconMain">
-              <a href="#" id="addUserDetailsWrapper">
+              <a href="javascript:void(0)" id="addUserDetailsWrapper" ng-click="addFunction()">
               <span class="addUserWhiteMain"> <span id="cross"></span> </span>
               </a>
             </div>
@@ -47,15 +44,15 @@
                 <li ng-model="userAccounts" ng-repeat="account in userAccounts">
 <a href="#/" ng-click="getAccountData(account.accountId,account.accountOwnerId)"><span class="rightIcon" ng-if="account.accountId==currentAccountId"> <i class="fa fa-check" aria-hidden="true"></i> </span>{{account.accountName}}</a>
 </li>
-                <li class="upgradeSection"></li> 
+                <li class="upgradeSection"></li>
 
-                        <li> <a href="#/manageRole"> IAM </a></li> 
-                        <li> <a href="#/profile"> My Profile </a></li>
+                        <li> <a ui-sref="iam.manageroles"> IAM </a></li>
+                        <li> <a ui-sref="profile"> My Profile </a></li>
 
 
-                <li class="upgradeSection"></li> 
+                <li class="upgradeSection"></li>
                      
-                      <li> <a href="/logout" class="menuButton logoutmenu textColorgrey">   <span class="userUpgradeBtn">Log Out &nbsp;  <i class="fa fa-sign-out" aria-hidden="true"></i></span></a>  </li> 
+                      <li> <a href="/logout" class="menuButton logoutmenu textColorgrey dropmenuLogout">   <span class="userUpgradeBtn">Log Out &nbsp;  <i class="fa fa-sign-out" aria-hidden="true"></i></span></a>  </li> 
                 </ul>
             </div>
         </div>
@@ -66,7 +63,8 @@
     <!-- Body Section -->
     <section class="Profilesection">
         <div class="content-wrapper">
-            <div class="ng-view">
+            <!-- <div class="ng-view"> -->
+            <div class="ui-view">
             </div>
             <div class="clear">&nbsp;</div>
             
@@ -95,10 +93,6 @@
             </div>
           </div>
         </div>
-
-
-
-
         <div id="Modal720" class="modal fade" ng-class="{true: 'fade1'}[visible_company]">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -124,11 +118,6 @@
             </div>
           </div>
         </div>
-
-
-
-
-
         <div class="modal fade" ng-class="{true: 'fade1'}[visible_command]">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -148,10 +137,6 @@
             </div>
           </div>
         </div>
-
-
-
-
         <div class="modal fade" ng-class="{true: 'fade1'}[visible_server]">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -177,10 +162,6 @@
           </div>
         </div>
 
-
-
-
-
         <div class="modal fade" ng-class="{true : 'fade1'}[visible_project]">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -205,10 +186,6 @@
             </div>
           </div>
         </div>
-
-
-
-
 
         <div class="modal fade" ng-class="{true : 'fade1'}[visible_add_user]">
           <div class="modal-dialog">
@@ -243,9 +220,6 @@
           </div>
         </div>
 
-
-
-
         <div class="modal fade" ng-class="{true : 'fade1'}[visible_delete_user]">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -277,10 +251,6 @@
             </div>
           </div>
         </div>
-
-
-
-
 
         <div class="modal fade" ng-class="{true : 'fade1'}[visible_privilege]">
           <div class="modal-dialog">
@@ -324,9 +294,6 @@
         </div>
 
 
-
-
-
         <div id="Modal720" class="modal fade" ng-class="{true: 'fade1'}[visibleLockdown]">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -344,10 +311,6 @@
             </div>
           </div>
         </div>
-
-
-
-
 
         <div class="modal fade" ng-class="{true: 'fade1'}[visibleUnlock]">
           <div class="modal-dialog">
@@ -367,10 +330,6 @@
           </div>
         </div>
 
-
-
-
-
         <div class="modal fade enableBox" ng-class="{true: 'fade1'}[visibleDMFA]">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -389,10 +348,6 @@
             </div>
           </div>
         </div>
-
-
-
-
 
         <div class="modal fade enableBox" ng-class="{true: 'fade1'}[visibleEMFA]">
           <div class="modal-dialog">
@@ -495,27 +450,27 @@
 
 
         <!--process list code   start-->
-        <div class="modal fade" ng-class="{true: 'fade1'}[visibleProcessList]">
+         <div class="modal fade" ng-class="{true: 'fade1'}[visibleProcessList]">
           <div class="modal-dialog processListClass">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" ng-click="close('processListCancel')" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></button>
                 <h3 class="modal-title">Top Running Process Data</h3>
                 <div class="serverStatus" ng-hide="processLstdata.length<1">server status</div>
-              </div>
+              </div> 
               <!-- code to show table with process data -->
-             <div class="modal-body">
-
-                  <div class="padding10 emptyProccessList" ng-show="processLstdata.length<1">
+           <div class="modal-body">
+       <div class="padding10 emptyProccessList" ng-show="processLstdata.length<1">
                     <p>
                         There is no data in proccess list   
                     </p>
                    <p>please refresh the page to get current result .it will take 5 minutes .</p>
-                </div>
+                </div> 
                 <div class="emptyProccessList" ng-hide="processLstdata.length<1">
                   <div class=serverStatusHead ng-repeat="(key,value) in processLstdata " ng-if="key <5" >
                   <div>{{value}}</div>                  
                   </div>
+                  <div class="modalTbScroll">
                     <table class="modalPopUpTbMain">
                      <tr>               
                       <th>PID</th>
@@ -547,13 +502,15 @@
                             <td>{{x[11]}}</td>
                           </tr>
                     </table> 
+                    </div>
                <div class="bodyModal">
                </div>
                   </div>
               <div class="modal-footer">
-                <input class="createRoleBtn" type="submit" ng-click="close('processListOk')" value="OK" class="btn btn-primary" />                
-                <button class="cancelRoleBtn" type="button" ng-click="close('refreshProcessList')" class="btn btn-primary" data-dismiss="modal">Refresh</button>
-                <button class="cancelRoleBtn" type="button" ng-click="close('processListCancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button class="btn btn-default" type="button" ng-click="close('processListCancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-default" type="button" ng-click="close('refreshProcessList')" class="btn btn-primary" data-dismiss="modal">Refresh</button>
+                <input class="btn btn-primary" type="submit" ng-click="close('processListOk')" value="OK" class="btn btn-primary" />
+                
               </div>
             </div>
             </div>
@@ -571,7 +528,11 @@
               <div class="modal-header">
                 <button type="button" class="close" ng-click="close('enviromentVariable_cancel')" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></button>
                 <h2 class="modal-title">enviroment variable</h2>
-                <div class="enviromentScopeUser"><div ng-hide="envdata.length<1">scope:{{user}}</div></div>
+                  <br><br>
+                <div class="enviromentScopeUser"><div ng-hide="envdata.length<1">scope:{{user}}</div></div><br><br>
+                <input class="createRoleBtn" type="submit" ng-click="close('envVarUserSpecific')" value="USER SPECIFIC DATA" class="btn btn-primary" />
+                <input class="createRoleBtn" type="submit" ng-click="close('envVarSystemSpecific')" value="SYSTEM SPECIFIC DATA" class="btn btn-primary" />
+                 
               </div>
               <div class="modal-body">
                 <div class="padding10 " ng-show="envdata.length<1">
@@ -606,18 +567,13 @@
         </div>
 
 
-
-
-
-
-
         <section class="footerSection">
             <div class="copyrightText">InfraGuard 1.1.1-0 Copyright &copy; Company Corporation</div>
         </section>
 
 <!-- enviroment variable end dialog -->
         <!--audit login code   start-->
-        <div class="modal fade" ng-class="{true: 'fade1'}[visibleauditLogin]">
+          <div class="modal fade" ng-class="{true: 'fade1'}[visibleauditLogin]">
           <div class="modal-dialog processListClass">
             <div class="modal-content">
               <div class="modal-header">
@@ -634,7 +590,8 @@
                    <p>please refresh the page to get current result .it will take 5 minutes .</p>
                 </div>
                 <div class="emptyProccessList" ng-hide="dataAuditlogin.length<1">
-                <div class="emptyProccessList">                  
+                <div class="emptyProccessList"> 
+                <div class="modalTbScroll">                 
                     <table class="modalPopUpTbMain">
                      <tr>               
                       <th>USERNAME</th>
@@ -651,70 +608,182 @@
                             <td>{{x[4]}}</td>                           
                           </tr>
                     </table> 
-               
+               </div>
                   </div>
                   </div>
               <div class="modal-footer">
-                <input class="createRoleBtn" type="submit" ng-click="close('auditLoginOk')" value="OK" class="btn btn-primary" />
-                <button class="cancelRoleBtn" type="button" ng-click="close('auditLoginCancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button class="cancelRoleBtn" type="button" ng-click="close('refreshauditLogin')" class="btn btn-default" data-dismiss="modal">Refresh</button>
-                
-                
+               <button class="btn btn-default" type="button" ng-click="close('refreshauditLogin')" class="btn btn-default" data-dismiss="modal">Refresh</button>
+               
+               <input class="btn btn-primary" type="submit" ng-click="close('auditLoginOk')" value="OK" class="btn btn-primary" />
+
+              <button class="btn btn-default " type="button" ng-click="close('auditLoginCancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
               </div>
             </div>
             </div>
           </div>
         </div>
-
 <!--audit login code   end-->
 <!--runscript code   start-->
 <div class="modal fade" ng-class="{true : 'fade1'}[visible_run_script]">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" ng-click="close('runScript_cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="close" ng-click="close('runScript_cancel')" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></button>
                 <h2 class="modal-title">Run script</h2>
               </div>
-
-              <div class="modal-body">
-              <form name="emailForm" autocomplete="off" novalidate>
-              
+              <form name="runScriptForm" autocomplete="off" novalidate>
+               <div class="bodyModal runScriptbodyModal">     
                    <p>
                         Please enter the script:
                     </p>
-                    <input id="Text4"  ng-model="runScript" name="script" placeholder="Enter script" required />
-                    
-                   <!--  <div class="usersList" ng-show="users.length > 0 ? listStatus : false">
-                        <ul>
-                            <li ng-repeat="user in users" ng-click="setUser(user)"><a href="javascript:void(0)">{{ user.uname + " - " + user.email}}</a></li>
-                        </ul>
-                    </div> -->
-
-                    <div>
-                  <!--   <p class="colorRed" ng-show="!emailValid">Email is invalid.</p> -->
-                    </div>
-                   <!--  <p class="colorRed" ng-show="emailForm.userEmail.$error.required">User Email must be filled.</p> -->
-             
-              <div class="modal-footer">
-                <input class="createRoleBtn" type="submit" ng-click="close('runScript_ok')" value="OK" class="btn btn-primary" />
-                <button class="cancelRoleBtn" type="button" ng-click="close('runScript_cancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                
+                     <label class="modalLabel">User script</label>
+                    <textarea  id="Text4" class="runScriptText" ng-model="runScript" name="runScript" placeholder="Enter script" required ></textarea>
+                     <span class="colorRed" ng-show="runScriptForm.runScript.$error.required">Run Script must be filled.</span>
+                </div>
+               <div class="modal-footer">
+                <input class="btn btn-primary" type="submit" ng-click="close('runScript_ok')" value="OK" class="btn btn-primary" />
+                <button class="btn btn-default" type="button" ng-click="close('runScript_cancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>        
               </div>
-              </form>
-            </div>
+              </form>          
             </div>
           </div>
         </div>
+
 <!--audit login code   end-->
+
+
+        <div class="modal fade" ng-class="{true : 'fade1'}[visibleRootAccess]">
+        <div class="modal-dialog"> 
+        <div class="modal-content"> 
+              <div class="modal-header">
+              <button type="button" class="close" ng-click="open('userRootAccessCancel')" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></button> 
+                <div class="clear">&nbsp;</div>
+                <h3 class="modal-title">you have already a {{routeAccess}} privilege.</h3>
+              </div>
+              <div class="bodyModal">
+              </div>
+              <div class="modal-footer">
+                <input type="submit"  value="OK" ng-click="open('userRootAccessCancel')" class="btn btn-primary" />           
+              </div>
+              </div>
+              </div>
+
+        </div>
+
+
+ <div class="modal fade" ng-class="{true : 'fade1'}[visibleAllReadyUser]">
+    <div class="modal-dialog"> 
+        <div class="modal-content"> 
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="open('userAccessChangeCancel')" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></button>   
+                <div class="clear">&nbsp;</div>
+                <h3 class="modal-title">your Access will be changed {{userAccessChange}}</h3>
+              </div>
+              <div class="bodyModal">
+              </div>
+              <div class="modal-footer">
+                
+                <input type="submit"  value="OK" ng-click="close('userAccessChangeButton')"  class="btn btn-primary" />
+                <button type="button" ng-click="open('userAccessChangeCancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              </div>
+              </div>
+              </div>
+          </div>
+
+  <div class="modal fade" ng-class="{true : 'fade1'}[visibleDeleteUser]">
+        <div class="modal-dialog"> 
+        <div class="modal-content"> 
+         <div class="modal-header"> 
+             <button type="button" class="close" ng-click="open('deleteUserCancel')" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></button>   
+                <h2 class="modal-title">Delete User</h2>   
+                </div> 
+                <div class="bodyModal">
+                   <div class="blueHeading boldFont"> Are you sure you want to  delete this user.</div>
+               </div>
+               <div class="modal-footer">
+               <input class="btn btn-primary" type="submit" ng-click="close('deleteUserOkButton')" value="OK"/>
+                <button class="btn btn-default" type="button" ng-click="open('deleteUserCancel')" data-dismiss="modal">Cancel</button>                 
+              </div>
+              </div> 
+              </div>
+            </div>
+
+      <div class="modal fade" ng-class="{true : 'fade1'}[visibleEditCompanyName]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('companyNameEditcancel')" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></button>
+                <h2 class="modal-title">Edit Company Name</h2>
+              </div>
+              <form>
+              <div class="bodyModal">
+                   <p>
+                        Please enter the new company name:
+                    </p>
+                    <input id="Text4" type="text" ng-model="companyName" name="companyName" placeholder={{companyName}}/>
+                    <span class="colorRed" ng-show="errName">company  Name must be filled</span>
+                    <span class="colorRed">{{ company_err_msg }}</span>
+                </div>
+              <div class="modal-footer">
+                <button type="button" ng-click="close('companyNameEditcancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" ng-click="close('companyNameEditok')" value="OK" class="btn btn-primary" />
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+
+    <div class="modal fade" ng-class="{true : 'fade1'}[visibleDeleteCompanyName]">
+        <div class="modal-dialog"> 
+        <div class="modal-content"> 
+         <div class="modal-header"> 
+             <button type="button" class="close" ng-click="close('DeleteCompanyNameCancel')" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></button>   
+                <h2 class="modal-title">Delete company Name</h2>   
+                </div> 
+                <div class="bodyModal">
+                   <div class="blueHeading boldFont"> Are you sure you want to  delete this company name.</div>
+               </div>
+               <div class="modal-footer">
+               <input class="btn btn-primary" type="submit" ng-click="close('deleteCompanyNameOkButton')" value="OK"/>
+                <button class="btn btn-default" type="button" ng-click="close('DeleteCompanyNameCancel')" data-dismiss="modal">Cancel</button>                 
+              </div>
+              </div> 
+              </div>
+            </div>
+
+      <div class="modal fade" ng-class="{true : 'fade1'}[visibleEditProjectName]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="popupClose('EditProjectNameCancel')" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></button>
+                <h2 class="modal-title">Edit Company Name</h2>
+              </div>
+              <form>
+              <div class="bodyModal">
+                   <p>
+                        Please enter the new Project name:
+                    </p>
+                    <input id="Text4" type="text" ng-model="projectName" name="projectName" placeholder={{projectName}}/>
+                     <span class="colorRed" ng-show="errName">company  Name must be filled</span>
+                    <span class="colorRed">{{ company_err_msg }}</span>
+                </div>
+              <div class="modal-footer">
+                <button type="button" ng-click="popupClose('EditProjectNameCancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" ng-click="popupOk('EditProjectNameOk')" value="OK" class="btn btn-primary" />
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
   <script type="text/javascript" src="js/jquery-1.10.0.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
-  
   <script type="text/javascript" src="js/angular.min.js"></script>
-  <script type="text/javascript" src="js/angular-route.min.js"></script>
-  <!-- <script type="text/javascript" src="js/angular-ui-router.js"></script> -->
+  <!-- <script type="text/javascript" src="js/angular-route.min.js"></script> -->
+  <script type="text/javascript" src="js/angular-ui-router.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular-animate.min.js"></script>
- <!--  <script type="text/javascript" src="js/angular-masonry.min.js"></script>
-  <script type="text/javascript" src="js/masonry.pkgd.min.js"></script> -->
+  <script data-require="ui-bootstrap@*" data-semver="0.12.1" src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
   <script type="text/javascript" src="config/dashboardConfig.js"></script>
   <script type="text/javascript" src="controllers/profileController.js"></script>
   <script type="text/javascript" src="controllers/HelpController.js"></script>
@@ -726,37 +795,36 @@
   <script type="text/javascript" src="controllers/mfaPageController.js"></script>
   <script type="text/javascript" src="controllers/manageRolesController.js"></script>
   <script type="text/javascript" src="controllers/createRoleController.js"></script>
+  <script type="text/javascript" src="controllers/manageGroupController.js"></script>
+  <script type="text/javascript" src="controllers/createGroupController.js"></script>
+  <script type="text/javascript" src="controllers/manageUsersController.js"></script>
+  <script type="text/javascript" src="controllers/inviteUsersController.js"></script>
+  <script type="text/javascript" src="controllers/eachServerDetailController.js"></script>
   <script type="text/javascript" src="directives/fileUploadDirective.js"></script>
   <script type="text/javascript" src="services/companyService.js"></script>
-  
- <!--  <script type="text/javascript" src="js/build.min.js"></script>  -->
-  <!-- <script type="text/javascript" src="js/fastselect.min.js"></script> -->
-  <script type="text/javascript" src="js/fastselect.standalone.min.js"></script>       
+  <script type="text/javascript" src="js/multiple-select.js"></script>       
 
 <script>
-    $(document).ready(function() {
-     $('#userMenuId').on("click", function(e) {
-        e.stopPropagation();
-          if ($('#userDropdown').hasClass('actionListBlock')) {
-
-            $('#userDropdown').removeClass('actionListBlock');
+$(document).ready(function() {
+  $('#userMenuId').on("click", function(e) {
+    e.stopPropagation();
+    if ($('#userDropdown').hasClass('actionListBlock')) {
+      $('#userDropdown').removeClass('actionListBlock');
     } 
     else
     {
       $('#userDropdown').addClass('actionListBlock');
     }
-    });
+  });
 
-     $('html').on("click", function (event) {
-      event.stopPropagation();
-      if (!$(event.target).hasClass("actionListBlock")) 
-    { 
-      
-        $("#userDropdown").removeClass('actionListBlock');
-        
-    }
-    
-});
+  $('html').on("click", function (event) {
+    event.stopPropagation();
+    if (!$(event.target).hasClass("actionListBlock"))
+     {       
+      $("#userDropdown").removeClass('actionListBlock');
+     }
+  });
+
 });
 </script>
 

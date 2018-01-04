@@ -9,7 +9,9 @@ function($scope, $rootScope, $http, companyService, $window, $document, $timeout
 	$rootScope.startServerKeyRotation = false;
 	$rootScope.stopServerKeyRotation = false;
 	$rootScope.updateServerKey = false;
+	$rootScope.visibleEditProjectName=false;
 	$rootScope.projectId = "";
+    $rootScope.projectName = "";     
 	var local_index = -1;
     var body = angular.element($document[0].body);
    // var projectPageDetailsUrl="";
@@ -54,7 +56,7 @@ var loadTime = 5000, //Load the data every second
 			var servers = [];
 			data.projects[x].servers = [];
 				for(var y in data.servers){
-					if(data.servers[y].project_id == data.projects[x].id){
+					if(data.servers[y].projectId == data.projects[x].id){
 						servers.push(data.servers[y]);
 						data.projects[x].servers = servers;
 				    }
@@ -71,6 +73,20 @@ var loadTime = 5000, //Load the data every second
 		
       };
 
+	$rootScope.addFunction = function() {
+			$rootScope.visible_project = $rootScope.visible_project ? false : true;
+			$rootScope.errName = false;
+			$rootScope.projectName = "";
+			$rootScope.project_err_msg = "";
+			if ($rootScope.visible_project) {
+				body.addClass("overflowHidden");
+				$rootScope.modal_class = "modal-backdrop fade in";
+			} else {
+				body.removeClass("overflowHidden");
+				$rootScope.modal_class = "";
+			}
+		}
+		
 	  var cancelNextLoad = function() {
 	    $timeout.cancel(loadPromise);
 	  };
@@ -118,13 +134,13 @@ var loadTime = 5000, //Load the data every second
 				}).
 				success(function(data){
 					if(data.success == 1){
-						var result = {projectName: pname.trim(), id: data.row_id, company_id: companyService.getId()};
+						var result = {projectName: pname.trim(), id: data.row_id, companyId: companyService.getId()};
 						$rootScope.visible_project = $rootScope.visible_project ? false : true;
 						$scope.projects.push({projectName : result.projectName, id : result.id});
 						var companydata = $rootScope.companies;
 						for(var x in companydata){
 							var projects = companydata[x].projects;
-							if(result.company_id == companydata[x].id){
+							if(result.companyId == companydata[x].id){
 								projects.push(result);
 								companydata[x].projects = projects;
 							}
@@ -171,8 +187,8 @@ var loadTime = 5000, //Load the data every second
 		}
 	};
 
-	$scope.showPopup = function(mode, projectId) {
-		if (mode == "createProject") {
+	$scope.showPopup = function(mode, projectId,projectName) {
+		/*if (mode == "createProject") {
 			$rootScope.visible_project = $rootScope.visible_project ? false : true;
 			$rootScope.errName = false;
 			$rootScope.projectName = "";
@@ -184,7 +200,7 @@ var loadTime = 5000, //Load the data every second
 				body.removeClass("overflowHidden");
 				$rootScope.modal_class = "";
 			}
-		}else if (mode == "startKeyAutoRotation") {
+		}else*/ if (mode == "startKeyAutoRotation") {
 			$rootScope.projectId = projectId;
 			$rootScope.startServerKeyRotation = $rootScope.startServerKeyRotation ? false : true;
 			$rootScope.modal_class = "modal-backdrop fade in";
@@ -194,8 +210,15 @@ var loadTime = 5000, //Load the data every second
 			$rootScope.modal_class = "modal-backdrop fade in";
 		}else if (mode == "updateServerKey") {
 			$rootScope.projectId = projectId;
-			$rootScope.updateServerKey = $rootScope.updateServerKey ? false : true;
 			$rootScope.modal_class = "modal-backdrop fade in";
+		}
+
+		else if (mode == "EditProjectName") {
+			$rootScope.projectId = projectId;
+			$rootScope.projectName=projectName;
+			$rootScope.visibleEditProjectName = $rootScope.visibleEditProjectName ? false : true;
+			$rootScope.modal_class = "modal-backdrop fade in";
+			console.log(projectName)
 		}
     };
 
@@ -216,6 +239,12 @@ var loadTime = 5000, //Load the data every second
 			$rootScope.modal_class = "";
 			$rootScope.projectId = "";
 		} 
+		else if (value == "EditProjectNameCancel") {
+			$rootScope.visibleEditProjectName = $rootScope.visibleEditProjectName ? false : true;
+			body.removeClass("overflowHidden");
+			$rootScope.modal_class = "";
+			
+		}
 
     };
 
@@ -269,6 +298,20 @@ var loadTime = 5000, //Load the data every second
 			     $rootScope.modal_class = "";
 				 $rootScope.projectId = "";
 				}
+			});
+		}
+		
+		else if(value == "EditProjectNameOk"){
+			//console.log($rootScope.projectName,projectId);
+			$rootScope.visibleEditProjectName = $rootScope.visibleEditProjectName ? false : true;
+			$http({
+			url: "/EditProjectName",
+			method: "POST",
+			data: {id : $rootScope.projectId,projectName:$rootScope.projectName},
+			headers: {"Content-Type": "application/json"}
+			})
+			.success(function(data){
+			
 			});
 		}
     };

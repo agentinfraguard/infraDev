@@ -1,22 +1,22 @@
 <section>
             <div class="companyDetailsBg">
                 <div class="profileHead">Server Details For Project : {{project.projectName}}</div>
-                <div class="topButtonDv">
+                <!--<div class="topButtonDv">
                     <a href="javascript:void(0)" ng-click="showServerModal()" class="addButton"><i class="fa fa-plus" aria-hidden="true"></i> Add Server</a>
-                    <!-- <a href="#/users" class="manageButton"><i class="fa fa-user" aria-hidden="true"></i> User Management</a> -->
+                     <a href="#/users" class="manageButton"><i class="fa fa-user" aria-hidden="true"></i> User Management</a> 
                 </div>
 
            <div class="page_messages" ng-style="createStyle">
               <div class="headsup-close-button" ng-click="createStyle={display:'none'}"><i class="fa fa-times"></i>
               </div>
               <div class="innerhtml"><h3>Create new server.</h3></div>
-            </div>
+            </div>-->
 
             <div class="clear">&nbsp;</div>
                
                 <div ng-class="{0 : 'last'}[($index+1) % 4]" class="perCompanyBox "  data-ng-repeat="server in servers">
-                    <div class="profileHead2"><a href="#/eachServer" ng-click="setCompanyId(project.id)" class="serverHeading"><span class="serverIconClass"> </span>{{ server.serverName }}</a></div>
-                    <a href="javascript:void(0)" ng-click="$parent.selectedIndex = $index;showOptions($index)" class="settingsIcon"><span class="companySettingIcon"></span></a>
+                    <div class="profileHead2"><a href="#/eachServer" ng-click="setServerIp(server.serverIP)" class="serverHeading"><span class="serverIconClass"> </span>{{ server.serverName }}</a></div>
+                    <a href="javascript:void(0)" ng-click="$parent.selectedIndex = $index;showOptions($index,$event);" class="settingsIcon"><span class="companySettingIcon"></span></a>
                     <div class="settingsPop" ng-show="$parent.selectedIndex == $index?visible:false">
                         <ul>
                             <li ng-if = "server.users.indexOf(name.toLowerCase()) != -1"><a href="javascript:void(0)" ng-click="showUserModal('getAccessKey', server.serverIP)">Get Access Key</a></li>
@@ -32,10 +32,9 @@
                         </ul>
                     </div>
                     <ul class="projectUl">
-                       <li ng-repeat="user in server.users" ng-if="$index <= 1"><a href="#/eachServer" ng-click="setCompanyId(company.id)">{{ user }}</a></li>
+                       <li ng-repeat="user in server.users" ng-if="$index <= 1"><a href="#/eachServer" ng-click="setServerIp(server.serverIP)">{{ user }}</a></li>
                     </ul>
-                    <a class="moreClass" ng-click="setCompanyId(company.id)
-                    " ng-if="server.users.length > 1" href="#/eachServer">more <span class="companyArrowIcon"> </span></a>
+                    <a class="moreClass" ng-click="setServerIp(server.serverIP)" ng-if="server.users.length > 1" href="#/eachServer">more <span class="companyArrowIcon"> </span></a>
                 </div>
             
             </div>

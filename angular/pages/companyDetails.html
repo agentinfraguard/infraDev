@@ -1,31 +1,15 @@
 <section>
             <div class="companyDetailsBg addCompanyDetail">
                 <div class="profileHead">All Company List</div>
-                <div class="topButtonDv">
-                    <a href="javascript:void(0)" ng-click="showCompanyModal()" class="addButton"><i class="fa fa-plus" aria-hidden="true"></i> Add Company</a>
-                    <!-- <a href="#/users" class="manageButton"><i class="fa fa-user" aria-hidden="true"></i> User Management</a> -->
-                </div>
                 
-          <div class="page_messages" ng-style="createStyle">
-            <div class="headsup-close-button" ng-click="createStyle={display:'none'}"><i class="fa fa-times"></i>
-            </div>
-            <div class="innerhtml"><h3>Create new company.</h3></div>
-
-          </div>
-        
                 <div class="clear">&nbsp;</div>
-                
-
-            <div ng-class="{0 : 'last'}[($index+1) % 4]" class="perCompanyBox" ng-repeat="company in companies">
+            <div class="col-xs-12 col-sm-6 perCompanyBox" ng-repeat="company in companies">
                 <div class="profileHead2"> <span class="companyIconClass"> </span> <a href="#/project" ng-click="setCompanyId(company.id)">{{ company.companyName }}</a></div>
-                 <a href="javascript:void(0)" ng-click="$parent.selectedIndex = $index;showOptions($index)" class="settingsIcon"> <span class="companySettingIcon"></span> 
-                <!--<div class="settingsPop" ng-show="$parent.selectedIndex == $index?visible:false">
-                    <ul>
-                        <li><a>Option1</a></li>
-                        <li><a>Option2</a></li>
-                        <li><a>Option3</a></li>
-                    </ul>
-                </div> -->
+                <a href="javascript:void(0)" ng-click="$parent.selectedIndex = $index;showOptions($index)" class="settingsIcon"> <span class="companySettingIcon"></span> 
+                <div class="settingsPop" ng-show="$parent.selectedIndex == $index?visible:false">
+                        <ul>
+                            <li><a href="javascript:void(0)" ng-click="showCompanyPopup('EditCompany',company.id,company.companyName )">Edit Company</a></li>
+                            <li><a href="javascript:void(0)" ng-click="showCompanyPopup('DeleteCompany',company.id,company.companyName)">Delete Company</a></li></ul></div>
                 <ul class="projectUl">
                    <li ng-repeat="project in company.projects" ng-if="$index <= 1"><a href="#/project" ng-click="setCompanyId(company.id)">{{ project.projectName}}</a></li>
                 </ul>
@@ -43,12 +27,12 @@
           </div> -->
           <div class="page_messages">
               
-           <div class="SlidePopUpCommon projectSlidePopUp">
+           <div class="SlidePopUpCommon projectSlidePopUp" ng-show="mfaStyle">
                <h3 class="whiteText boldFont">Secure your login</h3>
                 <p class="whiteText">Set up <a href="#/mfa" >MFA</a> for extra layer of security.</p>
                 <i id="projectCloseBtn" class="fa fa-times secureLoginCloseIcon"></i>
            </div>
-            <div class="SlidePopUpCommon companySlidePopUp">
+            <div class="SlidePopUpCommon companySlidePopUp" ng-show="createStyle">
                <h3 class="whiteText boldFont">Create new company</h3>
                <i id="companyCloseBtn" class="fa fa-times secureLoginCloseIcon"></i>
            </div>
@@ -74,11 +58,7 @@ $(document).ready(function(){
 
     });
 
-    $('#serverMfaCloseBtn').click ( function(){
-
-        $('.serverSlidePopUp').hide();
-
-    });
+   
 
 
 

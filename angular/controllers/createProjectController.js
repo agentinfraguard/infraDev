@@ -23,7 +23,7 @@ var pname = "";
 				}).success(function(data){
 					if(data.success == 1){
 						$element.modal('hide');
-						var result_data = {projectName: pname.trim(), id: data.row_id, company_id: companyService.getId()};
+						var result_data = {projectName: pname.trim(), id: data.row_id, companyId: companyService.getId()};
 						close(result_data, 500);
 					}else{
 						$element.modal('hide');

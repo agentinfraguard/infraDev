@@ -13,7 +13,10 @@
 }
 .Profilesection{
     min-height: 817px;
-}    
+} 
+.rowMain{ 
+    min-height: 750px;
+}   
 }
 @media (min-width:1367px) and (max-width:1600px) {
     .content-wrapper {
@@ -23,69 +26,603 @@
 .Profilesection{
     min-height: 817px;
 }
+.rowMain{ 
+    min-height: 600px;
+}
     /*---1367 to 1600---*/
 }
 @media (min-width:1280px) and (max-width:1366px) {
 	.content-wrapper {
-    margin: 0 auto;
     max-width: 1260px;
 }
 .Profilesection{
     min-height: 495px;
-}  
+}
+.rowMain{ 
+    min-height: 600px;
+}
 }
 @media (min-width:1200px) and (max-width:1279px) {
 	.content-wrapper {
-    margin: 0 auto;
     max-width: 1170px;
 }
+
+.manageRoleRight {
+    width: 79%;
+}
+
+.perCompanyBox {
+    width: 23.6%;
+}
+
+.serverBoxCommon {
+    width: 32.4%;
+}
+
+/*---1200 to 1279----*/
 }
 
 @media (max-width:1199px) {
 
+.roleDetailsSec {
+    padding: 15px;
+    overflow: auto;
 }
+
+.table-wrapper{
+    overflow-x:auto;
+    overflow-y: hidden;
+    padding: 0 0 20px 0;
+}
+.CreateNewGroupSec .roleDetailsSec {
+    overflow: initial;
+}
+
+.inviteUserSection .roleDetailsSec {
+    overflow: initial;
+}
+/*.manageRolesTbMain {
+    width: 907px;
+    display: block;
+}*/
+
+
+/*.manageRolesTbMain {
+    width: 907px !important;
+    display: block;
+}*/
+
+.commonTbMain { 
+    width: 1000px;
+    }
+.manageRoleHeading {
+    line-height: 40px;
+    margin: 8px 0px 20px 0px;
+}
+
+#tableMainWrapper .commonTbMain{
+    width: 820px !important
+}
+
+#tableMainWrapper{
+    overflow-x: auto;
+    overflow-y: hidden;
+    /*margin-right: 10px;*/
+    width: 100%;
+}
+ .manageRolesDetailsSec .formLabelBlanck{
+    display: none;
+}
+
+.manageRolesSec .formLabelBlanck{
+        display: none;
+}
+
+.manageRolesSec .formlabel{
+    width: 100%;
+    margin: 10px 0;
+}
+
+.actionList {
+    right: 19px;
+}
+
+.multiFactor {
+    width: 100% !important;
+}
+
+.formlabel{
+    margin-bottom:10px;
+}
+/*----max-1199px----*/
+}
+
+
+
+
+
+
+
 @media (min-width:992px) and (max-width:1199px) {
 	.content-wrapper {
-    margin: 0 auto;
     max-width: 900px;
 }
+
+.perCompanyBox {
+    width: 31.5%;
+}
+ .manageRoleRight {
+        width: 73.8%;
+    }
+
+    .serverBoxCommon {
+        width: 49%;
+    }
+/*---992 to 1199----*/
+
+
 }
 @media (min-width:768px) and (max-width:991px) {
 	.content-wrapper {
-    margin: 0 auto;
     max-width: 740px;
 }
+
+.manageRoleRight {
+    width: 68.2%;
+}
+
+.serverBoxCommon {
+        width: 49%;
+    }
+
+     .perCompanyBox {
+        width: 32.5%;
+        margin: 0 0px 6px 6px;
+    }
+/*---768 to 991---*/
 }
 @media (max-width:767px) {
 
+.leftMenuWrapper {
+    width: 100%;
+    margin-right:0px;
+}
+
+.manageRoleRight {
+    width: 100%;
+    margin: 20px 0 0 0;
+}
+
+.roleDetailsSec {
+    padding: 30px 10px 20px;
+    overflow-x: scroll;
+}
+
+.leftMenuMain {
+    margin: 25px 0 0 0;
+}
+
+.serverBoxCommon {
+        width: 49.5%;
+    }
+
+   .perCompanyBox {
+        width: 47.5%;
+    }
+
+    .introText {
+    margin: 0;    
+    width: 100%;
+}
+
+.homeListUl {
+    margin: 0;
+    width: 100%;
+}
+
+.roleDetailsSec {
+    min-height: 200px;
+    height: auto;
+}
+
+.beforeloginBody .navbar-default {
+    position: absolute !important;
+    background: #709d34;
+    top: 65px;
+    border-radius: 0 0 2px 2px;
+    margin: 0;
+    z-index: 99999;
+    border-color:transparent;
+}
+
+.headersection .navbar {
+    padding-top: 0px;
+}
+
+.beforeloginBody .topLinkUl li {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #86bb40;
+}
+/*.beforeloginBody .topLinkUl li a:hover{
+    color: red;
+} */
+
+.navbar-nav {
+    margin: auto;
+}
+.navbar {
+    border: none !important;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+     background-color: transparent; 
+}
+
+.nav > li > a {
+    padding: 10px 0px;
+}
+
+.navbar-nav > li > a {
+     padding-top: 10px; 
+     padding-bottom: 10px; 
+     line-height: 20px; 
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+     background-color: none; 
+}
+.navbar-toggle {
+    padding: 0;
+    margin-top: 20px;
+    background-color: transparent;
+    background-image: none;
+    border:none;
+    margin-right: 22px;
+}
+
+
+
+
+.multiFactor .mfaLeft h1 {
+    font-size: 20px;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.beforeloginBody .nav > li > a {
+     padding: 10px; 
+     display: block;
+}
+
+.beforeloginBody .nav > li > a:hover{
+   background: #99c75b;
+}
+.navbar-collapse .collapse .in{
+    width: 150px;
+}
+
+/*.beforeloginBody .headersection {
+     height: 87px;
+}*/
+
+ .navbar-default .navbar-toggle {
+    width: auto;
+    position: absolute;
+    top: -60px;
+    left: -44px; 
+}
+.navbar-collapse {
+    padding-right: 0;
+    padding-left: 0; 
+}
+
+.serverBoxCommon {
+    margin: 0 0 5px;
+}
+/*---Max 767----*/
 }
 @media (min-width:641px) and (max-width: 767px) {
 	.content-wrapper {
-    margin: 0 auto;
     max-width: 600px;
 }
+/*---641 to 767----*/
 }
 @media (max-width:640px) {
 
+     .createNewGroup .formlabel {
+    width: 100%;
+    text-align: left;
+    margin: 10px 0;
+}
+
+.formWrapper {
+    margin: 4px 0 0 0;
+}
+
+.createRoleBtn {
+    margin: 10px 15px 0px 0;
+}
+
+.cancelRoleBtn {
+    margin: 10px 0 0;
+}
+
+.inputTextArea {
+    width: 100%;
+}
+
+.fastselectMainDiv {
+    width: 100%;
+}
+.formLabelBlanck{
+    display: none;
+}
+
+.inviteUserSection .roleDetailsSec {
+    padding: 0 10px 20px;
+}
+
+.CreateNewGroupSec .roleDetailsSec {
+    padding: 0 10px 20px;
+}
+
+.perCompanyBox {
+    width: 100%;
+    margin: 0 auto 10px;
+}
+
+.multiFactor .mfaRight {
+    width: 100%;
+}
+
+.multiFactor .mfaLeft {
+    width: 100%;
+}
+.manageRoleHeading {
+    font-size: 25px;
+}
+
+/*---Max 640----*/
 }
 @media (min-width:481px) and (max-width:640px) {
 	.content-wrapper {
-    margin: 0 auto;
     max-width: 450px;
 }
+
+
+
+a.setupMFABtn, .changePasswordBtn, .profileForm .saveBtn {
+    margin-right: 5px;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+     background-color: none !important;
+}
+/*---481 to 640----*/
 }
 @media (max-width:480px) {
 
+	.changePasswordBtn {
+    background: #2670b7 url(../images/keyIcon.png) no-repeat 57px 7px;
+    width: 100%;
+    margin-bottom: 15px;
 }
+     .commonTbMain {
+    font-size: 14px;
+}
+
+.manageRolesTbMain table tr th{
+    padding: 8px 0;
+
+}
+a.setupMFABtn {
+    padding: 0px 0;
+    width: 100%;
+    float: left;
+    text-align: center;
+}
+.profileForm .saveBtn {
+    margin-top: 15px;
+    width: 100%;
+    text-align: center;
+}
+.cabinet {
+    min-height: 100px;
+    height: auto;
+    float: left;
+}
+.cabinet .saveBtn{
+	width: 97%;
+    position: absolute;
+    box-sizing: border-box;
+    bottom: 0;
+    top: auto;
+	height: 30px;
+}
+.manageRolesTbMain table tr td{ 
+    padding: 8px 0 5px 5px;
+}
+
+.leftMenuWrapper ul li a {
+    padding: 10px 10px;
+}
+
+.manageRoleHeading {
+    font-size: 19px;
+    margin: 0px 0 15px;
+}
+
+.serverBoxCommon {
+    width: 100%;
+}
+
+.processUpdateDetails p {
+    line-height: 20px;
+}
+
+.manageRoleHeading {
+    line-height: 30px;
+}
+
+.pagination > li > a, .pagination > li > span {
+    padding: 6px 3px;
+}
+
+.headerLogodiv {
+    /*margin: 9px 0 8px 40px;*/
+        clear: both;
+}
+
+.menuDiv {
+    margin: 0 auto;
+    float: none;
+    width: 70%;
+}
+
+.beforeloginBody .topLinkUl li {
+     margin: 0;
+     padding-left: 6px; 
+}
+
+.afterloginBody .menuDiv {
+    width: 100%;
+}
+
+#addUserDetailsWrapper {
+    position: absolute;
+    width: 50px;
+    height: 71px;
+    background: #709d34;
+    -moz-border-radius: 50% / 10%;
+    -webkit-border-radius: 50% / 10%;
+    border-radius: 50% / 10%;
+    right: 0px;
+    z-index: 999;
+    top: 0;
+}
+
+.topLinkUl {
+    float: right;
+    margin: -8px 0 7px 0;
+}
+
+.profileHead {
+    margin: 20px 0;
+}
+
+.addUserWhiteMain {
+    top: 23px;
+}
+
+#addUserDetailsWrapper {
+    height: 77px;
+}
+
+
+.headerLogodiv {
+    width: 200px;
+    height: 43px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.headerLogodiv img{
+    width: 100%;
+}
+
+
+.topLinkUl span{
+    text-align: center;
+
+}
+
+.profileHead {
+    font-size: 20px;
+    margin: 20px 0 0 0;
+}
+
+#userDropdown {
+    top: 70px;
+}
+
+.signUpBtn {
+        padding: 2px 10px 5px;
+}
+
+.loginBtn {
+   padding: 2px 10px 5px;
+}
+.loginBox {
+    width: 100%;
+    padding: 15px;
+}
+
+.beforeloginBody .headerLogodiv {
+    width: 200px;
+    height: 43px;
+    margin: 5px auto;
+    float: none;
+
+}
+.LoginBtnMain {
+    width: 154px;
+    margin: 3px 0 0;
+}
+
+.navbar-toggle {
+    margin: 2px 0px 10px 16px;
+}
+
+.afterloginBody .topLinkUl {
+    float: left;
+    margin: -30px 0 5px 51px;
+}
+.navbar-default .navbar-toggle {
+    left: -8px;
+    top: -27px;
+}
+
+.beforeloginBody .headersection {
+     height: 87px;
+}
+.multiFactor .mfaLeft h1 {
+    font-size: 16px;
+}
+
+.serverBoxCommon {
+    margin: 0 0 10px;
+}
+
+
+.beforeloginBody .navbar-default {
+    top: 33px;
+    left: 9px;
+}
+
+.afterloginBody .headersection {
+    height: 72px;
+}
+/*---Max 480----*/
+}
+
 @media (min-width:361px) and (max-width:480px) {
 	.content-wrapper {
-    margin: 0 auto;
     max-width: 300px;
 }
+/*---361to 640----*/
 }
 @media (min-width:320px) and (max-width:360px) {
 	.content-wrapper {
-    margin: 0 auto;
     max-width: 300px;
 }
+.copyrightText {
+    padding: 22px 0;
+    line-height: 25px;
+}
+
+
+/*---320 to 360----*/
 }

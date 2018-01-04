@@ -2,6 +2,28 @@ var db = require(process.cwd() + "/config/db");
 var con = null;
 module.exports = function(app){
 
+app.post("/getManageRolesData", function(req,res){
+    var accountId = req.body.accountId;
+    var userId = req.body.userId;
+    if(con == null)
+	con = db.openCon(con);
+    Promise.all([
+		new Promise((resolve, reject) => {
+			con.query("SELECT * FROM roles WHERE (accountId = ? or accountId = ? )", [0,accountId], function(err, result){
+				if(err){
+					console.log(err.stack);
+					resolve(null);
+					res.status(200).json({success: 0});
+				}
+				resolve(result);
+			});
+		})
+	]).then((results) => {
+		console.log(" roles Data = : "+results[0]);
+		res.status(200).json({success: 1,roleData : results[0]});
+	});
+});
+
 app.post("/createNewRole", function(req, res){
 	var roleName = req.body.roleName;
     var policies = req.body.policies;
@@ -18,43 +40,226 @@ app.post("/createNewRole", function(req, res){
     if(con == null)
 	con = db.openCon(con);
     Promise.all([
-	new Promise((resolve, reject) => {
-	con.query("insert into roles set ?", [roleData], function(err, result){
-		if(err){
-			console.log(err.stack);
-			resolve(null);
-			res.status(200).json({success: 0});
-		}
-		resolve(result);
-	});
-	})
+		new Promise((resolve, reject) => {
+			con.query("insert into roles set ?", [roleData], function(err, result){
+				if(err){
+					console.log(err.stack);
+					resolve(null);
+					res.status(200).json({success: 0});
+				}
+				resolve(result);
+			});
+		})
 	]).then((results) => {
 		res.status(200).json({success: 1});
-
 	});
 });
 
-app.post("/getManageRolesData", function(req,res){
+app.post("/modifyRole", function(req, res){
+	var roleName = req.body.roleName;
+    var policies = req.body.policies;
+    var accountId = req.body.accountId;
+    var userId = req.body.userId;
+    var roleId = req.body.roleId;
+    console.log(" ModifyRole roleName = : "+roleName+"   policies = : "+policies+"    accountId = : "+accountId+"    userId = : "+userId+"     roleId = : "+roleId);
+    if(con == null)
+	con = db.openCon(con);
+    Promise.all([
+		new Promise((resolve, reject) => {
+			con.query("update roles set policy = ?, roleName = ? where roleId = ?", [policies,roleName,roleId], function(err, result){
+				if(err){
+					console.log(err.stack);
+					resolve(null);
+					res.status(200).json({success: 0});
+				}
+				resolve(result);
+			});
+		})
+	]).then((results) => {
+		res.status(200).json({success: 1});
+	});
+});
+
+app.post("/deleteRole", function(req,res){
+    var accountId = req.body.accountId;
+    var userId = req.body.userId;
+    var roleId = req.body.roleId;
+    if(con == null)
+	con = db.openCon(con);
+    Promise.all([
+		new Promise((resolve, reject) => {
+			con.query("DELETE FROM roles WHERE (roleId = ? )", [roleId], function(err, result){
+				if(err){
+					console.log(err.stack);
+					resolve(null);
+					res.status(200).json({success: 0});
+				}
+				resolve(result);
+			});
+		})
+	]).then((results) => {
+		console.log(" roles Data = : "+results[0]);
+		res.status(200).json({success: 1});
+	});
+});
+
+app.post("/getManageGroupsData", function(req,res){
+    var accountId = req.body.accountId;
+    var userId = req.body.userId;
+    var data = {};
+    if(con == null)
+	con = db.openCon(con);
+    Promise.all([
+    	// get all roles associated with groups for this account
+		new Promise((resolve, reject) => {
+			con.query("select g.groupId,g.groupName,g.accountId,r.roleId,r.roleName,r.accountId from infradb.groups g "+
+					  "inner join infradb.grouphasroles ghr "+
+					  "on g.groupId = ghr.groupId "+
+					  "inner join infradb.roles r "+
+					  "on ghr.roleId = r.roleId "+
+					  "where (g.accountId = ? or g.accountId = ?)", [0,accountId], function(err, result){
+				if(err){
+					console.log(err.stack);
+					resolve(null);
+					res.status(200).json({success: 0});
+				}
+				resolve(result);
+			});
+		}),
+		// get all users associated with groups for this account
+		new Promise((resolve, reject) => {
+			con.query("select * from infradb.groups g "+
+					  "inner join infradb.grouphasusers ghu "+
+					  "on g.groupId = ghu.groupId and ghu.accountId = ? "+
+					  "inner join infradb.users u "+
+					  "on ghu.userId = u.id "+
+					  "where (g.accountId = ? or g.accountId = ?)", [accountId,0,accountId], function(err, result){
+				if(err){
+					console.log(err.stack);
+					resolve(null);
+					res.status(200).json({success: 0});
+				}
+				resolve(result);
+			});
+		})
+	]).then((results) => {
+		data.grouphasroles = results[0];
+		data.grouphasusers = results[1];
+		console.log(" grouphasroles = : "+results[0]);
+		console.log(" grouphasusers = : "+results[1]);
+		res.status(200).json(data);
+	});
+});
+
+app.post("/deleteGroup", function(req,res){
+    var accountId = req.body.accountId;
+    var userId = req.body.userId;
+    var groupId = req.body.groupId;
+    console.log("accountId = : "+accountId+" userId = : "+userId+"  groupId = : "+groupId);
+    if(groupId != 1 || groupId !=2){
+	    if(con == null)
+		con = db.openCon(con);
+	    Promise.all([
+			new Promise((resolve, reject) => {
+				con.query("DELETE FROM groups WHERE groupId = ? and accountId = ?", [groupId,accountId], function(err, result){
+					if(err){
+						console.log(err.stack);
+						resolve(null);
+						res.status(200).json({success: 0});
+					}
+					resolve(result);
+				});
+			}),
+			new Promise((resolve, reject) => {
+				con.query("DELETE FROM grouphasusers WHERE groupId = ? and accountId = ?", [groupId,accountId], function(err, result){
+					if(err){
+						console.log(err.stack);
+						resolve(null);
+						res.status(200).json({success: 0});
+					}
+					resolve(result);
+				});
+			}),
+			new Promise((resolve, reject) => {
+				con.query("DELETE FROM grouphasroles WHERE groupId = ?", [groupId], function(err, result){
+					if(err){
+						console.log(err.stack);
+						resolve(null);
+						res.status(200).json({success: 0});
+					}
+					resolve(result);
+				});
+			})
+		]).then((results) => {
+			console.log(" groups Data = : "+results[0]);
+			res.status(200).json({success: 1});
+		});
+	}else{
+		res.status(200).json({success: 0});
+	}
+});
+
+app.post("/getManageUsersData", function(req,res){
     var accountId = req.body.accountId;
     var userId = req.body.userId;
     if(con == null)
 	con = db.openCon(con);
     Promise.all([
-	new Promise((resolve, reject) => {
-		con.query("SELECT * FROM roles WHERE (accountId = ? or accountId = ? )", [0,accountId], function(err, result){
-			if(err){
-				console.log(err.stack);
-				resolve(null);
-				res.status(200).json({success: 0});
-			}
-			resolve(result);
-		});
+    	// get all users for this account
+		new Promise((resolve, reject) => {
+			con.query("select * from infradb.userhasaccount uha "+
+					  "inner join infradb.users u "+
+					  "on uha.userId = u.id "+
+					  "inner join infradb.grouphasusers ghu "+
+					  "on uha.userId = ghu.userId and ghu.accountId = uha.accountId "+
+					  "inner join infradb.groups g "+
+					  "on g.groupId  = ghu.groupId "+
+					  "where uha.accountId = ?", [accountId], function(err, result){
+				if(err){
+					console.log(err.stack);
+					resolve(null);
+					res.status(200).json({success: 0});
+				}
+				resolve(result);
+			});
 		})
 	]).then((results) => {
-		console.log(" roles Data = : "+results[0]);
-		res.status(200).json({success: 1,roleData : results[0]});
+		console.log(" Manage Users Data = : "+JSON.stringify(results[0]));
+		res.status(200).json(results[0]);
 	});
+});
 
+app.post("/deleteUser", function(req,res){
+    var accountId = req.body.accountId;
+    var userId = req.body.userId;
+    console.log("accountId = : "+accountId+" userId = : "+userId);
+    if(con == null)
+	con = db.openCon(con);
+    Promise.all([
+		new Promise((resolve, reject) => {
+			con.query("DELETE FROM userhasaccount WHERE userId = ? and accountId = ?", [userId,accountId], function(err, result){
+				if(err){
+					console.log(err.stack);
+					resolve(null);
+					res.status(200).json({success: 0});
+				}
+				resolve(result);
+			});
+		}),
+		new Promise((resolve, reject) => {
+			con.query("DELETE FROM grouphasusers WHERE userId = ? and accountId = ?", [userId,accountId], function(err, result){
+				if(err){
+					console.log(err.stack);
+					resolve(null);
+					res.status(200).json({success: 0});
+				}
+				resolve(result);
+			});
+		})
+	]).then((results) => {
+		console.log(" users Data = : "+results[0]);
+		res.status(200).json({success: 1});
+	});
 });
 
 }

@@ -23,7 +23,7 @@ var upload = multer({ storage: storage }).single("file");
 cron.schedule('0 0 1 * *', function(){
 	if(con == null)
 	con = db.openCon(con);
-	con.query("SELECT distinct s.serverIP,u.email,s.id FROM users u INNER JOIN companydetails c ON u.id = c.companyCreator INNER JOIN projectdetails p ON c.id = p.company_id INNER JOIN servers s ON p.id = s.project_id WHERE autoKeyRotation = ?", [1], function(err, result){
+	con.query("SELECT distinct s.serverIP,u.email,s.id FROM users u INNER JOIN companydetails c ON u.id = c.companyCreator INNER JOIN projectdetails p ON c.id = p.companyId INNER JOIN servers s ON p.id = s.projectId WHERE autoKeyRotation = ?", [1], function(err, result){
 		if(err)console.log(err.stack);
 		if(result.length>0){
 			updateServerKey(result);
@@ -223,10 +223,10 @@ if(con == null)
 con = db.openCon();	
 var data = {
 projectName : req.body.pname,
-company_id : req.body.cid
+companyId : req.body.cid
 };
 
-con.query("select * from projectdetails where projectName = ? and company_id = ?", [req.body.pname,req.body.cid], function(err, result){
+con.query("select * from projectdetails where projectName = ? and companyId = ?", [req.body.pname,req.body.cid], function(err, result){
 	if(err){
 		res.json({success : 0, err_desc : err});
 		return;
@@ -286,7 +286,7 @@ Promise.all([
 		});
 	}),
 	new Promise((resolve, reject) => {
-			con.query("SELECT * FROM projectdetails WHERE company_id = ? ", [req.body.id], function(err, result){
+			con.query("SELECT * FROM projectdetails WHERE companyId = ? ", [req.body.id], function(err, result){
 				if(err)console.log(err.stack);
 					if(result.length > 0){
 						resolve(result);
@@ -297,7 +297,7 @@ Promise.all([
 			
 		}),
 	new Promise((resolve, reject) => {
-			con.query("SELECT * FROM projectdetails p INNER JOIN servers s ON p.id = s.project_id WHERE p.company_id = ? ", [req.body.id], function(err, result){
+			con.query("SELECT * FROM projectdetails p INNER JOIN servers s ON p.id = s.projectId WHERE p.companyId = ? ", [req.body.id], function(err, result){
 				if(err)console.log(err.stack);
 				if(result.length > 0){
 					resolve(result);
@@ -333,7 +333,7 @@ app.post("/getServerPageDetails", function(req, res){
 			});
 		}),
 		new Promise((resolve, reject) => {
-				con.query("SELECT * FROM servers WHERE project_id = ? ", [req.body.id], function(err, result){
+				con.query("SELECT * FROM servers WHERE projectId = ? ", [req.body.id], function(err, result){
 					if(err)console.log(err.stack);
 						if(result.length > 0){
 							resolve(result);
@@ -373,7 +373,7 @@ Promise.all([
 		}),
 
 		new Promise((resolve, reject) => {
-			con.query("SELECT * FROM companydetails c INNER JOIN projectdetails p ON c.id = p.company_id WHERE c.companyCreator = ? ", [req.session.uid], function(err, result){
+			con.query("SELECT * FROM companydetails c INNER JOIN projectdetails p ON c.id = p.companyId WHERE c.companyCreator = ? ", [req.session.uid], function(err, result){
 				if(err)console.log(err.stack);
 					if(result.length > 0){
 						resolve(result);
@@ -442,6 +442,7 @@ con.query("select * from users where uname = ?", [req.body.uname], function(err,
 if(err)console.log(err.stack);
 if(result != null && result.length > 0){
 res.status(200).json(result[0].email);
+console.log(result[0].email,req.body.uname)
 }else{
 	res.status(200).json(null);
 }
@@ -552,6 +553,7 @@ new Promise((resolve, reject) => {
 });
 
 app.post("/deleteUserFromServer", function(req, res){
+	
 if(con == null)
 con = db.openCon(con);
 var data = req.body;
@@ -566,6 +568,8 @@ record = {
 	}),
 	status: "0"
 };
+
+ console.log("data.uname",data.uname,data.serverIp)
 Promise.all([
 new Promise((resolve, reject) => {
 	con.query("insert into agentActivities set ?", [record], function(err, result){
@@ -591,7 +595,7 @@ record = {
 };
 Promise.all([
 new Promise((resolve, reject) => {
-
+           
 	con.query("select * from servers where serverIP = ?", [data.serverIp], function(err, result){
 		if(err){
 			console.log(err.stack);
@@ -642,9 +646,11 @@ record = {
 	}),
 	status: "0"
 };
+
 Promise.all([
 	new Promise((resolve, reject) => {
 	con.query("insert into agentActivities set ?", [record], function(err, result){
+
 		if(err){
 			console.log(err.stack);
 			resolve(null);
@@ -895,7 +901,7 @@ app.post("/resetMFAToken", function(req, res){
 app.post("/stopServerKeyRotation", function(req, res){
 	if(con == null)
 	con = db.openCon(con);
-	con.query("update servers set autoKeyRotation = ? where project_id = ?", [0,req.body.projectId], function(err, result){
+	con.query("update servers set autoKeyRotation = ? where projectId = ?", [0,req.body.projectId], function(err, result){
 	if(err)console.log(err.stack);
 	res.status(200).json({success : 1});
 	});
@@ -904,7 +910,7 @@ app.post("/stopServerKeyRotation", function(req, res){
 app.post("/startServerKeyRotation", function(req, res){
 	if(con == null)
 	con = db.openCon(con);
-	con.query("update servers set autoKeyRotation = ? where project_id = ?", [1,req.body.projectId], function(err, result){
+	con.query("update servers set autoKeyRotation = ? where projectId = ?", [1,req.body.projectId], function(err, result){
 	if(err)console.log(err.stack);
 	res.status(200).json({success : 1});
 	});
@@ -913,7 +919,7 @@ app.post("/startServerKeyRotation", function(req, res){
 app.post("/updateServerKeyForProject", function(req, res){
 	if(con == null)
 	con = db.openCon(con);
-	con.query("SELECT distinct s.serverIP,u.email,s.id FROM users u INNER JOIN companydetails c ON u.id = c.companyCreator INNER JOIN projectdetails p ON c.id = p.company_id INNER JOIN servers s ON p.id = s.project_id WHERE s.project_id = ?", [req.body.projectId], function(err, result){
+	con.query("SELECT distinct s.serverIP,u.email,s.id FROM users u INNER JOIN companydetails c ON u.id = c.companyCreator INNER JOIN projectdetails p ON c.id = p.companyId INNER JOIN servers s ON p.id = s.projectId WHERE s.projectId = ?", [req.body.projectId], function(err, result){
 	if(err)console.log(err.stack);
 	if(result.length>0){
 		updateServerKey(result);
@@ -1149,7 +1155,6 @@ var auditData = req.body.data;
 var serverIp = req.body.serverIp;
 var id = req.body.id;
 var status = req.body.status;
-console.log("serverIp = : "+serverIp+"   id = : "+id+"   status = : "+status+"  processData = : "+processData);
 	if(status==0){
 		Promise.all([
 			new Promise((resolve, reject) => {
@@ -1238,6 +1243,60 @@ console.log("serverIp = : "+serverIp+"   id = : "+id+"   status = : "+status+"  
 	}
 });
 
+app.post("/eachServerPageDetails", function(req, res){
+ if(con == null)
+ con = db.openCon(con);
+var obj = {};
+ obj.userdata = null;
+ obj.serverDetail = null;
+ 
+  Promise.all([
+   new Promise((resolve, reject) => {
+   con.query("select * from servers where serverIP like ?", [req.body.serverIp], function(err, result){
+    if(err)console.log(err.stack);
+    if (result.length > 0) {
+     resolve(result[0]);
+    }
+     resolve(null);
+   });
+  }),
+  
+  new Promise((resolve, reject) => {
+   con.query("select * from userserveraccessstatus where serverIP like ?", [req.body.serverIp], function(err, result){
+    if(err)console.log(err.stack);
+    if(result.length > 0){
+     resolve(result);
+    }
+    resolve(null);
+   });
+  }),
+  
+ ]).then(function(results){
+  obj.userdata = results[1];
+  obj.serverDetail= results[0];
+  res.status(200).json(obj);
+ });
+ 
+});
+app.post("/EditCompany", function(req, res){
+	if(con == null)
+	con = db.openCon(con);
+	con.query("update companydetails set companyName = ?  where id like ?", [req.body.companyName,req.body.id], function(err, result){
+		if(err)console.log(err.stack);
+		res.status(200).json(result);
+	});
+});
+
+app.post("/EditProjectName", function(req, res){
+	if(con == null)
+	con = db.openCon(con);
+	con.query("update projectdetails set projectName = ?  where id like ?", [req.body.projectName,req.body.id], function(err, result){
+		if(err)console.log(err.stack);
+		res.status(200).json(result);
+	});
+});
+
+
 }
 
 function updateServerKey(dataset){
@@ -1302,7 +1361,7 @@ function saveQRCodeImg(qrcode,email){
 	});
 }
 
-//User registration process : create user , create account and map user to account 
+//User registration process : create user , create account , map user to account and make self-signed users super-admin for his account
 //do this process in transaction i.e. either all tables are populated or none(rollback)
 function signupAction(req, res, data){
 	
@@ -1350,14 +1409,27 @@ function signupAction(req, res, data){
 				                      res.json({success : "error"});
 				                    });
 								}
-								con.commit(function(err) {
-							        if (err) {
-							            return con.rollback(function() {
-							                console.log(err.stack);
-							            });
-							        }
-							        console.log(" User registration(self) process successful email : "+data.email);
-								    res.json({success : 1});
+								var data2 ={
+										userId : result.insertId,
+										accountId : result1.insertId,
+										groupId : 1
+						                };
+								con.query("insert into grouphasusers set ? ", data2, function(err, result2){
+									if(err){
+										return con.rollback(function() {
+					                      console.log(err.stack);
+					                      res.json({success : "error"});
+					                    });
+									}
+									con.commit(function(err) {
+								        if (err) {
+								            return con.rollback(function() {
+								                console.log(err.stack);
+								            });
+								        }
+								        console.log(" User registration(self) process successful email : "+data.email);
+									    res.json({success : 1});
+								    });
 							    });
 							});
 						});
@@ -1391,14 +1463,12 @@ function loginAction(req, res, data){
 						var userdata = {success: 1 ,userId:result[0].id, uname : result[0].uname, email : result[0].email, mfa : result[0].mfaEnabled,accounts:result1};
 						res.status(200).json(userdata);
 					}
-					
-			    });
+				});
 				//var data1 = {success: 1 , uname : result[0].uname, email : result[0].email, mfa : result[0].mfaEnabled};
 				//res.status(200).json(data1);
 			} else {
 				res.status(200).json({success : 0, error : "email/password not valid"});
 			}
-
 		} else {
 			res.status(200).json({success : 0, error : "email/password not valid"});
 		}
@@ -1442,7 +1512,7 @@ function getUserData(req, res){
 		}),
 
 		new Promise((resolve, reject) => {
-			con.query("SELECT * FROM companydetails c INNER JOIN projectdetails p ON c.id = p.company_id "+
+			con.query("SELECT * FROM companydetails c INNER JOIN projectdetails p ON c.id = p.companyId "+
 				"WHERE c.companyCreator = ? ", [accountOwnerId], function(err, result){
 				if(err)console.log(err.stack);
 				if(result.length > 0){
@@ -1463,11 +1533,14 @@ function getUserData(req, res){
 		}),
     
 		new Promise((resolve, reject) => {
-			con.query("select * from groups g inner join grouphasusers ghu	on g.groupId = ghu.groupId inner"+ 
-				" join grouphasroles ghr on g.groupId = ghr.groupId	inner join roles r	on r.roleId = ghr.roleId"+
-				" where g.accountId = ? and ghu.userId = ?", [accountId,req.session.uid], function(err, result){
+			con.query("select * from infradb.grouphasusers ghu "+
+					  "inner join infradb.grouphasroles ghr "+
+					  "on ghu.groupId = ghr.groupId "+
+					  "inner join infradb.roles r "+
+					  "on ghr.roleId = r.roleId "+
+					  "where ghu.accountId = ? and ghu.userId = ?", [accountId,req.session.uid], function(err, result){
 				if(err)console.log(err.stack);
-				console.log(" roles result = :  "+JSON.stringify(result));
+				console.log("1519. roles result = :  "+JSON.stringify(result));
 				if(result.length > 0){
 					resolve(JSON.stringify(result));
 				}

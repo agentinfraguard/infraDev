@@ -25,8 +25,10 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 	var ip_addr = "";
 	var user_obj = {};
 	var emailPattern = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+	var userDataEnv="";
     //var mailUserCredentialsUrl="";
     //var serverPageDetailsUrl="";
+   // $rootScope.server_ip="";
     $scope.createStyle={display:'none'};
     var sCount = true;
 
@@ -38,16 +40,23 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 		$scope.visible = $scope.visible ? false : true;
 	};
 
- 	var id = companyService.getId();
+ 	var id = companyService.getId();	
+ 		//console.log(id,"ip")
  	if(id==undefined){
  		id = $window.localStorage.getItem('projectId');
  		}
  	$window.localStorage.setItem('projectId', id);
-    companyService.setId(null);
+     companyService.setId(null);
+
+     $rootScope.addFunction = function() {
+			showServerModal();
+		}
+
 
 	var loadTime = 5000, //Load the data every second
     errorCount = 0, //Counter for the server errors
     loadPromise; //Pointer to the promise created by the Angular $timeout service
+
 
 	  var getData = function() {
 	   
@@ -63,7 +72,7 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 		})*/
 		.success(function(data) {
 			$scope.project = data.project;
-
+           
 			if(data.servers == null && sCount==true){
 					$scope.createStyle={display:'block'};
 					sCount=false;
@@ -81,7 +90,7 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 				$scope.servers = [];
 			}
 			errorCount = 0;
-			nextLoad();
+			//nextLoad();
   		 });
 
 	  };
@@ -109,6 +118,13 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 	  $scope.$on('$destroy', function() {
 	    cancelNextLoad();
 	  });
+
+  
+     $scope.setServerIp = function(ip) {
+             companyService.setId(ip);
+           //console.log(ip,"EachServerIp")
+     
+     }
 
 	  $rootScope.close = function(value) {
 	  	if(value == "user_ok"){
@@ -348,7 +364,7 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 			$http({
 				url: "/refreshEnvironmentVars",
 				method: "POST",
-				data: {serverIp:ip_addr,name:$rootScope.name},
+				data: {serverIp:ip_addr,name:$rootScope.name,scope:$rootScope.user},
 				headers: {"Content-Type": "application/json"}
 			})
 			.success(function(data){
@@ -357,7 +373,7 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
     	   }
 
     	   else if(value == "refreshProcessList"){
-    	   	console.log("refreshProcessList clicked");
+    	   	//console.log("refreshProcessList clicked");
 			$http({
 				url: "/refreshProcessList",
 				method: "POST",
@@ -387,7 +403,7 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 	
 			}
             else if(value == "runScript_ok"){
-				$rootScope.visible_run_script = $rootScope.visible_run_script ? false : true;
+				console.log("runScript_ok clicked");
 		     $http({
 				url: "/runSriptOnServer",
 				method: "POST",
@@ -395,10 +411,59 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 				headers: {"Content-Type": "application/json"}
 			 })
 			.success(function(data){
-			  console.log(data);
+			  
+            if (data=1) {
+            	//console.log("data");
+            	$rootScope.visible_run_script = $rootScope.visible_run_script ? false : true;
+				body.removeClass("overflowHidden");
+				$rootScope.modal_class = "";
+            }
+           
+			   
+            
 			});
     	   }
 
+    	   	else if(value == "envVarUserSpecific"){
+    	   		userDataEnv="user";
+    	   		$rootScope.envdata="";
+    	   		$rootScope.user =userDataEnv;
+				console.log("envVarUserSpecific clicked");
+			//$http({
+			//	url: "/refreshEnvironmentVars",
+			//	method: "POST",
+			//	data: {serverIp:ip_addr,name:$rootScope.name},
+			///	headers: {"Content-Type": "application/json"}
+			//})
+			//.success(function(data){
+                var data={"envList":{"govind":"$GOPATH/bin","GOPATH":"$HOME/go_workspace","GOROOT":"/usr/lib/go-1.6","PATH":"$PATH:$GOROOT/bin:$GOBIN","VAR":"HELLO_WORLD"}}
+				$rootScope.envdata=data.envList;
+			  console.log(data.envList);
+			//});
+    	   }
+
+    	   
+            else if(value == "envVarSystemSpecific"){
+    	   		userDataEnv="system";
+    	   		$rootScope.envdata="";
+    	   		$rootScope.user =userDataEnv;
+				console.log("envVarSystemSpecific clicked");
+			 $http({
+				url: "/showEnvironmentVariablesData",
+				method: "POST",
+				data: {serverIp:ip_addr},
+				headers: {"Content-Type": "application/json"}
+			})
+			.success(function(data){
+			
+				var data = JSON.parse(data[0].envVars);
+				userDataEnv="system"
+            if (data!=null) {
+	            $rootScope.user =userDataEnv;  
+	           	$rootScope.envdata=data.envList;
+			  }
+			});
+    	   }
 
 	};
 
@@ -418,7 +483,7 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 			}
 	};
 
-	$scope.showServerModal = function() {
+	var showServerModal = function() {
 			$rootScope.visible_server = $rootScope.visible_server ? false : true;
 			$rootScope.errName = false;
 			$rootScope.serverName = "";
@@ -449,8 +514,9 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 			$rootScope.visibleGetAccessKey = $rootScope.visibleGetAccessKey ? false : true;
 		}
 		else if(mode == "enviromentVariable"){
-			$rootScope.user = "";
-			$rootScope.envdata = "";
+			//$rootScope.user = "";
+			//$rootScope.envdata = "";
+			$rootScope.enviroment_variable = $rootScope.enviroment_variable ? false : true;
 		    $http({
 				url: "/showEnvironmentVariablesData",
 				method: "POST",
@@ -458,19 +524,18 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 				headers: {"Content-Type": "application/json"}
 			})
 			.success(function(data){
-				//console.log(data);
+			
 				var data = JSON.parse(data[0].envVars);
-				$rootScope.enviroment_variable = $rootScope.enviroment_variable ? false : true;
+				userDataEnv="system"
             if (data!=null) {
-				//enviroment
-	            //var data={"envList":{"GOBIN":"$GOPATH/bin","GOPATH":"$HOME/go_workspace","GOROOT":"/usr/lib/go-1.6","PATH":"$PATH:$GOROOT/bin:$GOBIN","VAR":"HELLO_WORLD"}}            
-	            $rootScope.user = "SYSTEM";  
+	            $rootScope.user =userDataEnv;  
 	           	$rootScope.envdata=data.envList;
 			  }
 			});
 
 		}
 		else if(mode == "processList"){
+		    $rootScope.visibleProcessList = $rootScope.visibleProcessList ? false : true;
 			$rootScope.processLstdata = "";
 			$rootScope.processLst = "";
 			$http({
@@ -480,12 +545,8 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 				headers: {"Content-Type": "application/json"}
 			})
 			.success(function(data){
-                  
-              // console.log(data[0].processList);
-			   $rootScope.visibleProcessList = $rootScope.visibleProcessList ? false : true;
-               
+			            
                var obj=JSON.parse(data[0].processList);
-                  
                   if (obj!=null) {
                    $rootScope.processLstdata=obj.processLst;
                    var processDataLength = Object.keys($rootScope.processLstdata).length;             
@@ -496,7 +557,6 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 		           var datareplace=trimdata.replace(/\s+/g,' ');
 		           var datasplit=datareplace.split(" ");
 		           dataObj.push(datasplit);
-		          // console.log(datasplit);
 	            }
                  $rootScope.processLst=dataObj;
 
@@ -505,98 +565,90 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
         
 			});
 		}
-  else if(mode == "auditLogin"){
-			$rootScope.visibleauditLogin = $rootScope.visibleauditLogin ? false : true;
-			  //  $http({
-			 //  	url: "/showAuditLoginData",
-		    // 	    method: "POST",
-			//  	data: {serverIp:ip_addr},
-			//  	headers: {"Content-Type": "application/json"}
-			// })
-			// success(function(data){
-			// 	console.log(data)
+          else if(mode == "auditLogin"){
+			    $rootScope.visibleauditLogin = $rootScope.visibleauditLogin ? false : true;
+			    $http({
+			  	url: "/showAuditLoginData",
+		    	method: "POST",
+			  	data: {serverIp:ip_addr},
+			  	headers: {"Content-Type": "application/json"}
+			 })
+			 .success(function(data){
+             
+				 var data=JSON.parse(data[0].auditLogin);
+				 data=data.loginHistory;
+				 	dataAuditloginManipulation(data);
+          function dataAuditloginManipulation(data){
+			         var auditObj=[];
+			         var auditloginLength = Object.keys(data).length;
+			  for(var i=0;i<auditloginLength-2;i++){  
+				     var auditLogindataString=String(data[i]);
+				     var userName=auditLogindataString.split(" ");
+				      userName1=String(userName[0]);//username
+				      var terminalName=String(userName);      
+				      var terminalName=terminalName.split(userName1);      
+				      terminalName=String(terminalName);       
+				      terminalName= terminalName.replace(/,/g , " ");     
+				      terminalName=terminalName.trim();   
+				      terminalName1=terminalName.split(" ");   
+				      terminalSystemSearch=terminalName.search("system boot");  
+				      var terminalName3;//terminal 
+					  if(terminalSystemSearch<=-1){
+					      terminalName3=terminalName1[0]
+					    }
+					    else{
+					      terminalName3="system boot";
+					    }
+					    var serverIp=terminalName.split(terminalName3);
+					    serverIp=String(serverIp);
+					    serverIp=String(terminalName1).replace(/,/g , " ").split(terminalName3);
+					    serverIp=String(serverIp).trim();      
+					    var serverip2=serverIp.split(" ");
+					    serverip2=String(serverip2)
+					    serverip2=serverip2.replace(/,/g , " ").trim();
+					    serverip3=serverip2.split(" ",1);
+					    serverip2=String(serverip3);//113.193.93.57   
+					    var logTime=serverIp.split(serverip2);
+					    logTime=String(logTime);       
+					    logTime=logTime.replace(/,/g , " ").trim();   
+					    logTime=String(logTime);
+					    var totalTime,totalTime,logTimeDate
+					    var stillRunning=logTime.search("still running")
+					    var goneNoLogout=logTime.search("gone - no logout")
+			            if (stillRunning>-1) {         
+					         totalTime="still running"; 
+					         logTime=logTime.split(totalTime)     
+					         logTimeDate=logTime[0]  
+					         logTimeDate=String(logTimeDate);     
+			                }
 
-			// $rootScope.dataAuditlogin=obj.loginHistory;
-  var data={"0":"reboot   system boot  0.0.0.0          Wed Nov 29 11:11:31 2017 - Wed Nov 29 19:56:45 2017  (08:45)","1":"saurabh  tty7         0.0.0.0          Fri Dec  1 11:33:14 2017   gone - no logout","2":"saurabh  tty1         0.0.0.0          Fri Nov 24 17:23:03 2017 - Fri Nov 24 17:23:07 2017  (00:00)","3":"reboot   system boot  0.0.0.0          Fri Dec  1 11:32:01 2017   still running","4":"ec2-user pts/0        113.193.92.175   Tue Nov 14 09:50 - 11:49  (01:59)","5":"root     pts/1        113.193.92.175   Mon Nov 13 13:42 - 13:42  (00:00)","6":"ec2-user pts/1        113.193.92.175   Tue Nov 14 08:16 - 10:28  (02:12)","7":"reboot   system boot  3.10.0-693.el7.x Mon Nov 13 13:06 - 11:29 (20+22:22)","8":"saurabh  tty1         0.0.0.0          Fri Nov 24 17:23:03 2017 - Fri Nov 24 17:23:07 2017  (00:00)","9":"reboot   system boot  0.0.0.0          Mon Nov 27 11:06:33 2017 - Mon Nov 27 20:08:17 2017  (09:01)","10":"saurabh  tty1         0.0.0.0          Fri Nov 24 17:23:03 2017 - Fri Nov 24 17:23:07 2017  (00:00)"}
- dataAuditloginManipulation(data);
- function dataAuditloginManipulation(data){
-  var auditObj=[];
-  var auditloginLength = Object.keys(data).length;
-  for(var i=0;i<auditloginLength;i++){
-//    console.log(data[i])
-   //  var dataTrim,result3,terminalName,result15,result19,serverIpsplitFifth;    
-     var auditLogindataString=String(data[i]);
-     var userName=auditLogindataString.split(" ");
-      userName1=String(userName[0]);//username
-      var terminalName=String(userName);      
-      var terminalName=terminalName.split(userName1);      
-      terminalName=String(terminalName);       
-      terminalName= terminalName.replace(/,/g , " ");     
-      terminalName=terminalName.trim();   
-      terminalName1=terminalName.split(" ");   
-      terminalSystemSearch=terminalName.search("system boot");  
-      var terminalName3;//terminal 
-     if(terminalSystemSearch<=-1){
-      //console.log(terminalSystemSearch)
-      terminalName3=terminalName1[0]
-
-     }
-     else{
-        //console.log(terminalSystemSearch+"terminalSystemSearch")
-        terminalName3="system boot";
-     }
-      //console.log(terminalName3)
-     var serverIp=terminalName.split(terminalName3);
-
-     serverIp=String(serverIp);
-     serverIp=String(terminalName1).replace(/,/g , " ").split(terminalName3);
-     serverIp=String(serverIp).trim();      
-    // console.log(serverIp.split(" "))
-     var serverip2=serverIp.split(" ");
-     serverip2=String(serverip2)
-     serverip2=serverip2.replace(/,/g , " ").trim();
-     serverip3=serverip2.split(" ",1);
-     serverip2=String(serverip3);//113.193.93.57   
-     var logTime=serverIp.split(serverip2);
-      logTime=String(logTime);       
-      logTime=logTime.replace(/,/g , " ").trim();   
-      logTime=String(logTime);
-       console.log(logTimeDate)
-     var totalTime,totalTime,logTimeDate
-     var stillRunning=logTime.search("still running")
-     var goneNoLogout=logTime.search("gone - no logout")
-      if (stillRunning>-1) {
-          
-         totalTime="still running";
-         console.log(stillRunning)
-       
-      }
-
-      else if(goneNoLogout>-1) {
-
-       totalTime="gone - no logout";
-
-      }
-      
-      else{
-       logTime=logTime.split("(")     
-       logTimeDate=logTime[0]  
-       logTimeDate=String(logTimeDate);       
-       totalTime=logTime[1]
-       totalTime=String(totalTime);
-       totalTime=totalTime.replace(")" , "") 
-      }
-   
-         var dataObj=[];
-         dataObj.push(userName1,terminalName3,serverip2,logTimeDate,totalTime);
-         auditObj.push(dataObj)
-}
-      return auditObj;
-}
-      $rootScope.auditLogin=dataAuditloginManipulation(data);
-
-	}
+			            else if(goneNoLogout>-1) {
+					         totalTime="gone - no logout";
+					         logTime=logTime.split(totalTime)     
+					         logTimeDate=logTime[0]  
+					         logTimeDate=String(logTimeDate); 
+			                }
+			      
+			            else{
+					         logTime=logTime.split("(")     
+					         logTimeDate=logTime[0]  
+					         logTimeDate=String(logTimeDate);       
+					         totalTime=logTime[1]
+					         totalTime=String(totalTime);
+					         totalTime=totalTime.replace(")" , "") 
+			                }
+			   
+					         var dataObj=[];
+					         dataObj.push(userName1,terminalName3,serverip2,logTimeDate,totalTime);
+					         auditObj.push(dataObj)
+                       }
+                          return auditObj;
+                     }
+                       $rootScope.auditLogin=dataAuditloginManipulation(data);
+                   })
+	        }
 	else if(mode == "runScript"){
+		  
 			$rootScope.visible_run_script = $rootScope.visible_run_script ? false : true;
 		}
 
@@ -610,7 +662,8 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 		$rootScope.emailValid = true;
 		$rootScope.userExist = true;
 		if ($rootScope.visible_add_user || $rootScope.visible_delete_user || 
-			$rootScope.visible_privilege) {
+			$rootScope.visible_privilege|| $rootScope.visible_run_script||$rootScope.visibleauditLogin||$rootScope.visibleProcessList||$rootScope.enviroment_variable
+			||$rootScope.visibleUnlock|| $rootScope.visibleLockdown ||$rootScope.visible_delete_user||$rootScope.visibleGetAccessKey) {
 			body.addClass("overflowHidden");
 			$rootScope.modal_class = "modal-backdrop fade in";
 		}
@@ -790,3 +843,5 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 
 
 });
+
+//settingsPop ng-hide

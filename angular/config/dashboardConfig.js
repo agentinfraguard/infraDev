@@ -1,62 +1,74 @@
-angular.module("dashBoard", ["ngRoute","profileController", "HelpController",
-"companyDetailController","projectDetailController","createProjectController","fileUploadDirective",
-"companyService","serverController","manageUsersController","mfaPageController","manageRolesController","createRoleController"]).config(
-function($routeProvider){ 
-    
-    $routeProvider
-    .when("/", {
-        templateUrl : "pages/companyDetails.html",
-        controller : "profileController"
+angular.module("dashBoard", ["ui.router","multipleSelect","profileController", "HelpController","companyDetailController",
+"projectDetailController","createProjectController","fileUploadDirective","companyService","serverController",
+"manageUsersController","mfaPageController","manageRolesController","createRoleController","manageGroupController",
+"createGroupController","manageUsersController","inviteUsersController","eachServerDetailController"])
+.config(function($stateProvider, $urlRouterProvider) {
+    $stateProvider
+    .state('dashboard', {
+      url: '/',
+      templateUrl: 'pages/companyDetails.html',
+      controller: 'profileController'
     })
-    .when("/project", {
-        templateUrl : "pages/projectDetails.html",
-        controller : "companyDetailController"
+    .state('project', {
+      url: '/project',
+      templateUrl: 'pages/projectDetails.html',
+      controller: 'companyDetailController'
     })
-    .when("/server", {
-        templateUrl : "pages/serverDetails.html",
-        controller : "serverController"
+    .state('server', {
+      url: '/server',
+      templateUrl: 'pages/serverDetails.html',
+      controller: 'serverController'
     })
-    .when("/profile", {
-        templateUrl : "pages/userProfile.html",
-        controller : "profileController"
+    .state('eachServer', {
+      url: '/eachServer',
+      templateUrl: 'pages/eachServerDetail.html',
+      controller: 'eachServerDetailController'
     })
-    .when("/mfa", {
-        templateUrl : "pages/mfaPage.html",
-        controller : "mfaPageController"
+    .state('profile', {
+      url: '/profile',
+      templateUrl: 'pages/userProfile.html',
+      controller: 'profileController'
     })
-    .when("/users", {
-        templateUrl : "pages/manageUsers.html",
-        controller : "manageUsersController"
+    .state('mfa', {
+      url: '/mfa',
+      templateUrl: 'pages/mfaPage.html',
+      controller: 'mfaPageController'
     })
-    .when("/createrole", {
-        templateUrl : "pages/createrole.html",
-        controller : "createRoleController"
+    .state('iam', {
+      url: '/iam',
+      abstract: true,
+      templateUrl: 'pages/iammanagement.html',
     })
-    .when("/manageRole", {
-        templateUrl : "pages/manageroles.html",
-        controller : "manageRolesController"
+    .state('iam.manageroles', {
+      url: '',
+      templateUrl: 'pages/manageroles.html',
+      controller: 'manageRolesController'
     })
-    .when("/eachServer", {
-        templateUrl : "pages/eachServerDetail.html",
-        controller : "eachServerDetailController"
+    .state('iam.createEditRole', {
+      url: '/createEditRole',
+      templateUrl: 'pages/createrole.html',
+      controller: 'createRoleController'
     })
-    .when("/manageGroup", {
-        templateUrl : "pages/manageGroup.html",
-        //controller : ""
+    .state('iam.manageGroup', {
+      url: '/manageGroup',
+      templateUrl: 'pages/manageGroup.html',
+      controller: 'manageGroupController'
     })
-    .when("/createGroup", {
-        templateUrl : "pages/createNewGroup.html",
-        //controller : ""
+    .state('iam.createGroup', {
+      url: '/createGroup',
+      templateUrl: 'pages/createNewGroup.html',
+      controller: 'createGroupController'
     })
-    .when("/manageUsers", {
-        templateUrl : "pages/manageUsers.html",
-        //controller : ""
+    .state('iam.manageUsers', {
+      url: '/manageUsers',
+      templateUrl: 'pages/manageUsers.html',
+      controller: 'manageUsersController'
     })
-    .when("/inviteUsers", {
-        templateUrl : "pages/inviteUser.html",
-        //controller : ""
+    .state('iam.inviteUsers', {
+      url: '/inviteUsers',
+      templateUrl: 'pages/inviteUser.html',
+      controller: 'inviteUsersController'
     })
-    .otherwise({
-        redirectTo : "/"
-    });
+    $urlRouterProvider.otherwise('/');
+
 });

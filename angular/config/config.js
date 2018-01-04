@@ -1,20 +1,20 @@
-angular.module("myApp", ["ngRoute", "loginController", "signupController", "homeController", 
-"passwValidation"]).config(
-function($routeProvider){
-	$routeProvider
-	.when("/", {
-        templateUrl : "/pages/homePageContent.html",
-        controller : "homeController"
+angular.module("myApp", ["ui.router", "loginController", "signupController", "homeController", 
+"passwValidation"]).config(function($stateProvider, $urlRouterProvider) {
+	$stateProvider
+	.state('homePage', {
+      url: '/',
+      templateUrl: 'pages/homePageContent.html',
+      controller: 'homeController'
     })
-	.when("/login", {
-		templateUrl : "/pages/login.html",
-		controller : "loginCtrl"
-	})
-	.when("/signup", {
-		templateUrl : "/pages/register.html",
-		controller : "signupCtrl"
-	})
-	.otherwise({
-		redirectTo : "/"
-	});
+    .state('login', {
+      url: '/login',
+      templateUrl: 'pages/login.html',
+      controller: 'loginCtrl'
+    })
+    .state('signup', {
+      url: '/signup',
+      templateUrl: 'pages/register.html',
+      controller: 'signupCtrl'
+    })
+    $urlRouterProvider.otherwise('/');
 });

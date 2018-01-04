@@ -14,7 +14,9 @@
     <!-- Custom css -->
     <link rel="stylesheet" type="text/css" href="css/site.css" />
     <link rel="stylesheet" type="text/css" href="css/responsive.css" />
+     <link rel="stylesheet" type="text/css" href="css/sm-blue.css" /> 
 
+ 
 </head>
 <body class="beforeloginBody">
     <section class="headersection">
@@ -26,21 +28,51 @@
                     </a>
                 </div>
                 <div class="menuDiv">
-                    <ul class="topLinkUl">
-                        <li><a href="javascript:void(0)" class="menuButton">Features</a></li>
+                    <!-- <ul class="topLinkUl"> -->
+                        <!-- <li><a href="javascript:void(0)" class="menuButton">Features</a></li>
                         <li><a href="javascript:void(0)" class="menuButton">Docs</a></li>
                         <li><a href="javascript:void(0)" class="menuButton">Enterprise</a></li>                        
                         <li><a href="#signup" class="menuButton signUpBtn">Signup</a></li>
-                        <li><a href="#login" class="menuButton logoutmenu loginBtn"><i class="fa fa-sign-in" aria-hidden="true"></i> Login </a></li>
-                    </ul>
+                        <li><a href="#login" class="menuButton logoutmenu loginBtn"><i class="fa fa-sign-in" aria-hidden="true"></i> Login </a></li> -->
+                    <!--  </ul> -->
+
+                <div class="LoginBtnMain">
+              <a href="#signup" class="menuButton signUpBtn">Signup</a>
+                <a href="#login" class="menuButton logoutmenu loginBtn"><i class="fa fa-sign-in" aria-hidden="true"></i> Login </a>
+              </div>
+    <div class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        
+        </div>
+        <div class="navbar-collapse collapse">
+
+          <!-- Left nav -->
+          <ul class="nav navbar-nav topLinkUl">
+             <li><a href="javascript:void(0)" class="menuButton">Features</a></li>
+                        <li><a href="javascript:void(0)" class="menuButton">Docs</a></li>
+                        <li><a href="javascript:void(0)" class="menuButton">Enterprise</a></li>       
+            
+          </ul>
+
+          <!-- Right nav -->
+          
+
+        </div><!--/.nav-collapse -->
+      </div>
+             
+                                 
                 </div>
             </header>
         </div>
     </section>
     <div class="clear"></div>
-    <div class="ng-view">
-    <!-- Body Section -->
-    <!-- Body Section End -->
+    <div class="ui-view">
     </div>
     <div class="clear"></div>
     <div ng-class="modal_class"></div>
@@ -125,13 +157,17 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
     <script type="text/javascript" src="js/angular.min.js"></script>
-    <script type="text/javascript" src="js/angular-route.min.js"></script>
+    <script type="text/javascript" src="js/angular-ui-router.js"></script>
+    <script type="text/javascript" src="js/jquery.smartmenus.js"></script>
 
     <script type="text/javascript" src="config/config.js"></script>
     <script type="text/javascript" src="controllers/loginController.js"></script>
     <script type="text/javascript" src="controllers/signupController.js"></script>
     <script type="text/javascript" src="controllers/homeController.js"></script>
     <script type="text/javascript" src="directives/passwValidation.js"></script>
-        
+   
+    
+    
+    
  </body>
 </html>

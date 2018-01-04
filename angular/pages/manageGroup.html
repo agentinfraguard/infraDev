@@ -1,7 +1,8 @@
 <section class="manageGroupSection">
-    <div class="manageRoleRight">
+   <div class="manageRoleRight">
         <div class="manageRoleHeading">Manage Group</div>
         <div class="roleDetailsSec">
+            <div class="table-wrapper">
             <table class="commonTbMain commonThpadding">
                 <thead>
                 <tr>
@@ -20,11 +21,11 @@
                     <td>Role associated with this group</td>
                     <td class="actionTdwidth paddingTopBottom">
 
-                        <i id="I1" class="fa fa-caret-down" aria-hidden="true"></i>
+                        <i id="I1" class="fa fa-caret-down" aria-hidden="true" ng-click="selectedIndex = $index;showGroupOptions(1)"></i>
 
                         <div class="clear"></div>
 
-                        <ul class="actionList">
+                        <ul class="actionList" ng-show="selectedIndex ==1?visibleGroupOptions:false">
                             <li><a href="#">Action 1 </a></li>
                             <li><a href="#">Action 2 </a></li>
                             <li><a href="#">Action 3 </a></li>
@@ -40,11 +41,11 @@
                     <td>Role associated with this group</td>
                     <td class="actionTdwidth paddingTopBottom">
 
-                        <i id="I2" class="fa fa-caret-down" aria-hidden="true"></i>
+                        <i id="I2" class="fa fa-caret-down" aria-hidden="true" ng-click="selectedIndex = $index;showGroupOptions(2)"></i>
 
                         <div class="clear"></div>
 
-                        <ul class="actionList">
+                        <ul class="actionList" ng-show="selectedIndex == 2?visibleGroupOptions:false">
                             <li><a href="#">Action 1 </a></li>
                             <li><a href="#">Action 2 </a></li>
                             <li><a href="#">Action 3 </a></li>
@@ -60,11 +61,11 @@
                     <td>Role associated with this group</td>
                     <td class="actionTdwidth paddingTopBottom">
 
-                        <i id="I3" class="fa fa-caret-down" aria-hidden="true"></i>
+                        <i id="I3" class="fa fa-caret-down" aria-hidden="true" ng-click="selectedIndex = $index;showGroupOptions(3)"></i>
 
                         <div class="clear"></div>
 
-                        <ul class="actionList">
+                        <ul class="actionList" ng-show="selectedIndex == 3?visibleGroupOptions:false">
                             <li><a href="#">Action 1 </a></li>
                             <li><a href="#">Action 2 </a></li>
                             <li><a href="#">Action 3 </a></li>
@@ -80,11 +81,11 @@
                     <td>Role associated with this group</td>
                     <td class="actionTdwidth paddingTopBottom">
 
-                        <i id="I4" class="fa fa-caret-down" aria-hidden="true"></i>
+                        <i id="I4" class="fa fa-caret-down" aria-hidden="true" ng-click="selectedIndex = $index;showGroupOptions(4)"></i>
 
                         <div class="clear"></div>
 
-                        <ul class="actionList">
+                        <ul class="actionList" ng-show="selectedIndex == 4?visibleGroupOptions:false">
                             <li><a href="#">Action 1 </a></li>
                             <li><a href="#">Action 2 </a></li>
                             <li><a href="#">Action 3 </a></li>
@@ -100,11 +101,11 @@
                     <td>Role associated with this group</td>
                     <td class="actionTdwidth paddingTopBottom">
 
-                        <i id="I4" class="fa fa-caret-down" aria-hidden="true"></i>
+                        <i id="I4" class="fa fa-caret-down" aria-hidden="true" ng-click="selectedIndex = $index;showGroupOptions(5)"></i>
 
                         <div class="clear"></div>
 
-                        <ul class="actionList">
+                        <ul class="actionList" ng-show="selectedIndex == 5?visibleGroupOptions:false">
                             <li><a href="#">Action 1 </a></li>
                             <li><a href="#">Action 2 </a></li>
                             <li><a href="#">Action 3 </a></li>
@@ -121,11 +122,11 @@
                     <td>Role associated with this group</td>
                     <td class="actionTdwidth paddingTopBottom">
 
-                        <i id="I4" class="fa fa-caret-down" aria-hidden="true"></i>
+                        <i id="I4" class="fa fa-caret-down" aria-hidden="true" ng-click="selectedIndex = $index;showGroupOptions(6)"></i>
 
                         <div class="clear"></div>
 
-                        <ul class="actionList">
+                        <ul class="actionList" ng-show="selectedIndex == 6?visibleGroupOptions:false">
                             <li><a href="#">Action 1 </a></li>
                             <li><a href="#">Action 2 </a></li>
                             <li><a href="#">Action 3 </a></li>
@@ -136,10 +137,11 @@
             </tbody>
             </table>
         </div>
+        </div>
     </div>
 </section>
 
-<script>
+<!-- <script>
     $(document).ready(function () {
         $('#dropdownRoleDetails').on("click", function (e) {
             e.stopPropagation();
@@ -160,4 +162,4 @@
 
         });
     });
-</script>
+</script> -->

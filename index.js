@@ -10,6 +10,6 @@ require("./controller/routes")(app);
 require("./controller/mailController")(app);
 require("./controller/iamController")(app);
 
-var server = app.listen(80, function(){
-console.log("server started at http://127.0.0.1:80");
+var server = app.listen(8088, function(){
+console.log("server started at http://127.0.0.1:8088");
 });

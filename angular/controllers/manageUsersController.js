@@ -1,7 +1,7 @@
 angular.module("manageUsersController", []).controller("manageUsersController", 
-function($scope, $http, $rootScope, companyService, $window) {
+function($scope, $http, $rootScope, companyService, $window, $state) {
 
-	$scope.visible = false;
+	/*$scope.visible = false;
 	$scope.users = [{name:'User1'},{name:'User2'},{name:'User3'},{name:'User4'},{name:'User5'}];
     var local_index = -1;
 
@@ -12,5 +12,10 @@ function($scope, $http, $rootScope, companyService, $window) {
 			}
 			local_index = index;
 			$scope.visible = $scope.visible ? false : true;
-		};
+		};*/
+
+    $rootScope.addFunction = function() {
+		console.log(" Add new User ");
+		$state.go('iam.inviteUsers');
+    }
 });

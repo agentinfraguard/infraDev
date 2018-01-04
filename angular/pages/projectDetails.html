@@ -1,16 +1,16 @@
 ﻿<section>
     <div class="companyDetailsBg">
         <div class="profileHead">Project Details for Company : {{company_name}}</div>
-        <div class="topButtonDv">
+        <!--<div class="topButtonDv">
             <a href="javascript:void(0)" ng-click="showPopup('createProject','')" class="addButton"><i class="fa fa-plus" aria-hidden="true"></i> Add Project</a>
-            <!-- <a href="#/users" class="manageButton"><i class="fa fa-user" aria-hidden="true"></i> User Management</a> -->
+             <a href="#/users" class="manageButton"><i class="fa fa-user" aria-hidden="true"></i> User Management</a> 
         </div>
 
         <div class="page_messages" ng-style="createStyle">
           <div class="headsup-close-button" ng-click="createStyle={display:'none'}"><i class="fa fa-times"></i>
           </div>
           <div class="innerhtml"><h3>Create new project.</h3></div>
-        </div>
+        </div>-->
 
         <div class="clear">&nbsp;</div>
             
@@ -22,6 +22,7 @@
            <div ng-if="project.servers.length > 0" class="settingsPop" ng-show="$parent.selectedIndex == $index?visible:false">
                 <ul>
                     <li ><a href="javascript:void(0)" ng-click="showPopup('updateServerKey', project.id)">Update Server Key</a></li>
+                    <li ><a href="javascript:void(0)" ng-click="showPopup('EditProjectName',project.id,project.projectName)">Edit Project Name</a></li>
                     <li ng-if = "project.servers[0].autoKeyRotation==0"><a href="javascript:void(0)" ng-click="showPopup('startKeyAutoRotation', project.id)">Start Auto Key Rotation</a></li>
                     <li ng-if = "project.servers[0].autoKeyRotation==1"><a href="javascript:void(0)" ng-click="showPopup('stopKeyAutoRotation', project.id)">Stop Auto Key Rotation</a></li>
                 </ul>

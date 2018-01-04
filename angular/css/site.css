@@ -52,6 +52,7 @@ a {
     outline: none;
     padding-left: 3px;
     padding-right: 3px;
+    text-decoration: none;
 }
 
     a:link, a:visited, a:active, a:hover {
@@ -283,7 +284,7 @@ hr {
 
 .headerLogodiv {
     float: left;
-    width: 217px;
+    width: 220px;
     height: 48px;
     margin-top: 9px;
     margin-bottom: 8px;
@@ -313,16 +314,15 @@ hr {
 
 .topLinkUl {
     float: right;
-    margin-top: 0;
 }
 
     .topLinkUl li {
         list-style: none;
         float: left;
-        margin: 23px 0 0 0;
-        padding-left: 20px;
         cursor: pointer;
     }
+
+    
 
 .menuButton {
     -moz-border-radius: 3px;
@@ -340,10 +340,11 @@ a.menuButton:hover {
 .menuDiv {
     margin: 0;
     float: right;
+    position: relative;
 }
 .plusIconMain{
-    float: left;
-    margin-right: 45px;
+    float: right;
+    margin-right: 56px;
 }
 .signUpBtn {
     background: #efefef;
@@ -351,7 +352,8 @@ a.menuButton:hover {
     -webkit-border-radius: 3px;
     border-radius: 3px;
     color: #333 !important;
-    padding: 4px 10px;
+    padding: 4px 10px 7px;
+    float: left;
 }
 
 .loginBtn {
@@ -360,7 +362,8 @@ a.menuButton:hover {
     -webkit-border-radius: 3px;
     border-radius: 3px;
     color: #fff !important;
-    padding: 4px 10px;
+    padding: 4px 10px 7px;
+    float: right;
 }
 
 .headersection {
@@ -399,6 +402,10 @@ a.menuButton:hover {
 .navbar {
     float: left;
     padding-top: 11px;
+}
+.navbar-default {
+     background-color:#333 ; 
+     border-color:#333; 
 }
 
 .navbarright {
@@ -758,33 +765,37 @@ a.menuButton:hover {
     width: 100%;
     float: left;
     background: #efefef;
-    padding: 20px;
+    padding: 0px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    float: left;
+    width: 100%;
 }
 
+/*.companyDetailsBg:after {
+    content: '';
+    width: 100%;
+    display: inline-block;
+}*/
 .perCompanyBox {
-    width: 23.6%;
-    float: left;
+    vertical-align: top;
+    display: inline-block;
     background: #fff;
-    border: 1px solid #dcdcdc;
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    border-radius: 0;
-    padding: 20px;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    margin-right: 20px;
+    border: 1px solid #d9d9d9;
+    width: 23.8%;
+    height: 200px;
+    padding: 15px 10px;
+    border-radius: 5px;
+    margin: 0 7px 15px 8px;
+    -webkit-box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.05);
+    -moz-box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.05);
+    box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.05);
+    transition:all 0.2s ease;
+    color:#333;
     position: relative;
-    min-height: 190px;
-    margin-top: 20px;
-    font-family: 'Gadugi';
--webkit-box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.05);
--moz-box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.05);
-box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.05);
 }
+
 
 .addCompanyDetail .perCompanyBox {
     height: 180px;
@@ -923,7 +934,7 @@ box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.05);
     right: 8px;
     top: 55px;
     color: #333;
-    padding: 10px 15px;
+    padding: 0;
     z-index: 10;
     position: absolute;
     background: #f5f4f4;
@@ -953,14 +964,25 @@ box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.05);
     border-width: 6px;
     margin-left: -6px;
 }
-
+.settingsPop ul {
+    padding: 3px 0;
+    float: left;
+    }
     .settingsPop li {
         list-style: none;
         line-height: 200%;
     }
 
 .settingsPop li a {
-    text-decoration: none;
+        text-decoration: none;
+    width: 100%;
+    float: left;
+    padding: 0 10px;
+    line-height: 241%;
+}
+.settingsPop li a:hover {
+    background: #2670b7;
+    color:#fff;
 }
 
 .profileHead {
@@ -1039,23 +1061,13 @@ a.divSaveBtn {
     box-sizing: border-box;
     font-family: 'Gadugi-Bold';
     font-size: 16px;
+    text-align: center;
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,.2);
+
 }
 
     a.divSaveBtn:hover {
-        /*background: #f3f3f3;
-        border: 1px solid #ccc;
-        color: #666 !important;*/
-
-        color: #333;
-    border: 1px solid #ccc;
-    border-radius: 1px;
-    font-family: 'Gadugi-Bold';
-    font-size: 16px;
-    background: #ffffff;
-    background: -moz-linear-gradient(top, #ffffff 1%, #eae9e9 100%);
-    background: -webkit-linear-gradient(top, #ffffff 1%,#eae9e9 100%);
-    background: linear-gradient(to bottom, #ffffff 1%,#eae9e9 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eae9e9',GradientType=0 );
+        background: #7ca93f;
     }
 
 .profileForm {
@@ -1066,9 +1078,10 @@ a.divSaveBtn {
     .profileForm label {
         float: left;
     width: 100%;
-    margin-bottom: 5px;
+    /*margin-bottom: 5px;*/
     font-family: 'Gadugi-Bold';
     text-align: left;
+        padding: 10px 0;
     }
 
         .profileForm label span {
@@ -1089,6 +1102,7 @@ a.divSaveBtn {
         -webkit-border-radius: 2px;
             border-radius: 0;
     padding: 10px 5px;
+   /* padding:4px;*/
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
@@ -1101,6 +1115,10 @@ a.divSaveBtn {
         .remodal input[type="text"]:focus, .profileForm input[type="text"]:focus, input[type="file"]:focus, textarea:focus, select:focus {
             border: 1px solid #709d34;
         }
+
+        .tbDetailsSec select{
+            padding: 4px 10px !important;
+        } 
 
     .profileForm input[type="file"] {
         padding: 0px;
@@ -1115,7 +1133,7 @@ a.divSaveBtn {
 
 .cabinet {
     border: 1px dashed #ccc;
-    padding: 5px 5px 5px 5px;
+    padding: 5px 5px 5px 5px !important;
     margin: 0;
     line-height: 0;
     position: relative;
@@ -1675,11 +1693,35 @@ ul.perUser li {
         font-size: 14px;
 }
 
+.successMsg{
+    color: green !important;
+    font-size: 15px;
+    text-align: center;
+    float: left;
+    width: 100%;
+    background: #daf1da;
+    padding: 3px 0 5px;
+    border: 1px solid #c6e0c6;
+    margin-bottom: 10px;
+}
+
 .colorRed {
     color: red !important;
     font-size: 14px;
     float: left;
     margin-top: 4px;
+}
+.gotologinText{
+    float: left;
+    color: #717171;
+}
+
+a.gotologinText{
+    color: #717171;
+    margin-top: 20px;
+}
+a.gotologinText:hover{
+    color: #717171;
 }
 
 a:hover {
@@ -1847,6 +1889,7 @@ a.setupMFABtn, .changePasswordBtn, .profileForm .saveBtn {
     float: :left;
     height: 30px;
     line-height: 30px;
+    font-family: 'Gadugi-Bold';
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eae9e9',GradientType=0 );
     -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,.2);
     -moz-box-shadow: 2px 2px 2px 0px rgba(0,0,0,.2);
@@ -1984,8 +2027,14 @@ a.setupMFABtn:hover{
     }
 
 .mfaLeft {
-    float: left;
+    display: inline-block;
     width: 69%;
+}
+
+.multiFactor{
+    float: none !important;
+    margin: 0 auto;
+    width: 75% !important;
 }
 
     .mfaLeft p {
@@ -2036,10 +2085,12 @@ a.setupMFABtn:hover{
 .SlidePopUpCommon{
     width: 100%;
     margin: 0 auto;
-    background: #2670b7;
+    background: #709d34;
     padding: 10px;
     margin: 10px 0;
     position: relative;;
+	box-shadow: 0px 0px 4px #e4e4e4;
+    border-radius: 2px; 
 }
 
 .SlidePopUpCommon i{
@@ -2281,6 +2332,12 @@ a.setupMFABtn:hover{
 .displayBlock {
     display: block !important;
 }
+.dropmenuLogout{
+    padding: 3px 14px 2px 25px !important;
+    margin: 10px 0 0px 0 !important;
+    float: left;
+    width: 100%;
+}
 
 #userDropdown .upgradeSection .logoutmenu i {
     color: #fff;
@@ -2313,6 +2370,8 @@ a.setupMFABtn:hover{
 #userDropdown ul li {
     padding: 0px 0px;
     list-style-type: none;
+    float: left;
+    width: 100%;
 }
 
 
@@ -2324,11 +2383,13 @@ a.setupMFABtn:hover{
 
 .userUpgradeBtn {
     background: #709d34;
-    padding: 5px 10px 8px;
+    padding: 7px 10px 10px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
     color: #fff;
+    margin-top: -1px;
+    float: left;
 }
 
 .rightIcon{
@@ -2343,7 +2404,7 @@ a.userUpgradeBtn {
 }
 
 .DorpDownIcon {
-    background: url(../images/sprite.png) no-repeat -111px 9px;
+    background: url(../images/sprite.png) no-repeat -111px 5px;
     width: 25px;
     height: 18px;
     float: right;
@@ -2357,13 +2418,14 @@ a.userUpgradeBtn {
 }
 
 .leftMenuWrapper {    
-    width: 220px;
+    /*width: 220px;
     float: left;
-    margin-right: 15px;
+    margin-right: 15px;*/
 }
 
-.leftMenuMain{
-    margin: 58px 0 0 0;
+
+.leftMenuMain {
+    margin: 35px 0 0 0;
 }
     .leftMenuWrapper ul li {
         list-style-type: none;
@@ -2373,6 +2435,7 @@ a.userUpgradeBtn {
             padding: 16px 10px;
             display: block;
             color: #333333;
+            text-decoration: none;
         }
 
             .leftMenuWrapper ul li a:hover {
@@ -2395,9 +2458,9 @@ a.userUpgradeBtn {
 
 
 .manageRoleRight {
-    width: 78%;
+        width: 100%;
     float: left;
-    margin: 35px 0 0 0;
+    margin: 16px 0 0px 0;
 }
 
 .pageNavigation, {
@@ -2444,22 +2507,19 @@ a.userUpgradeBtn {
 
 .inputTextArea {
     width: 260px;
-    padding: 7px 10px 10px;
+    padding: 0px 10px 0;
     border: 1px solid #bdbdbd;
+    line-height: 223%;
 }
 
 .formlabel {
     width: 90px;
     float: left;
     margin-right: 10px;
+    font-family: 'Gadugi-Bold';
 }
 
-
-
-
-
 .tbDetailsSec {
-    width: 100%;
     float: left;
     border: 1px solid #bdbdbd;
     height: auto;
@@ -2491,15 +2551,19 @@ a.userUpgradeBtn {
 }
 
 .accessDiv {
-    width: 160px;
+    width: 136px;
 }
 
 .resourceDiv {
-    width: 170px;
+    width: 140px;
+}
+
+.tbDetailsSec tr th:nth-child(3) {
+    width: 195px;
 }
 
 .actionDiv {
-    width: 200px;
+    width: 280px;
 }
 
 .allowCommon {
@@ -2512,7 +2576,7 @@ a.userUpgradeBtn {
 
 .accessRedio {
     width: 160px;
-    padding: 0px 10px 0px 10px !important;
+    padding: 0px 5px !important;
     position: relative;
 }
 
@@ -2563,7 +2627,7 @@ a.userUpgradeBtn {
 
 
 .policiesDetails {
-    width: 60% !important;
+    width: 100% !important;
     margin-bottom: 20px;
 }
 
@@ -2595,7 +2659,10 @@ a.userUpgradeBtn {
 #tableMainWrapper{
     float: left;
     height: auto;
+    width: 89%;
 }
+
+
 
 .createRoleBtn {
     padding: 8px 18px 10px;
@@ -2718,6 +2785,7 @@ a.userUpgradeBtn {
 .commonTbMain tr td{
     border: 1px solid #dcdcdc;
     color: #444444;
+    /*line-height: 22px;*/
 }
 
 
@@ -2762,7 +2830,7 @@ a.userUpgradeBtn {
 
 .manageRolesTbMain table tr td{
     padding: 10px 0 10px 5px;
-    border: 1px solid #dcdcdc;
+    border-bottom: 1px solid #dcdcdc;
 }
 
 .actionTdwidth{
@@ -2796,6 +2864,13 @@ a.userUpgradeBtn {
     width: 210px;
 } 
 
+.tbDetailsSec tr th:nth-child(1){
+    width: 136px;
+}  
+
+/*.tbDetailsSec tr th:nth-child(2){
+    width: 136px;
+}*/
 
 .paddingTopBottom{
     padding: 0px 5px;
@@ -2820,22 +2895,32 @@ a.userUpgradeBtn {
 .actionList{
     position: absolute;
     background: #fff;
-    width:90px;
-    border: 1px solid #b9b9b9;
-    -webkit-box-shadow: 1px 1px 1px 1px #bdbdbd;
-    -moz-box-shadow: 1px 1px 1px 0px #bdbdbd;
-    box-shadow: 1px 1px 1px 0px #bdbdbd;
-    display: none;
-    right: -17px;
+    width:110px;
+    border: 1px solid #dcdcdc ;
+    -webkit-box-shadow: 1px 1px 1px 1px #dcdcdc ;
+    -moz-box-shadow: 1px 1px 1px 0px #dcdcdc ;
+    box-shadow: 1px 1px 1px 0px #dcdcdc ;
+    right: -19px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
     border-radius: 2px;
     z-index: 99;
 }
 
 .actionList li{
     list-style-type: none;
-    padding:5px;
-    border-bottom: 1px solid #b9b9b9;
+    border-bottom: 1px solid #dcdcdc;
     cursor: pointer;
+}
+
+ul.actionList  li a{
+    display: block;
+    padding: 5px;
+}
+
+ul.actionList li a:hover{
+    background: #2670b7;
+    color: #fff;
 }
 
 .actionListNone{
@@ -2865,10 +2950,7 @@ a.userUpgradeBtn {
     border-right: none !important;
 }
 
-.actionList li:hover{
-    background: #efefef;
 
-}
 
 /*----Manage Role end ----*/
 
@@ -2876,7 +2958,7 @@ a.userUpgradeBtn {
 
 /*--Create a new Group--*/
 .createNewGroup .formlabel {
-    width: 180px;
+    width: 165px;
     text-align: right;
 }
 
@@ -3006,7 +3088,11 @@ a.projectHeading:hover, a.serverHeading:hover{
     text-align: justify;
 }
 
-
+    .serverNameSec:after {
+        content: '';
+        width: 100%;
+        display: inline-block;
+    }
 
 .hostNameIconCommon{
        width: 66px;
@@ -3025,22 +3111,27 @@ a.projectHeading:hover, a.serverHeading:hover{
     display: inline-block;
     background: #fff;
     border: 1px solid #d9d9d9;
-    width: 234px;
+    width: 235px;
     padding: 15px 10px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
     border-radius: 5px;
     margin: 0 0 15px;
     -webkit-box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.05);
     -moz-box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.05);
     box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.05);
-    transition:all 0.2s ease;
-    color:#333; 
-
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    color: #333;
+    height: 97px;
 }
-
 
 .serverNameHeading{
     font-size: 20px;
     color: #6c6b6b;
+    margin-bottom: 20px;
 }
 
 .serverBoxCommon p{
@@ -3169,14 +3260,11 @@ a.projectHeading:hover, a.serverHeading:hover{
 
 .rootButton {
     padding: 1px 5px 3px 5px;
-    background: #709d34;
+    background: #709d34 !important;
     width: 80px;
+    background: #709d34 !important;
     color: #fff;
-    border-radius: 2px;
-    margin: 0 8px;
-    border: 1px solid #709d34;
-    text-align: center;
-    display: inline-block; 
+    border: 1px solid #709d34 !important;
 }
 
 .rootGreyButton{
@@ -3187,6 +3275,8 @@ a.projectHeading:hover, a.serverHeading:hover{
     background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(234,232,232,1) 46%,rgba(234,232,232,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eae8e8',GradientType=0 ); /* IE6-9 */
     width: 80px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
     border-radius: 2px;
     margin: 0 8px;
     border: 1px solid #d9d9d9;
@@ -3196,7 +3286,7 @@ a.projectHeading:hover, a.serverHeading:hover{
 
 .rightSignIcon{ 
     float: left;
-    margin: 0 0px 0 6px;
+    margin: 0 -7px 0 14px;
     background: url(../images/sprite.png) no-repeat -258px 1px;
     width: 13px;
     height: 14px;
@@ -3242,7 +3332,9 @@ a.projectHeading:hover, a.serverHeading:hover{
     padding: 7px 15px 5px;
     background: #2670b7;
     color: #fff;
-    border-radius: 3px; 
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
     text-align: center;
     margin: 0px 0 20px;
     -webkit-box-shadow: 5px 5px 1px -3px rgba(224,224,224,1);
@@ -3263,7 +3355,7 @@ a.projectHeading:hover, a.serverHeading:hover{
     width:auto;
     min-width: 100px;
     color:#2670b7;
-    margin: 10px 0 10px 0;
+    margin: 10px 0 25px 0;
 }
 
 
@@ -3280,7 +3372,7 @@ a.projectHeading:hover, a.serverHeading:hover{
     float: left;
     background: url(../images/sprite.png) no-repeat -385px 0px;
     cursor: pointer;
-    margin: 6px 0;
+    margin: 8px 0;
 }
 
 .material-iconsleft{
@@ -3289,7 +3381,7 @@ a.projectHeading:hover, a.serverHeading:hover{
     float: left;
     background: url(../images/sprite.png) no-repeat -358px -15px;
     cursor: pointer;
-    margin: 6px 0;
+    margin: 8px 0;
 }
 
 .pagination li {
@@ -3305,14 +3397,16 @@ a.projectHeading:hover, a.serverHeading:hover{
   border: none;
 }
 
-.pagination li.active a {
-  color: #fff;
-  background-color: #709d34;
-  width: 30px;
-  height: 30px;
-   border-radius: 50%;
-   padding: 5px 0;
-}
+    .pagination li.active a {
+        color: #fff;
+        background-color: #709d34;
+        width: 30px;
+        height: 30px;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        padding: 5px 0;
+    }
 
 .pagination li.active {
   background-color:none;
@@ -3336,19 +3430,28 @@ a.projectHeading:hover, a.serverHeading:hover{
   vertical-align: middle;
 }
 
+.paginationMain .disabled {
+    position: relative;
+    top: -15px;
+}
+
 .pagination li.pages ul li {
   display: inline-block;
   float: none;
 }
 
-#Modal720 .modal-dialog{
+#CreateCompanyModal .modal-dialog {
     width: 720px;
 }
 
-.modal-content{
+.modal-content {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
     border-radius: 0;
     background: #eaeaea;
     border: 0 none;
+    -moz-box-shadow: 0 0px 8px rgba(0, 0, 0, .5);
+    -webkit-box-shadow: 0 0px 8px rgba(0, 0, 0, .5);
     box-shadow: 0 0px 8px rgba(0, 0, 0, .5);
 }
 .modal-footer {
@@ -3356,16 +3459,16 @@ a.projectHeading:hover, a.serverHeading:hover{
     padding: 30px 0;
     border: none;
     text-align: center;
-    margin-top: 40px;
+    margin-top: 24px;
 }
 .modal-header {
     border: 0 none;
     padding: 15px 30px;
 }
-.modal-title {
+/*.modal-title {
     font-family: 'Gadugi-Bold';
     line-height: 120%;
-}
+}*/
 .modal-content input[type='text'] {
     width: 100%;
     border: 1px solid #bdbdbd;
@@ -3461,5 +3564,93 @@ a.projectHeading:hover, a.serverHeading:hover{
 .minHeightBodyPortion{
     min-height:817px;
 }
+.runScriptText{
+    padding: 24px 7px 2px 12px;
+    height: 71px;
+}
+.runScriptbodyModal {
+    height: 160px;
+}
+.processListClass .modalTbScroll{
+    min-height: 100px;
+    max-height: 200px;
+    overflow-y:auto;
+}
+
+/*----Menu----*/
+.LoginBtnMain{
+    float: right;
+    width: 160px;
+    margin: 19px 0 0;
+    height: :auto;
+}
+
+.headersection .navbar {
+    position: relative;
+    min-height: auto; 
+    margin-bottom: 0; 
+    border: 1px solid transparent;
+    padding-top: 5px;
+}
+
+.navbar-collapse {
+    padding-right: 10px;
+    padding-left: 10px;
+    overflow-x: visible;
+    -webkit-overflow-scrolling: touch;
+     border-top: none; 
+}
+
+.afterloginBody .topLinkUl li {
+    margin-top: 25px;
+}
+.beforeloginBody .nav > li > a {
+    padding: 15px 10px;
+}
+
+.processListTbFade {
+    display: block !important;
+    opacity: 1;
+    padding: 10px;
+}
+
+.roleDetailsSec .fade{
+    display: none ;
+
+}
+
+.eachServiceDetailsSec .cancelRoleBtn{
+    margin-top: 20px;
+    clear:both;
+}
+
+.manageRolesSubTb tr td  {
+    border-bottom:1px solid #dcdcdc !important;
+}
+
+.manageRolesSubTb tr:last-child td {
+    border-bottom:0px none !important;
+}
+
+
+
+
 
 /*----Each Server Detail Section End----*/
+.row [class*="col-"]{
+  margin-bottom: -99999px;
+  padding-bottom: 99999px;
+}
+
+.row{
+  overflow: hidden; 
+}
+.leftMenuWrapper {
+        width: 235px;
+    padding: 0 0 0 0;
+    min-height: 800px;
+}
+.rightWrapper {
+    width: 81%;
+    float: right;
+}

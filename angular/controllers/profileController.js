@@ -11,15 +11,18 @@ angular.module("profileController", []).controller("profileController",
      	$rootScope.visible_help = false;
      	$rootScope.visible_company = false;
      	$rootScope.visible_project = false;
+     	$rootScope.visibleEditCompanyName=false;
+     	$rootScope.visibleDeleteCompanyName=false;
      	$rootScope.company_err_msg = "";
      	$rootScope.modal_class = "";
      	$rootScope.userAccounts = JSON.parse($window.localStorage.getItem('userAccounts'));
      	$rootScope.currentAccountId=$window.localStorage.getItem('currentAccount');
      	var local_index = -1;
      	var body = angular.element($document[0].body);
-     	$scope.createStyle={display:'none'};
-		$scope.mfaStyle={display:'none'};
-
+     	$scope.createStyle = false;
+		$scope.mfaStyle = false;
+		$scope.companyId ="";
+        $rootScope.companyName="";
      	$rootScope.getAccountData = function(accountId,accountOwnerId) {
 			console.log(" accountId = : "+accountId+" Account Owner Id = : "+accountOwnerId+" Current User = : "+$window.localStorage.getItem('loggedInUser'));
 			$window.localStorage.setItem('currentAccount', accountId);
@@ -27,6 +30,12 @@ angular.module("profileController", []).controller("profileController",
 			$rootScope.currentAccountId = accountId;
 			getAccountDetails(accountId,accountOwnerId);
 		};
+
+		$rootScope.addFunction = function() {
+			showCompanyModal();
+		}
+
+  
 
      	var getAccountDetails = function(accountId,accountOwnerId){
      		$http({
@@ -50,23 +59,22 @@ angular.module("profileController", []).controller("profileController",
 				$scope.ssh_key = data.userdata.ssh_key;
 				
 				if(data.userdata.mfaEnabled == 0){
-					$scope.mfaStyle={display:'block'};
+					$scope.mfaStyle = true;
 				}
 				if(data.companydata == null){
-					$scope.createStyle={display:'block'};
+					$scope.createStyle = true;
 				}
 
             // filter data to display based on policies
             if(data.userroles != null){
             	console.log(" Userroles = : "+data.userroles);
-                console.log(" Policies = : "+data.userroles.policy);
-	           // console.log(" Policies = : "+JSON.parse(data.userroles.policy));
+                console.log(" Policies = : "+JSON.parse(data.userroles)[0].policy);
            }
 				for(var x in data.companydata){
 					var projects = [];
 					data.companydata[x].projects = [];
 					for(var y in data.projectdata){
-						if(data.projectdata[y].company_id == data.companydata[x].id){
+						if(data.projectdata[y].companyId == data.companydata[x].id){
 							projects.push(data.projectdata[y]);
 							data.companydata[x].projects = projects;
 						}
@@ -154,6 +162,7 @@ getAccountDetails($window.localStorage.getItem('currentAccount'),$window.localSt
 
 		$rootScope.setCompanyId = function(id) {
 			companyService.setId(id);
+			//console.log(id)
 		};
 
 		$rootScope.setProjectId = function(id) {
@@ -178,7 +187,20 @@ getAccountDetails($window.localStorage.getItem('currentAccount'),$window.localSt
 				$rootScope.modal_class = "";
 			}
 		};
-		$scope.showCompanyModal = function() {
+		/*$scope.showCompanyModal = function() {
+			$rootScope.visible_company = $rootScope.visible_company ? false : true;
+			$rootScope.errName = false;
+			$rootScope.companyName = "";
+			$rootScope.company_err_msg = "";
+			if ($rootScope.visible_company) {
+				body.addClass("overflowHidden");
+				$rootScope.modal_class = "modal-backdrop fade in";
+			} else {
+				body.removeClass("overflowHidden");
+				$rootScope.modal_class = "";
+			}
+		};*/
+		var showCompanyModal = function() {
 			$rootScope.visible_company = $rootScope.visible_company ? false : true;
 			$rootScope.errName = false;
 			$rootScope.companyName = "";
@@ -192,7 +214,7 @@ getAccountDetails($window.localStorage.getItem('currentAccount'),$window.localSt
 			}
 		};
 		
-		$rootScope.close = function(value) {
+		$rootScope.close = function(value,id) {
 			if(value == "help"){
 				$rootScope.visible_help = $rootScope.visible_help ? false : true;
 				body.removeClass("overflowHidden");
@@ -237,11 +259,81 @@ getAccountDetails($window.localStorage.getItem('currentAccount'),$window.localSt
 						});
 				    }
 			}
+                
+			else if(value == "companyNameEditcancel"){
+                     
+                     $rootScope.visibleEditCompanyName = $rootScope.visibleEditCompanyName ? false : true;
+			         body.removeClass("overflowHidden");
+				     $rootScope.modal_class = "";
+			}
+			else if(value == "companyNameEditok"){
+                     $rootScope.visibleEditCompanyName = $rootScope.visibleEditCompanyName ? false : true;
+                            body.removeClass("overflowHidden");
+				            $rootScope.modal_class = "";
+                            $http({
+							  method : "POST",
+							  url : "/EditCompany",
+					 	      data : {id: $scope.companyId,companyName:$rootScope.companyName},
+						 	  headers : {"Content-Type" : "application/json"}
+						    }) 
+                            .success(function(data){
+
+
+
+						})
+			}
+
+			else if(value == "DeleteCompanyNameCancel"){
+                     $rootScope.visibleDeleteCompanyName = $rootScope.visibleDeleteCompanyName ? false : true;
+			           body.removeClass("overflowHidden");
+				       $rootScope.modal_class = ""
+			}
+
+			else if(value == "deleteCompanyNameOkButton"){
+                     $rootScope.visibleDeleteCompanyName = $rootScope.visibleDeleteCompanyName ? false : true;
+                             body.removeClass("overflowHidden");
+				            $rootScope.modal_class = ""
+
+                            console.log($rootScope.companyName);
+      //                       $http({
+						// 	  method : "POST",
+						// 	  url : "/EditCompany",
+					 // 	      data : {id: $scope.companyId,companyName:$rootScope.companyName},
+						//  	  headers : {"Content-Type" : "application/json"}
+						//     }) 
+      //                       .success(function(data){
+
+
+
+						// })
+			}
+
 		};
 
+		$rootScope.showCompanyPopup = function(value,id,companyName) {
+          if(value == "EditCompany"){
+          	$rootScope.modal_class = "modal-backdrop fade in";
+                $rootScope.visibleEditCompanyName = $rootScope.visibleEditCompanyName ? false : true;
+                    $scope.companyId=id;
+                    $rootScope.companyName=companyName;
+                   console.log(companyName)
+              }
+              
+              else if(value=="DeleteCompany"){
+              	$rootScope.modal_class = "modal-backdrop fade in";
+                  $rootScope.visibleDeleteCompanyName = $rootScope.visibleDeleteCompanyName ? false : true;
+                    $scope.companyId=id;
+                    $rootScope.companyName=companyName;
+                   console.log(companyName)
+
+              }
+}
 		/*$timeout(function() {
 		    $scope.createStyle={display:'none'};
-		    $scope.mfaStyle={display:'none'};
+		    $scope.mfaStyle={display:'non
+		    e'};
 		}, 5000);*/
+
+	
 
 });
