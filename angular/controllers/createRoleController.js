@@ -126,15 +126,12 @@ $scope.roleName = '';
 	$scope.getActivityList = function(newResourceId){
 		console.log(" getActivityList for = : "+newResourceId);
 		if(newResourceId == 'Manage Roles'){
-			$scope.activityList = [];
 			$scope.activityList = ['Create Role','Modify Role','Delete Role'];
 		}
 		else if (newResourceId == 'Manage Groups'){
-			$scope.activityList = [];
 			$scope.activityList = ['Create Group','Modify Group','Show users in Group','Show roles in Group','Delete Group'];
 		}
 		else if (newResourceId == 'Manage Users'){
-			$scope.activityList = [];
 			$scope.activityList = ['Edit User Permission','Delete User ','Invite new user'];
 		}
 	}

@@ -262,4 +262,111 @@ app.post("/deleteUser", function(req,res){
 	});
 });
 
+app.post("/getUsersandGroupsInAnAccount", function(req,res){
+    var accountId = req.body.accountId;
+    var userId = req.body.userId;
+    var data = {};
+    if(con == null)
+	con = db.openCon(con);
+    Promise.all([
+    	// get all users for this account
+		new Promise((resolve, reject) => {
+			con.query("select * from infradb.userhasaccount uha "+
+					  "inner join infradb.users u "+
+					  "on uha.userId = u.id "+
+					  "where uha.accountId = ?", [accountId], function(err, result){
+				if(err){
+					console.log(err.stack);
+					resolve(null);
+					res.status(200).json({success: 0});
+				}
+				resolve(result);
+			});
+		}),
+		// get all groups for this account
+		new Promise((resolve, reject) => {
+			con.query("select * from infradb.roles where accountId = ? or accountId = ?", [0,accountId], function(err, result){
+					if(err){
+					console.log(err.stack);
+					resolve(null);
+					res.status(200).json({success: 0});
+				}
+				resolve(result);
+			});
+		})
+	]).then((results) => {
+		console.log(" Account Users Data = : "+JSON.stringify(results[0]));
+		data.userList = results[0];
+		data.roleList = results[1];
+		res.status(200).json(data);
+	});
+});
+
+app.post("/createNewGroup", function(req, res){
+
+	var groupName = req.body.groupName;
+    var accountId = req.body.accountId;
+    var users = req.body.users;
+    var roles = req.body.roles;
+    console.log(" accountId = : "+accountId+"   groupName = : "+groupName+"   users = : "+users+"    roles = : "+roles);
+    
+    if(con == null)
+	con = db.openCon(con);
+    con.beginTransaction(function(err) {
+	    if (err) { console.log(err.stack); }
+        var data = {
+					groupName : groupName,
+					accountId : accountId
+					};
+        con.query("insert into groups set ? ", data, function(err, result){
+			if(err){
+				return con.rollback(function() {
+                    console.log(err.stack);
+                    res.json({success : "error"});
+                });
+			}
+			var groupId = result.insertId;
+			var grouphasroles = [];
+			for(var i=0;i<roles.length;i++){
+				record = [groupId,roles[i]];	
+				grouphasroles.push(record);
+			}
+			console.log(" grouphasroles  = : "+grouphasroles);
+			con.query("insert into grouphasroles (groupId,roleId) values ?", [grouphasroles], function(err, result1){
+				if(err){
+				  return con.rollback(function() {
+                      console.log(err.stack);
+                      res.json({success : "error"});
+                    });
+				}
+				if(users.length>0){
+					var grouphasusers = [];
+					for(var i=0;i<users.length;i++){
+						record = [groupId,users[i],accountId];	
+						grouphasusers.push(record);
+					}
+					console.log(" grouphasusers  = : "+grouphasusers);
+					con.query("insert into grouphasusers (groupId,userId,accountId) values ?", [grouphasusers], function(err, result1){
+						if(err){
+						  return con.rollback(function() {
+		                      console.log(err.stack);
+		                      res.json({success : "error"});
+	                        });
+						}
+					});
+				}
+				con.commit(function(err) {
+			        if (err) {
+			            return con.rollback(function() {
+			                console.log(err.stack);
+			            });
+			        }
+			        console.log(" New group Created ");
+				    res.json({success : 1});
+			    });
+			});
+        });
+	});
+});
+
 }

@@ -1,107 +1,38 @@
 <section class="manageGroupSection">
     <div class="rowMain margin-none">
-   <!--  <div class="leftMenuWrapper">
-        <ul class="leftMenuMain">
-            <li class="activeUserRole"><a href="#">Manage User</a></li>
-            <li><a href="#">Manage Group </a></li>
-            <li><a href="#">Manage Role </a></li>
-        </ul>
-    </div> -->
     <div class="manageRoleRight">
         <div class="manageRoleHeading">Manage User</div>
         <div class="roleDetailsSec">
-            <div class="table-wrapper">
-            <table class="commonTbMain commonThpadding manageGroupTable">
-               <thead> 
-                <tr>
-                    <th>User Full Name</th>
-                    <th>Email Address</th>
-                    <th>Group</th>
-                    <th>Last Login</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="trclass">
-                    <td> Pratyush Kumar </td>
-                    <td>pratyush.pk3@gmail.com </td>
-                    <td>test, system-admin, data-admin </td>
-                    <td>22 Nov 2017 18:22 </td>
-                     <td class="actionTdwidth paddingTopBottom">
-                        <i id="I4" class="fa fa-caret-down" aria-hidden="true"></i>
-                        <div class="clear"></div>
-                    </td>
-                </tr>
-
-                <tr class="trclass">
-                    <td> Pratyush Kumar </td>
-                    <td>pratyush.pk3@gmail.com </td>
-                    <td>test, system-admin, data-admin </td>
-                    <td>22 Nov 2017 18:22 </td>
-                     <td class="actionTdwidth paddingTopBottom">
-                        <i id="I4" class="fa fa-caret-down" aria-hidden="true"></i>
-                        <div class="clear"></div>
-                    </td>
-                </tr>
-
-                <tr class="trclass">
-                    <td> Pratyush Kumar </td>
-                    <td>pratyush.pk3@gmail.com </td>
-                    <td>test, system-admin, data-admin  </td>
-                    <td>22 Nov 2017 18:22 </td>
-                     <td class="actionTdwidth paddingTopBottom">
-                        <i id="I4" class="fa fa-caret-down" aria-hidden="true"></i>
-                        <div class="clear"></div>
-                    </td>
-                </tr>
-
-                <tr class="trclass">
-                    <td> Pratyush Kumar </td>
-                    <td>pratyush.pk3@gmail.com </td>
-                    <td>test, system-admin, data-admin </td>
-                    <td>22 Nov 2017 18:22 </td>
-                     <td class="actionTdwidth paddingTopBottom">
-                        <i id="I4" class="fa fa-caret-down" aria-hidden="true"></i>
-                        <div class="clear"></div>
-                    </td>
-                </tr>
-
-                 <tr class="trclass">
-                    <td> Pratyush Kumar </td>
-                    <td>pratyush.pk3@gmail.com </td>
-                    <td>test, system-admin, data-admin </td>
-                    <td>22 Nov 2017 18:22 </td>
-                     <td class="actionTdwidth paddingTopBottom">
-                        <i id="I4" class="fa fa-caret-down" aria-hidden="true"></i>
-                        <div class="clear"></div>
-                    </td>
-                </tr>
-               </tbody> 
-            </table>
-        </div> 
+           <div class="table-wrapper">
+                <table class="commonTbMain commonThpadding manageGroupTable">
+                   <thead> 
+                    <tr>
+                        <th>User Name</th>
+                        <th>Email Address</th>
+                        <th>Group</th>
+                        <!-- <th>Last Login</th> -->
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="trclass" ng-repeat="user in usersData">
+                        <td> {{user.userName}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.groupName}} </td>
+                        <!-- <td>22 Nov 2017 18:22 </td> -->
+                         <td class="actionTdwidth">
+                            <i id="I4" class="fa fa-caret-down dropdownRoleDetails" aria-hidden="true" ng-click="$parent.selectedIndex = $index;showOptions($index)"></i>
+                            <div class="clear"></div>
+                            <ul class="actionList" ng-show="$parent.selectedIndex == $index?visible:false">
+                                <li><a href="javascript:void(0)" ng-click="editUser($index)">Edit User</a></li>
+                                <li><a href="javascript:void(0)" ng-click="deleteUser($index)">Delete User</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    </tbody> 
+                </table>
+           </div> 
         </div>
     </div>
+    </div>
 </section>
-
-<script>
-    $(document).ready(function () {
-        $('#dropdownRoleDetails').on("click", function (e) {
-            e.stopPropagation();
-            if ($('.actionList').hasClass('actionListBlock')) {
-
-                $('.actionList').removeClass('actionListBlock');
-            }
-            else {
-                $('.actionList').addClass('actionListBlock');
-            }
-        });
-
-        $('html').on("click", function (event) {
-            event.stopPropagation();
-            if (!$(event.target).hasClass("actionListBlock")) {
-                $(".actionList").removeClass('actionListBlock');
-            }
-
-        });
-    });
-</script>

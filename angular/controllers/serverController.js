@@ -843,5 +843,3 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 
 
 });
-
-//settingsPop ng-hide

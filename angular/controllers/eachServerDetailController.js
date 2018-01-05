@@ -99,13 +99,12 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
  	            	$rootScope.userAccessChange="user"
  	                $rootScope.routeAccess=userListArr[1];
                     $rootScope.visibleRootAccess = $rootScope.visibleRootAccess ? false : true;
-                    $rootScope.modal_class = "modal-backdrop fade in";            
+                                 
  	            }
  	            else if (accessRoot="user"){
  	                $rootScope.userAccessChange="root"
                      console.log(accessRoot,"accessRoot");
                      $rootScope.visibleAllReadyUser = $rootScope.visibleAllReadyUser ? false : true;
-                     $rootScope.modal_class = "modal-backdrop fade in";
                     
  	            }
                 
@@ -121,13 +120,11 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
  	            if(accessRoot=="root"){
                      $rootScope.userAccessChange="user";
                      $rootScope.visibleAllReadyUser = $rootScope.visibleAllReadyUser ? false : true;
-                     $rootScope.modal_class = "modal-backdrop fade in";
  	                }
  	            else if (accessRoot="user"){
  	            	  $rootScope.userAccessChange="root";
                       $rootScope.routeAccess=userListArr[1];
                       $rootScope.visibleRootAccess = $rootScope.visibleRootAccess ? false : true;
-                      $rootScope.modal_class = "modal-backdrop fade in";
  	                }
                 
             };
@@ -136,7 +133,6 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
           $scope.deleteUser = function (userListArr) { 
          	      deleteUser=userListArr[0];
                   $rootScope.visibleDeleteUser = $rootScope.visibleDeleteUser ? false : true;
-                    $rootScope.modal_class = "modal-backdrop fade in";
                 }
 
 
@@ -339,8 +335,6 @@ $rootScope.close = function(value) {
 				headers: {"Content-Type":"application/json"}
 			})
 		       .success(function(data){
-		       	 body.removeClass("overflowHidden");
-				$rootScope.modal_class = "";
 			    $rootScope.visibleAllReadyUser = $rootScope.visibleAllReadyUser ? false : true;
 				var userEmail=data;
 				$http({
@@ -366,8 +360,6 @@ $rootScope.close = function(value) {
 				  headers: {"Content-Type": "application/json"}
 			   })
 			  .success(function(data){
-			  	 body.removeClass("overflowHidden");
-				 $rootScope.modal_class = "";
 			      $rootScope.visibleDeleteUser = $rootScope.visibleDeleteUser ? false : true;
 			   });
 
@@ -527,38 +519,32 @@ $rootScope.close = function(value) {
     	   }
     	  
     	   else if (value=="accessRootButton") {
-    	        body.removeClass("overflowHidden");
-				$rootScope.modal_class = "";
+    	   
                 $rootScope.visibleRootAccess  = $rootScope.visibleRootAccess ? false : true;
 
     	   }
 
            else if (value=="userRootAccessCancel") {
-                body.removeClass("overflowHidden");
-				$rootScope.modal_class = "";
+
                 $rootScope.visibleRootAccess  = $rootScope.visibleRootAccess ? false : true;
 
     	   }
 
            else if (value=="userAccessChangeCancel") {
-    	   	       body.removeClass("overflowHidden");
-				$rootScope.modal_class = "";
+    	   	
                 $rootScope.visibleAllReadyUser  = $rootScope.visibleAllReadyUser ? false : true;
     	   }
 
            else if (value=="deleteUserCancel") {
-    	        body.removeClass("overflowHidden");
-				$rootScope.modal_class = "";
+    	   	
                 $rootScope.visibleDeleteUser = $rootScope.visibleDeleteUser ? false : true;
     	   }
     	   else if (value=="addUserOpen") {
-    	   	    $rootScope.modal_class = "modal-backdrop fade in";
+    	   	
                 $rootScope.visibleAddUser = $rootScope.visibleAddUser ? false : true;
     	   }
 
              else if(value == "userCancel"){
-             	   body.removeClass("overflowHidden");
-				   $rootScope.modal_class = "";
                   $rootScope.visibleAddUser = $rootScope.visibleAddUser ? false : true;
 
               }

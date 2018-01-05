@@ -2082,7 +2082,7 @@ a.setupMFABtn:hover{
     z-index: 5100;
 }
 
-.SlidePopUpCommon{
+.slidePopUpCommon{
     width: 100%;
     margin: 0 auto;
     background: #709d34;
@@ -2093,7 +2093,7 @@ a.setupMFABtn:hover{
     border-radius: 2px; 
 }
 
-.SlidePopUpCommon i{
+.slidePopUpCommon i{
     position: absolute;
     top:5px;
     bottom: initial;
@@ -2105,7 +2105,7 @@ a.setupMFABtn:hover{
 
 
 
-.SlidePopUpCommon a {
+.slidePopUpCommon a {
     color: #fff;
 }
 .page_messages {
@@ -2116,6 +2116,41 @@ a.setupMFABtn:hover{
     width: 300px;
     height: auto;
     bottom: 0px;
+    -webkit-animation-name:mySlider; 
+    -webkit-animation-duration: 5s; 
+    animation-name: mySlider;
+    animation-duration: 5s;
+    animation-delay: 2s;
+    animation-timing-function: linear;
+}
+
+.page_messages:hover{
+    animation-play-state: paused;
+}
+
+@-webkit-keyframes mySlider {
+    0%   { right:-300px; }
+    20% { right:0px; }
+    30% {right:0px; }
+    40% {right:0px; }
+    50% {right:0px; }
+    60% {right:0px; }
+    70% {right:0px; }
+    80% {right:0px; }
+    100% { right:-300px; }
+}
+
+/* Standard syntax */
+@keyframes mySlider {
+    0%   { right:-300px; }
+    20% { right:0px; }
+    30% {right:0px; }
+    40% {right:0px; }
+    50% {right:0px; }
+    60% {right:0px; }
+    70% {right:0px; }
+    80% {right:0px; }
+    100% { right:-300px; }
 }
 
 .secureMessages {
@@ -2417,15 +2452,27 @@ a.userUpgradeBtn {
     float: left;
 }
 
-.leftMenuWrapper {    
-    /*width: 220px;
-    float: left;
-    margin-right: 15px;*/
+.row [class*="col-"]{
+  margin-bottom: -99999px;
+  padding-bottom: 99999px;
+}
+
+.row{
+  overflow: hidden; 
+}
+.leftMenuWrapper {
+        width: 235px;
+    padding: 0 0 0 0;
+    min-height: 800px;
+}
+.rightWrapper {
+    width: 81%;
+    float: right;
 }
 
 
 .leftMenuMain {
-    margin: 35px 0 0 0;
+    margin: 72px 0 0 0;
 }
     .leftMenuWrapper ul li {
         list-style-type: none;
@@ -2458,9 +2505,9 @@ a.userUpgradeBtn {
 
 
 .manageRoleRight {
-        width: 100%;
-    float: left;
-    margin: 16px 0 0px 0;
+    width: 100%;
+    float: right;
+    margin: 33px 0 0px 0;
 }
 
 .pageNavigation, {
@@ -2486,7 +2533,7 @@ a.userUpgradeBtn {
     width: 100%;
     float: left;
     border: 1px solid #d9d9d9;
-    min-height: 300px;
+    /*min-height: 300px;*/
     height: auto;
     background: #fff;
     padding: 20px 20px;
@@ -2563,7 +2610,7 @@ a.userUpgradeBtn {
 }
 
 .actionDiv {
-    width: 280px;
+    width: 254px;
 }
 
 .allowCommon {
@@ -2687,6 +2734,13 @@ a.userUpgradeBtn {
     margin: 0px 0;
     border: 1px solid #bdbdbd;
 }
+.cancelRoleBtn:hover {
+    background: #fdfdfd; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#fdfdfd, #e3e3e3); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#fdfdfd, #e3e3e3); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#fdfdfd, #e3e3e3); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#fdfdfd, #e3e3e3); /* Standard syntax */
+}
 
 .accessRedio input {
     position: absolute;
@@ -2789,9 +2843,9 @@ a.userUpgradeBtn {
 }
 
 
-.commonTbMain .trclass:hover{
+/*.commonTbMain .trclass:hover{
     background: #fcf3d4;
-}
+}*/
 
 .commonTbMain .trclassEven:hover{
     background: #fcf3d4;
@@ -2834,8 +2888,8 @@ a.userUpgradeBtn {
 }
 
 .actionTdwidth{
-    padding: 10px 0;
-    width: 60px;
+    /*padding: 10px 0;
+    width: 60px;*/
     text-align: center;
     position: relative;
 }
@@ -2877,51 +2931,56 @@ a.userUpgradeBtn {
 }
 
 
-#dropdownRoleDetails{
+/*#dropdownRoleDetails{
     width: 25px;
     padding: 5px 0;
     border-radius:3px;
-    background: #fdfdfd; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(#fdfdfd, #f2f2f2); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#fdfdfd, #f2f2f2); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#fdfdfd, #f2f2f2); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#fdfdfd, #f2f2f2); /* Standard syntax */s
+    background: #fdfdfd; 
+    background: -webkit-linear-gradient(#fdfdfd, #f2f2f2);
+    background: -o-linear-gradient(#fdfdfd, #f2f2f2); 
+    background: -moz-linear-gradient(#fdfdfd, #f2f2f2); 
+    background: linear-gradient(#fdfdfd, #f2f2f2); 
     float: left;
     border: 1px solid #bdbdbd;
     cursor: pointer;
     display: inline-block;
+}*/
+
+.dropdownRoleDetails{
+    width: 25px;
+    padding: 5px 0;
+    border-radius:3px;
+    background: #fdfdfd; 
+    background: -webkit-linear-gradient(#fdfdfd, #f2f2f2);
+    background: -o-linear-gradient(#fdfdfd, #f2f2f2); 
+    background: -moz-linear-gradient(#fdfdfd, #f2f2f2); 
+    background: linear-gradient(#fdfdfd, #f2f2f2); 
+    float: left;
+    border: 1px solid #bdbdbd;
+    cursor: pointer;
+    display: inline-block;
+    margin:auto;
+    float: none;
 }
+
+
 
 .actionList{
-    position: absolute;
-    background: #fff;
-    width:110px;
-    border: 1px solid #dcdcdc ;
-    -webkit-box-shadow: 1px 1px 1px 1px #dcdcdc ;
-    -moz-box-shadow: 1px 1px 1px 0px #dcdcdc ;
-    box-shadow: 1px 1px 1px 0px #dcdcdc ;
-    right: -19px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    z-index: 99;
+   min-width: 110px;
+    width: auto;
+    bottom: initial;
+    top: 34px;
+    right: 7px;
+    text-align: left;
+    padding: 3px 0;
 }
 
-.actionList li{
-    list-style-type: none;
-    border-bottom: 1px solid #dcdcdc;
-    cursor: pointer;
+.mansgeGroupSection .actionList{
+       right: 16px;
 }
 
-ul.actionList  li a{
-    display: block;
-    padding: 5px;
-}
 
-ul.actionList li a:hover{
-    background: #2670b7;
-    color: #fff;
-}
+
 
 .actionListNone{
     display: none;
@@ -3259,9 +3318,6 @@ a.projectHeading:hover, a.serverHeading:hover{
 }*/
 
 .rootButton {
-    padding: 1px 5px 3px 5px;
-    background: #709d34 !important;
-    width: 80px;
     background: #709d34 !important;
     color: #fff;
     border: 1px solid #709d34 !important;
@@ -3358,7 +3414,13 @@ a.projectHeading:hover, a.serverHeading:hover{
     margin: 10px 0 25px 0;
 }
 
-
+.paginationClass{
+    float: left;
+}
+.refreshBtn{
+   float: right;
+   margin-top: 17px;
+}
 .paginationMain{
     width: auto;
     float: left;
@@ -3387,7 +3449,7 @@ a.projectHeading:hover, a.serverHeading:hover{
 .pagination li {
     display: inline-block;
     font-size: 14px;
-    padding: 0 5px;
+    padding: 0 10px 0 0px;
     line-height: 30px;
     text-align: center;
 }
@@ -3396,16 +3458,22 @@ a.projectHeading:hover, a.serverHeading:hover{
     color: #000;
   border: none;
 }
-
+.pagination li a.paginationNumber{
+        /*background: #efefef !important;*/
+    border: 1px solid #ccc;
+    border-radius: 50%;
+        padding: 5px 11px;
+}
     .pagination li.active a {
         color: #fff;
         background-color: #709d34;
-        width: 30px;
-        height: 30px;
+        /*width: 30px;
+        height: 30px;*/
         -moz-border-radius: 50%;
         -webkit-border-radius: 50%;
         border-radius: 50%;
-        padding: 5px 0;
+        padding: 5px 10px;
+        border: 1px solid #709d34;
     }
 
 .pagination li.active {
@@ -3526,12 +3594,12 @@ a.projectHeading:hover, a.serverHeading:hover{
     padding: 10px 0 13px 0;
 }
 
-.processListTbSec{
-    overflow-x: scroll; 
-}
 .processListTbSec .commonTbMain {
     width: 1200px;
     text-align: center;
+}
+.processListTbSec .enviromentTable {
+    width: 100%;
 }
 
 .processUpdateDetails p{
@@ -3564,18 +3632,7 @@ a.projectHeading:hover, a.serverHeading:hover{
 .minHeightBodyPortion{
     min-height:817px;
 }
-.runScriptText{
-    padding: 24px 7px 2px 12px;
-    height: 71px;
-}
-.runScriptbodyModal {
-    height: 160px;
-}
-.processListClass .modalTbScroll{
-    min-height: 100px;
-    max-height: 200px;
-    overflow-y:auto;
-}
+
 
 /*----Menu----*/
 .LoginBtnMain{
@@ -3609,9 +3666,10 @@ a.projectHeading:hover, a.serverHeading:hover{
 }
 
 .processListTbFade {
-    display: block !important;
+    display: inline-block !important;
     opacity: 1;
     padding: 10px;
+    width: 100%;
 }
 
 .roleDetailsSec .fade{
@@ -3632,25 +3690,58 @@ a.projectHeading:hover, a.serverHeading:hover{
     border-bottom:0px none !important;
 }
 
-
-
-
-
 /*----Each Server Detail Section End----*/
-.row [class*="col-"]{
-  margin-bottom: -99999px;
-  padding-bottom: 99999px;
+.tableDv{
+    overflow-x: scroll;
+}
+.tableTabBg{
+    padding: 15px;
+    border: 1px solid #2670b7;
+    border-radius: 0 4px 4px 4px;
+}
+.bodyModal .tableTabBg {
+    background: #fff;
+}
+.nav-tabs {
+    border-bottom: 0 none;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    color: #fff;
+    cursor: default;
+    background-color: #2670b7;
+    border: 1px solid #2670b7;
+    border-bottom-color: transparent;
+    margin-bottom: 1px;
+}
+}
+.tab-content{
+    background: #2670b7;
+}
+.nav > li > a:hover, .nav > li > a:focus {
+    color: #333;
+}
+.runScriptBox{
+    background: #fafafa;
+    border: 1px solid #ddd;
+    display: inline-block !important;
+    width: 100%;
+    padding: 15px 15px;
+    border-radius: 3px;
 }
 
-.row{
-  overflow: hidden; 
+.runScriptBox .cancelRoleBtn {
+    padding: 8px 18px 12px;
+    box-shadow: none;
+    display: inline-block;
+    float: none;
+    margin: 10px;
 }
-.leftMenuWrapper {
-        width: 235px;
-    padding: 0 0 0 0;
-    min-height: 800px;
+.msgBoxHeader {
+    width: 100%;
+    text-align: center;
+    margin-top: 0;
 }
-.rightWrapper {
-    width: 81%;
-    float: right;
+.runScriptBoxFooter{
+    width: 100%;
+    text-align:center;
 }

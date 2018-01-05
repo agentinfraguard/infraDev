@@ -7,7 +7,7 @@
 
             <div class="table-wrapper">
             <table class="commonTbMain manageRolesTbMain">            
-                <tr class="trclassEven">
+                <tr>
                     <th class="paddingTopBottom">Role Name</th>
                     <th>
                         <table class="manageRolesSubTb">
@@ -39,23 +39,23 @@
                             </tr>
                         </table>
                     </td>
-                    <td class="actionTdwidth paddingTopBottom">
-
-                        <i id="dropdownRoleDetails" class="fa fa-caret-down" aria-hidden="true" ng-if="role.type =='user-defined'" ng-click="selectedIndex = $index;showRoleOptions($index)"></i>
+                    <td class="paddingTopBottom">
+                    <div class="actionTdwidth">
+                        <i id="dropdownRoleDetails" class="fa fa-caret-down dropdownRoleDetails" aria-hidden="true" ng-if="role.type =='user-defined'" ng-click="selectedIndex = $index;showRoleOptions($index)"></i>
 
                         <div class="clear"></div>
 
-                        <ul class="actionList" ng-show="selectedIndex == $index?visible:false" ng-if="role.type =='user-defined'">
+                        <ul class="settingsPop actionList" ng-show="selectedIndex == $index?visible:false" ng-if="role.type =='user-defined'">
                             <li><a href="javascript:void(0)" ng-click="editRole($index)">Edit Role</a></li>
                             <li><a href="javascript:void(0)" ng-click="deleteRole($index)">Delete Role</a></li>
                         </ul>
+                        </div>
                     </td>
                 </tr>
             </table>
         </div>
         </div>
     </div>
-
 </section>
 <!-- Manage Group -->
 

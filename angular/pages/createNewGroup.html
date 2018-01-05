@@ -1,54 +1,36 @@
 <section class="CreateNewGroupSec">
     <div class="manageRoleRight">
-        <div class="manageRoleHeading">Create a New Group</div>
+        <div class="manageRoleHeading">{{editCreateGroup}}</div>
+        <p class="pageNavigation"> <a ui-sref="iam.manageGroup">Manage Group > </a> {{editCreateGroup}}  </p>
         <div class="roleDetailsSec">
             <form class="createNewGroup">
                 <div class="formWrapper">
-                    <label class="formlabel" for="male">Role Name</label>
-                    <input type="text" name="role" class="inputTextArea">
+                    <label class="formlabel" for="male">Group Name</label>
+                    <input type="text" ng-model="groupName" class="inputTextArea">
+                    <span style="color:red" ng-if="groupName.length==0"><b>{{groupNameValidation}}</b></span>
                 </div>
                 <div class="clear"></div>
                 <div class="formWrapper">
                     <label class="formlabel">Select Group Members</label>
-
                     <div class="fastselectMainDiv">
-                        <select class="multipleSelect" multiple name="">
-                            <option value="Afghanistan">Afganistan</option>
-                            <option value="Albania">Albania</option>
-                            <option value="Algeria">Algeria</option>
-                            <option value="Andorra">Andorra</option>
-                            <option value="Angola">Angola</option>
-
-                        </select>
-                        <script>
-                            $('.multipleSelect').fastselect();
-                        </script>
+                        <multiple-autocomplete ng-model="users" suggestions-arr="userList" after-select-item="afterSelectItem" after-remove-item="afterRemoveItem">
+                        </multiple-autocomplete>
                     </div>
                 </div>
                 <div class="clear"></div>
                 <div class="formWrapper">
-                    <label class="formlabel">Select Group Role</label>
+                    <label class="formlabel">Select Group Roles</label>
                     <div class="fastselectMainDiv">
-                        <select class="multipleSelect" multiple name="">
-                            <option value="Afghanistan">Afganistan</option>
-                            <option value="Albania">Albania</option>
-                            <option value="Algeria">Algeria</option>
-                            <option value="Andorra">Andorra</option>
-                            <option value="Angola">Angola</option>
-
-                        </select>
-                        <script>
-                            $('.multipleSelect').fastselect();
-                        </script>
+                        <multiple-autocomplete ng-model="roles" suggestions-arr="roleList" after-select-item="afterSelectItem" after-remove-item="afterRemoveItem">
+                        </multiple-autocomplete>
+                        <span style="color:red" ng-if="roles.length==0"><b>{{rolesValidation}}</b></span>
                     </div>
-                     </div>
-
-                    <div class="formWrapper">
-                        <label class="formlabel formLabelBlanck"> &nbsp; </label>
-                    <button class="createRoleBtn"> Create Group </button>  
-                    <button class="cancelRoleBtn"> Cancel</button>
-                    </div>
-
+                </div>
+                <div class="formWrapper">
+                <label class="formlabel formLabelBlanck"> &nbsp; </label>
+                <button class="createRoleBtn" ng-click="createEditGroup()"> {{editCreateGroup}} </button>
+                <button class="cancelRoleBtn" ng-click="gotoManageGroups()"> Cancel </button>
+                </div>
             </form>
         </div>
     </div>

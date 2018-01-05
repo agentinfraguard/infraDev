@@ -442,7 +442,6 @@ con.query("select * from users where uname = ?", [req.body.uname], function(err,
 if(err)console.log(err.stack);
 if(result != null && result.length > 0){
 res.status(200).json(result[0].email);
-console.log(result[0].email,req.body.uname)
 }else{
 	res.status(200).json(null);
 }
@@ -553,7 +552,6 @@ new Promise((resolve, reject) => {
 });
 
 app.post("/deleteUserFromServer", function(req, res){
-	
 if(con == null)
 con = db.openCon(con);
 var data = req.body;
@@ -568,8 +566,6 @@ record = {
 	}),
 	status: "0"
 };
-
- console.log("data.uname",data.uname,data.serverIp)
 Promise.all([
 new Promise((resolve, reject) => {
 	con.query("insert into agentActivities set ?", [record], function(err, result){
@@ -595,7 +591,7 @@ record = {
 };
 Promise.all([
 new Promise((resolve, reject) => {
-           
+
 	con.query("select * from servers where serverIP = ?", [data.serverIp], function(err, result){
 		if(err){
 			console.log(err.stack);
@@ -646,11 +642,9 @@ record = {
 	}),
 	status: "0"
 };
-
 Promise.all([
 	new Promise((resolve, reject) => {
 	con.query("insert into agentActivities set ?", [record], function(err, result){
-
 		if(err){
 			console.log(err.stack);
 			resolve(null);
@@ -1278,24 +1272,6 @@ var obj = {};
  });
  
 });
-app.post("/EditCompany", function(req, res){
-	if(con == null)
-	con = db.openCon(con);
-	con.query("update companydetails set companyName = ?  where id like ?", [req.body.companyName,req.body.id], function(err, result){
-		if(err)console.log(err.stack);
-		res.status(200).json(result);
-	});
-});
-
-app.post("/EditProjectName", function(req, res){
-	if(con == null)
-	con = db.openCon(con);
-	con.query("update projectdetails set projectName = ?  where id like ?", [req.body.projectName,req.body.id], function(err, result){
-		if(err)console.log(err.stack);
-		res.status(200).json(result);
-	});
-});
-
 
 }
 
