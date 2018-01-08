@@ -1,0 +1,333 @@
+<section class="eachServiceDetailsSec">
+  <div class="row margin-none rowMain">
+    <div class="col-sm-2 leftMenuWrapper">
+        <ul class="leftMenuMain">
+        <li><a class="activeUserRole" href="javascript:void(0)"  ng-click="open('UserList')" data-original-title="">User List</a></li>
+    <li><a class="" href="javascript:void(0)"  ng-click="open('processListOk')" data-original-title="">Process List</a></li>
+            <li ><a class="" href="javascript:void(0)"  ng-click="open('enviromentVariable_ok')" data-original-title="">Environment Variable Status</a></li>
+            <li ><a class="" href="javascript:void(0)"  ng-click="open('auditLoginOk')" data-original-title="">Audit Login</a></li>
+            <li ><a class="" href="javascript:void(0)"   ng-if = "lockdownServerDetail1==1"  ng-click="open('serverLockdownOk')" data-original-title="">Lockdown Server</a></li>
+            <li><a class="" href="javascript:void(0)"    ng-if = "lockdownServerDetail1==0" ng-click="open('serverUnlockOk')">Unlock Server</a></li>
+            <li ng-if = "user.indexOf(name.toLowerCase()) != -1"><a href="javascript:void(0)" ng-click="open('getAccessKeyOK', serverIpDetails)">Get Access Key </a></li>
+            <li><a class="" href="javascript:void(0)"   ng-click="open('runScriptOk')" data-original-title="">Run Script </a></li>
+            <li><a href="#">Server Terminal </a></li>
+
+        </ul>
+    </div>
+   
+    <div class="col-sm-10 manageRoleRight rightWrapper">
+         <div class="manageRoleHeading">{{serverName}}</div> 
+      <!--   <p class="serverNameHeading"> Name Server</p> -->
+        <div class="serverNameSec">
+            <div class="serverBoxCommon" data-placement="bottom" >
+                <div class="hostNameIconCommon serverHostNameIcon"> </div>
+                 <div class="textCommon">
+                <span data-toggle="tooltip" data-placement="bottom" title={{hostNameDetails}}>Host Name</span>
+                <p>{{hostNameDetails}}</p>
+                </div>
+            </div>
+
+            <!-- <p>You can populate the <span tooltip="{{tooltipText}}" tooltip-placement="bottom">tooltip</span> from your contoller.</p> -->
+
+            <div class="serverBoxCommon">
+                <div class="hostNameIconCommon serverCpuIcon"> </div>
+                <div class="textCommon">
+                <span data-toggle="tooltip" data-placement="bottom" title={{cpuDetails}}>CPU</span>
+                  <p>{{cpu}}</p></div>
+            </div>
+
+            <div class="serverBoxCommon">
+                <div class="ServerRamIcon"> </div>
+                <div class="textCommon">
+                <span data-toggle="tooltip" data-placement="bottom" title={{ramDetails}}>Ram</span>
+                <p>{{ram}}</p>
+                </div>
+            </div>
+
+            <div class="serverBoxCommon">
+                <div class="hostNameIconCommon ServerStorageIcon"> </div>
+                <div class="textCommon"> Storage <p> Storage </p></div>
+            </div>
+
+             <div class="serverBoxCommon">
+                <div class="hostNameIconCommon ServeripIcon"> </div>
+                <div class="textCommon">  Server Ip Private<p>{{serverIpDetails}} </p></div>
+            </div>
+             <div class="serverBoxCommon">
+                <div class="hostNameIconCommon ServeripIcon"> </div>
+                <div class="textCommon">  Server Ip Public<p>{{ServerIPpublic}} </p></div>
+            </div>
+
+             <div class="serverBoxCommon">
+                <div class="hostNameIconCommon ServerKeyRotationIcon"> </div>
+                <div class="textCommon"> Key Rotation <p> {{KeyRotation}}</p></div>
+            </div>
+
+             <div class="serverBoxCommon">
+                <div class="hostNameIconCommon ServerLockDownIcon"> </div>
+                <div class="textCommon"> Lockdown Server<p>{{LockdownServer}}</p></div>
+            </div>
+
+             <!-- <div class="serverBoxCommon">
+                <div class="hostNameIconCommon ServerAccessIcon"> </div>
+                <div class="textCommon"> Access Status<p>Revoked</p></div>
+            </div> -->
+        </div>
+
+
+<div class="roleDetailsSec">
+        <div class="fade" ng-class="{true: 'processListTbFade'}[visibleUserList]">
+            <div class="blueHeading boldFont"> User List</div>
+            <button class="addUserButton boldFont"  ng-click="open('addUserOpen')"> <span class="eachAdduserIcon"></span> Add User</button>
+            <table class="commonTbMain commonThpadding">
+                <thead>
+                <tr>
+                    <th>Sr. No. </th>
+                    <th>User List</th>
+                <!--<th>User Id</th>-->
+                    <th>User Access Level</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="trclass" ng-repeat="userListArr  in userListName ">
+                    <td>{{$index}}</td>
+                    <td>{{userListArr[0]}} </td>
+                     <td>
+                        <button class="rootGreyButton" ng-class="{rootButton: userListArr[1] =='root'}" ng-click="GetDetailsindex(userListArr)"> <span class="rightSignIcon" ng-if="userListArr[1] =='root'"></span>root</button>
+                        <button class="rootGreyButton" ng-class="{rootButton: userListArr[1] =='user'}" ng-click="GetDetailsindexUser(userListArr)"><span class="rightSignIcon" ng-if="userListArr[1] =='user'"></span>User</button>
+                    </td>
+                    <td> 
+                    <button class="rootGreyButton deleteIconButton" ng-click="deleteUser(userListArr)"> <span class="deleteIcon"></span> Delete</button>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+           
+
+<section class="processListTbSec fade" ng-class="{true: 'processListTbFade'}[visible_Process_List]">
+<div class="blueHeading boldFont"> Process List</div>
+<div class="clear"></div>
+<div class="processUpdateDetails"  ng-repeat="(key,value) in processLstdata " ng-if="key <5">
+ <div>{{value}}</div>  
+</div>
+ <table class="commonTbMain commonThpadding">
+    <thead>
+                <tr>
+                    <th>PID</th>
+                    <th>User</th>
+                    <th>Priority</th>
+                    <th>Nice Level</th>
+                    <th>Virtual Men</th>
+                    <th>Resident Men</th>
+                    <th>Shareable Men</th>
+                    <th>S</th>
+                    <th>%CPU</th>
+                    <th>%MEM</th>
+                    <th>TIME+</th>
+                    <th>Comm</th>
+                </tr>
+           </thead>
+
+<tbody>
+                <tr class="trclass" ng-repeat="x in processLst.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+                            <td>{{x[0]}}</td>
+                            <td>{{x[1]}}</td>
+                            <td>{{x[2]}}</td>
+                            <td>{{x[3]}}</td>
+                            <td>{{x[4]}}</td>
+                            <td>{{x[5]}}</td>
+                            <td>{{x[6]}}</td>
+                            <td>{{x[7]}}</td>
+                            <td>{{x[8]}}</td>
+                            <td>{{x[9]}}</td>
+                            <td>{{x[10]}}</td>
+                            <td>{{x[11]}}</td>                 
+                </tr>
+          </tbody>      
+            </table>
+            <div class="clear"></div>
+             <button class="btn btn-default" type="button" ng-click="close('refreshProcessListButton')" class="btn btn-primary" data-dismiss="modal">Refresh</button>
+  <div class="clear"></div>           
+ <div class="paginationClass">
+  <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"
+   class="pagination-sm" items-per-page="itemsPerPage"></pagination>
+</div>
+</section>
+
+
+<section class="processListTbSec fade" ng-class="{true: 'processListTbFade'}[visible_audit_Login]">
+<div class="blueHeading boldFont">Audit Login List</div>
+<div class="clear"></div>
+ <table class="commonTbMain commonThpadding">
+    <thead>
+                <tr>
+                        <th>USERNAME</th>
+                        <th>TERMINAL</th>
+                        <th>SERVER IP</th>
+                        <th>LOGIN TIME</th>
+                        <th>TOTAL TIME</th>
+                </tr>
+           </thead>
+
+<tbody>
+                <tr class="trclass" ng-repeat="x in auditLogin.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+                            <td>{{x[0]}}</td>
+                            <td>{{x[1]}}</td>
+                            <td>{{x[2]}}</td>
+                            <td>{{x[3]}}</td>
+                            <td>{{x[4]}}</td>                 
+                </tr>
+          </tbody>      
+            </table>
+
+      <div class="clear"></div>
+     <button class="cancelRoleBtn" type="button" ng-click="close('refreshauditLoginButton')" class="cancelRoleBtn" data-dismiss="modal">Refresh</button>
+     <div class="clear"></div>
+    <div class="paginationClass">
+  <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"
+   class="pagination-sm" items-per-page="itemsPerPage">
+</pagination>
+</div>        
+</section>
+
+<section class="processListTbSec fade" ng-class="{true: 'processListTbFade'}[enviromentVariable]">
+<div class="blueHeading boldFont">Enviroment variable</div>
+<div class="clear"></div>
+ 
+   <div class="padding10 " ng-show="envdata.length<1">
+                    <p>
+                        There is no data in enviroment list   
+                    </p>
+                   <p>please refresh the page to get current result .it will take 5 minutes .</p>
+                </div>
+                <div ng-hide="envdata.length<1">
+<div class="enviromentScopeUser"><div>scope:{{userData}}</div></div>
+
+                <input class="createRoleBtn" type="submit" ng-click="close('envVarUserSpecificEach')" value="USER SPECIFIC DATA" class="btn btn-primary" />
+                <input class="createRoleBtn" type="submit" ng-click="close('envVarSystemSpecificEach')" value="SYSTEM SPECIFIC DATA" class="btn btn-primary" />
+
+ <table class="commonTbMain commonThpadding">
+    <thead>
+         <tr>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+<tbody>
+     <tr class="trclass" ng-repeat="(key,value) in envdata">
+                    <td> {{key}}</td>
+                    <td>{{value}}</td>             
+     </tr>
+          
+    </tbody>      
+</table>
+</div>
+<button class="cancelRoleBtn" type="button" ng-click="close('refreshEnvVarsButton')" class="btn btn-primary" data-dismiss="modal">Refresh</button>
+<div class="clear"></div>
+  <div class="paginationClass">
+  <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"
+   class="pagination-sm" items-per-page="itemsPerPage"  ng-hide="envdata.length<1">
+</pagination>
+</div>  
+<div class="clear"></div>         
+</section>
+<div class="processListTbSec fade" ng-class="{true: 'processListTbFade'}[visibleRunScript]">
+                <div class="blueHeading boldFont">Run script</div>
+              <form name="runScriptForm" autocomplete="off" novalidate>
+               <div class="runScriptbodyModal">     
+                    <label class="modalLabel">User script</label>
+                     <textarea  id="Text4" class="runScriptText" ng-model="runScriptEachServer" name="runScriptEachServer" placeholder="Enter script" required ></textarea>
+                     <span class="colorRed" ng-show="runScriptForm.runScript.$error.required">Run Script must be filled.</span>
+                </div>
+               <div>
+              
+              <input class="cancelRoleBtn" type="submit" ng-click="close('runScriptOkButton')" value="OK" class="btn btn-primary" />
+              </div>
+              </form>          
+        </div>
+
+
+ <div class="processListTbSec fade" ng-class="{true: 'processListTbFade'}[visibleLockdownEachServer]">
+            
+                    <div class="blueHeading boldFont">Do you want to lockdown the server ?</div>
+                    
+                      
+            <input class="btn btn-primary" type="submit" ng-click="close('serverLockdownOkButton')" value="OK" />
+            <button class="cancelRoleBtn" type="button" ng-click="close('serverLockdownCancelButton')" data-dismiss="modal">Cancel</button>                
+       
+</div>
+
+<div class="processListTbSec fade" ng-class="{true: 'processListTbFade'}[visibleUnlockEachServer]">
+                <div class="clear">&nbsp;</div>
+              <div class="bodyModal">
+                   <div class="blueHeading boldFont">Do you want to unlock the server ?</div>
+              </div>
+              <div class="modal-footer">                
+                <input type="submit" ng-click="close('serverUnlockOkButton')" value="OK" class="btn btn-primary" />
+                <button type="button" ng-click="close('serverUnlockCancelButton')" class="cancelRoleBtn" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+
+
+<div class="processListTbSec fade" ng-class="{true: 'processListTbFade'}[visibleGetAccessKeyEachPage]">
+                 <div class="clear">&nbsp;</div>
+                <div class="bodyModal">
+                <div class="blueHeading boldFont">Do you want to access the server.You will receive an email shortly.</div>
+                </div>
+           
+
+              <div class="modal-footer">      
+                <input type="submit" ng-click="close('getAccessKeyOkButton')" value="OK" class="btn btn-primary" />
+                <button type="button" ng-click="close('getAccessKeyCancelButton')" class="cancelRoleBtn" data-dismiss="modal">Cancel</button>
+              </div>
+        </div>
+
+    </div>
+      
+ <!--      <div class="modal fade" ng-class="{true : 'fade1'}[visibleAddUser]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="open('userCancel')" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></button>
+                <h2 class="modal-title">Add User</h2>
+              </div>              
+              <form name="emailFormAdd" autocomplete="off" novalidate>
+              <div class="bodyModal">              
+                   <p>
+                        Please enter the user email:
+                    </p>
+                    <label class="modalLabel">User Email</label>
+                    <input id="Text4"  type="text" ng-keyup="showUsers()" ng-model="userEmailAdd" name="userEmailAdd" placeholder="Enter user email" required />
+                    
+                    <div class="usersList" ng-show="users.length > 0 ? listStatus : false">
+                        <ul>
+                            <li ng-repeat="user in users" ng-click="setUser(user)"><a href="javascript:void(0)">{{ user.uname + " - " + user.email}}</a></li>
+                        </ul>
+                    </div>                    
+                    <span class="colorRed" ng-show="!emailValid">Email is invalid.</span>
+                    
+                    <span class="colorRed" ng-show="emailFormAdd.userEmailAdd.$error.required">User Email must be filled.</span>
+             </div>
+              <div class="modal-footer">
+
+                <input class="btn btn-primary" type="submit" ng-click="open('userOk')" value="OK" class="btn btn-primary" />
+                <button class="btn btn-default" type="button" ng-click="open('userCancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>                
+
+              </div>
+              </form>            
+            </div>
+          </div>
+        </div>
+        </div>
+        </div> -->
+</section>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();  
+        $("a").tooltip(); 
+});
+</script>

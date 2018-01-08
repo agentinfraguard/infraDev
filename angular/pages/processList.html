@@ -1,0 +1,55 @@
+<section class="processListTbSec">
+<div class="clear"></div>
+<div class="blueHeading boldFont"> Process List</div>
+<div class="clear"></div>
+<div class="processUpdateDetails"  ng-repeat="(key,value) in processLstdata " ng-if="key <5">
+ <div>{{value}}</div>  
+</div>
+<div class="clear"></div>
+<div class="tableDv">
+<div class="clear"></div>
+ <table class="commonTbMain commonThpadding">
+    <thead>
+                <tr>
+                    <th>PID</th>
+                    <th>User</th>
+                    <th>Priority</th>
+                    <th>Nice Level</th>
+                    <th>Virtual Men</th>
+                    <th>Resident Men</th>
+                    <th>Shareable Men</th>
+                    <th>S</th>
+                    <th>%CPU</th>
+                    <th>%MEM</th>
+                    <th>TIME+</th>
+                    <th>Comm</th>
+                </tr>
+           </thead>
+
+<tbody>
+                <tr class="trclass" ng-repeat="x in processLst.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+                            <td>{{x[0]}}</td>
+                            <td>{{x[1]}}</td>
+                            <td>{{x[2]}}</td>
+                            <td>{{x[3]}}</td>
+                            <td>{{x[4]}}</td>
+                            <td>{{x[5]}}</td>
+                            <td>{{x[6]}}</td>
+                            <td>{{x[7]}}</td>
+                            <td>{{x[8]}}</td>
+                            <td>{{x[9]}}</td>
+                            <td>{{x[10]}}</td>
+                            <td>{{x[11]}}</td>                 
+                </tr>
+          </tbody>      
+            </table>
+            </div>
+            <div class="clear"></div>
+             <button class="cancelRoleBtn refreshBtn" type="button" ng-click="close('refreshProcessListButton')" data-dismiss="modal">Refresh</button>
+
+  <div class="clear"></div>           
+ <div class="paginationClass">
+  <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"
+   class="pagination-sm" items-per-page="itemsPerPage"></pagination>
+</div>
+</section>

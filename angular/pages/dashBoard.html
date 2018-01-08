@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="css/site.css" />
     <link rel="stylesheet" type="text/css" href="css/responsive.css" />
 </head>
-<body class="afterloginBody">
+<body class="afterloginBody"  server-directive ng-model="hideShowModel" name="hideShowModel" >
 
     <section class="headersection">
         <div class="content-wrapper positionRelative">
@@ -456,10 +456,10 @@
               <div class="modal-header">
                 <button type="button" class="close" ng-click="close('processListCancel')" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></button>
                 <h3 class="modal-title">Top Running Process Data</h3>
-                <div class="serverStatus" ng-hide="processLstdata.length<1">server status</div>
+                <div class="serverStatus" ng-hide="processLstdata.length<1"></div>
               </div> 
+              <div class="bodyModal">
               <!-- code to show table with process data -->
-           <div class="modal-body">
        <div class="padding10 emptyProccessList" ng-show="processLstdata.length<1">
                     <p>
                         There is no data in proccess list   
@@ -471,7 +471,8 @@
                   <div>{{value}}</div>                  
                   </div>
                   <div class="modalTbScroll">
-                    <table class="modalPopUpTbMain">
+                    <table class="modalPopUpTbMain processListTable">
+                      <thead>
                      <tr>               
                       <th>PID</th>
                         <th>USER</th>
@@ -486,7 +487,8 @@
                         <th>TIME+</th>
                         <th>COMMAND</th>
                           </tr>
-
+</thead>
+<tbody>
                             <tr ng-repeat="x in processLst" >
                             <td>{{x[0]}}</td>
                             <td>{{x[1]}}</td>
@@ -501,9 +503,10 @@
                             <td>{{x[10]}}</td>
                             <td>{{x[11]}}</td>
                           </tr>
+                          </tbody>
                     </table> 
                     </div>
-               <div class="bodyModal">
+               
                </div>
                   </div>
               <div class="modal-footer">
@@ -512,7 +515,6 @@
                 <input class="btn btn-primary" type="submit" ng-click="close('processListOk')" value="OK" class="btn btn-primary" />
                 
               </div>
-            </div>
             </div>
           </div>
         </div>
@@ -588,12 +590,12 @@
           <div class="modal-dialog processListClass">
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" ng-click="close('auditLoginCancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="modal-title">Audit login Data</h3>
-               
+                <!-- <button type="button" class="close" ng-click="close('auditLoginCancel')" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+                <button type="button" class="close" ng-click="close('auditLoginCancel')" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></button>
+                <h3 class="modal-title">Audit login Data</h3>               
               </div>
               <!-- code to show table with process data -->
-             <div class="modal-body">
+             <div class="bodyModal">
                 <div class="padding10 emptyauditLogin" ng-show="dataAuditlogin.length<1">
                     <p>
                         There is no data in Audit login list   
@@ -622,6 +624,7 @@
                </div>
                   </div>
                   </div>
+                  </div>
               <div class="modal-footer">
                <button class="btn btn-default" type="button" ng-click="close('refreshauditLogin')" class="btn btn-default" data-dismiss="modal">Refresh</button>
                
@@ -629,7 +632,7 @@
 
               <button class="btn btn-default " type="button" ng-click="close('auditLoginCancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
               </div>
-            </div>
+            
             </div>
           </div>
         </div>
@@ -694,7 +697,7 @@
               </div>
               <div class="modal-footer">
                 
-                <input type="submit"  value="OK" ng-click="close('userAccessChangeButton')"  class="btn btn-primary" />
+                <input type="submit"  value="OK" ng-click="open('userAccessChangeButton')"  class="btn btn-primary" />
                 <button type="button" ng-click="open('userAccessChangeCancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
               </div>
               </div>
@@ -788,6 +791,42 @@
           </div>
         </div>
 
+
+        <div class="modal fade" ng-class="{true : 'fade1'}[visible_AddUser]">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="open('userCancel')" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></button>
+                <h2 class="modal-title">Add User</h2>
+              </div>              
+              <form name="emailFormAdd" autocomplete="off" novalidate>
+              <div class="bodyModal">              
+                   <p>
+                        Please enter the user email:
+                    </p>
+                    <label class="modalLabel">User Email</label>
+                    <input id="Text4"  type="text" ng-keyup="showUsers()" ng-model="userEmailAdd" name="userEmailAdd" placeholder="Enter user email" required />
+                    
+                    <div class="usersList" ng-show="users.length > 0 ? listStatus : false">
+                        <ul>
+                            <li ng-repeat="user in users" ng-click="setUser(user)"><a href="javascript:void(0)">{{ user.uname + " - " + user.email}}</a></li>
+                        </ul>
+                    </div>                    
+                    <span class="colorRed" ng-show="!emailValid">Email is invalid.</span>
+                    
+                    <span class="colorRed" ng-show="emailFormAdd.userEmailAdd.$error.required">User Email must be filled.</span>
+             </div>
+              <div class="modal-footer">
+
+                <input class="btn btn-primary" type="submit" ng-click="open('userOk')" value="OK" class="btn btn-primary" />
+                <button class="btn btn-default" type="button" ng-click="open('userCancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>                
+
+              </div>
+              </form>            
+            </div>
+          </div>
+        </div>
+
   <script type="text/javascript" src="js/jquery-1.10.0.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/angular.min.js"></script>
@@ -811,6 +850,16 @@
   <script type="text/javascript" src="controllers/manageUsersController.js"></script>
   <script type="text/javascript" src="controllers/inviteUsersController.js"></script>
   <script type="text/javascript" src="controllers/eachServerDetailController.js"></script>
+  
+  <script type="text/javascript" src="controllers/userListController.js"></script>
+  <script type="text/javascript" src="controllers/processListController.js"></script>
+  <script type="text/javascript" src="controllers/auditLoginController.js"></script>
+  <script type="text/javascript" src="controllers/getAccessKeyController.js"></script>
+  <script type="text/javascript" src="controllers/runScriptController.js"></script>
+  <script type="text/javascript" src="controllers/serverTerminalController.js"></script>
+  <script type="text/javascript" src="controllers/lockDownServerController.js"></script>
+  <script type="text/javascript" src="controllers/envListController.js"></script>
+   <script type="text/javascript" src="directives/ServerDetailDirective.js"></script>
   <script type="text/javascript" src="directives/fileUploadDirective.js"></script>
   <script type="text/javascript" src="services/companyService.js"></script>
   <script type="text/javascript" src="js/multiple-select.js"></script>       
@@ -837,6 +886,12 @@ $(document).ready(function() {
   });
 
 });
+
+
+
+
+
+
 </script>
 
 </body>

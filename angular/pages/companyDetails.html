@@ -5,7 +5,7 @@
                 <div class="clear">&nbsp;</div>
             <div class="col-xs-12 col-sm-6 perCompanyBox" ng-repeat="company in companies">
                 <div class="profileHead2" ng-init="limit = 15; moreShown = false"> <span class="companyIconClass"> </span> <a href="#/project" ng-click="setCompanyId(company.id)">{{company.companyName | limitTo: limit}}{{company.companyName.length > limit ? '...' : ''}}</a></div>
-                <a href="javascript:void(0)" ng-click="$parent.selectedIndex = $index;showOptions($index)" class="settingsIcon"> <span class="companySettingIcon"></span> 
+                <a href="javascript:void(0)" ng-click="$parent.selectedIndex = $index;showOptions($index,$event)" class="settingsIcon"> <span class="companySettingIcon"></span> 
                 <div class="settingsPop" ng-show="$parent.selectedIndex == $index?visible:false">
                         <ul>
                             <li><a href="javascript:void(0)" ng-click="showCompanyPopup('EditCompany',company.id,company.companyName )">Edit Company</a></li>

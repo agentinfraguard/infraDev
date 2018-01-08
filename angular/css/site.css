@@ -2464,6 +2464,7 @@ a.userUpgradeBtn {
         width: 235px;
     padding: 0 0 0 0;
     min-height: 800px;
+    height: auto;
 }
 .rightWrapper {
     width: 81%;
@@ -2842,40 +2843,41 @@ a.userUpgradeBtn {
     /*line-height: 22px;*/
 }
 
-
-/*.commonTbMain .trclass:hover{
-    background: #fcf3d4;
-}*/
-
-.commonTbMain .trclassEven:hover{
-    background: #fcf3d4;
-}
-
 .commonTbMain tr th{
     border: 1px solid #dcdcdc;
     text-align: center;
      font-family: 'Gadugi-Bold';
+     background: #f4f4f4;
 }
 
 .manageRolesTbMain table {
     width: 100%;
 }
-
-.manageRolesDetailsSec .commonTbMain .trclassEven:nth-child(even) {
-    background: #f4f4f4; 
-}
-.manageRolesDetailsSec .commonTbMain .trclassEven:nth-child(even):hover {
-    background: #fcf3d4;
-}
-
- .commonTbMain .trclass:nth-child(odd) {
+.commonTbMain .trclass:nth-child(odd) {
     background: #f4f4f4; 
 }
  .commonTbMain .trclass:nth-child(odd):hover {
-    background: #fcf3d4;
+    background: #fffae9;
+}
+ .commonTbMain .trclass:nth-child(even) {
+    background: #fff; 
+}
+ .commonTbMain .trclass:nth-child(even):hover {
+    background: #fffae9;
 }
 
-
+.manageRolesTbMain .trclassEven:nth-child(odd) {
+    background: #fff; 
+}
+.manageRolesTbMain .trclassEven:nth-child(odd):hover {
+    background: #fffae9;
+}
+ .manageRolesTbMain .trclassEven:nth-child(even) {
+    background: #fff; 
+}
+ .manageRolesTbMain .trclassEven:nth-child(even):hover {
+    background: #fffae9;
+}
 
 .manageRolesTbMain table tr th{
     padding: 10px 0;
@@ -2888,8 +2890,6 @@ a.userUpgradeBtn {
 }
 
 .actionTdwidth{
-    /*padding: 10px 0;
-    width: 60px;*/
     text-align: center;
     position: relative;
 }
@@ -3115,7 +3115,7 @@ a.projectHeading:hover, a.serverHeading:hover{
 
 .processListClass {
     width: 1053px;
-    margin: 30px auto;
+    top: 100px;
 }
 
 .modal-footer {
@@ -3690,6 +3690,12 @@ a.projectHeading:hover, a.serverHeading:hover{
     border-bottom:0px none !important;
 }
 
+
+#InnertopmenuSection .sm-blue ul {
+    position: absolute;
+    width: 16em;
+    top: 30px !important;
+}
 /*----Each Server Detail Section End----*/
 .tableDv{
     overflow-x: scroll;
@@ -3744,4 +3750,177 @@ a.projectHeading:hover, a.serverHeading:hover{
 .runScriptBoxFooter{
     width: 100%;
     text-align:center;
+}
+/*.modalTbScroll{
+    height:300px;
+    overflow-y:scroll;
+}*/
+
+
+table.processListTable
+{
+    width: 1350px;
+    border-collapse: collapse;
+}
+
+table.processListTable thead
+{
+    display: block;
+    width: 1350px;
+    overflow: auto;
+}
+
+table.processListTable tbody
+{
+    display: block;
+    width: 1350px;
+    height: 200px;
+    overflow: auto;
+}
+
+table.processListTable th, table.processListTable td
+{
+    padding: .5em 1em;
+    text-align: left;
+    vertical-align: top;
+    display: inline-block;
+}
+.processListTable th:first-child, .processListTable td:first-child {
+ width:60px; 
+}
+.processListTable th:nth-child(2), .processListTable td:nth-child(2){
+  width:80px; 
+}
+.processListTable th:nth-child(3), .processListTable td:nth-child(3){
+  width:100px; 
+}
+.processListTable th:nth-child(4), .processListTable td:nth-child(4){
+  width:120px; 
+}
+.processListTable th:nth-child(5), .processListTable td:nth-child(5){
+  width:140px; 
+}
+.processListTable th:nth-child(6), .processListTable td:nth-child(6){
+  width:150px; 
+}
+.processListTable th:nth-child(7), .processListTable td:nth-child(7){
+  width:160px; 
+}
+.processListTable th:nth-child(8), .processListTable td:nth-child(8){
+  width:80px; 
+}
+.processListTable th:nth-child(9), .processListTable td:nth-child(9){
+  width:80px; 
+}
+.processListTable th:nth-child(10), .processListTable td:nth-child(10){
+  width:80px; 
+}
+.processListTable th:nth-child(11), .processListTable td:nth-child(11){
+  width:80px; 
+}
+.processListTable th:nth-child(12), .processListTable td:nth-child(12){
+  width:160px; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+table.processListTable
+{
+    width: 1350px;
+    border-collapse: collapse;
+}
+
+table.processListTable thead
+{
+    display: block;
+    width: 1350px;
+    overflow: auto;
+}
+
+table.processListTable tbody
+{
+    display: block;
+    width: 1350px;
+    height: 200px;
+    overflow: auto;
+}
+
+table.processListTable th, table.processListTable td
+{
+    padding: .5em 1em;
+    text-align: left;
+    vertical-align: top;
+    display: inline-block;
+}
+.processListTable th:first-child, .processListTable td:first-child {
+ width:60px; 
+}
+.processListTable th:nth-child(2), .processListTable td:nth-child(2){
+  width:80px; 
+}
+.processListTable th:nth-child(3), .processListTable td:nth-child(3){
+  width:100px; 
+}
+.processListTable th:nth-child(4), .processListTable td:nth-child(4){
+  width:120px; 
+}
+.processListTable th:nth-child(5), .processListTable td:nth-child(5){
+  width:140px; 
+}
+.processListTable th:nth-child(6), .processListTable td:nth-child(6){
+  width:150px; 
+}
+.processListTable th:nth-child(7), .processListTable td:nth-child(7){
+  width:160px; 
+}
+.processListTable th:nth-child(8), .processListTable td:nth-child(8){
+  width:80px; 
+}
+.processListTable th:nth-child(9), .processListTable td:nth-child(9){
+  width:80px; 
+}
+.processListTable th:nth-child(10), .processListTable td:nth-child(10){
+  width:80px; 
+}
+.processListTable th:nth-child(11), .processListTable td:nth-child(11){
+  width:80px; 
+}
+.processListTable th:nth-child(12), .processListTable td:nth-child(12){
+  width:160px; 
+}
+
+
+
+
+
+
+
+
+
+
+
+.modalTbScroll{
+    overflow: auto;
+    width: 100%;
+    background: #fff;
+    padding: 15px;
+    margin-top: 20px;
+    max-height: 314px;
+}
+
+.menuiconBefore{
+    display: none;
 }

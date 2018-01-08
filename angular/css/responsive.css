@@ -183,10 +183,10 @@
 }
 @media (max-width:767px) {
 
-.leftMenuWrapper {
+/*.leftMenuWrapper {
     width: 100%;
     margin-right:0px;
-}
+}*/
 
 .manageRoleRight {
     width: 100%;
@@ -322,6 +322,128 @@
 .serverBoxCommon {
     margin: 0 0 5px;
 }
+
+
+/*----Responsive menu section----*/
+
+.menuiconBefore {
+    top: 8px;
+    color: #2a2a2a!important;
+    font-weight: normal!important;
+    font-family: Arial;
+    position: absolute;
+    width: 30px;
+    height: 2px;
+    background: #2670b7;
+    display: block;
+    right: -31px;
+    left: initial;
+     
+}
+
+.menuiconBefore:before {
+    content: "";
+    top: -7px;
+    position: absolute;
+    border-top: 2px solid #2670b7;
+    left: 0;
+    right: 0;
+}
+
+.menuiconBefore:after {
+    content: "";
+    margin: 7px auto;
+    position: absolute;
+    border-bottom: 2px solid #2670b7;
+    top: 0px;
+    left: 0;
+    right: 0;
+}
+
+
+
+.leftMenuWrapper{
+    position: absolute;
+    width: 200px;
+    clear:both;
+    top:70px;
+    z-index: 9999;
+    min-height: 200px;
+    height: auto;
+    /*-webkit-transition:  height 2s; 
+    transition:  height 2s;*/
+    left: -201px;
+    -webkit-animation-name:myMenu; 
+    -webkit-animation-duration: .5s; 
+    animation-name: myMenu;
+    animation-duration: .5s;
+    animation-fill-mode: forwards;
+}
+
+.row [class*="col-"] {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+
+.rightWrapper {
+    width: 100%;
+    float: right;
+}
+
+/*.leftMenuMain{
+    display: none;
+}*/
+
+
+/*.responsiveMenu {
+    position: fixed;
+    top: initial;
+    right: -300px;
+    padding: 10px 9px 10px 10px;
+    width: 300px;
+    height: auto;
+    bottom: 0px;
+    -webkit-animation-name:myMenu; 
+    -webkit-animation-duration: 5s; 
+    animation-name: myMenu;
+    animation-duration: 5s;
+    animation-delay: 2s;
+    animation-timing-function: linear;
+}*/
+
+
+
+@-webkit-keyframes myMenu {
+    0%   { left:0px; }
+    100% { left:0px; }
+    
+}
+
+/* Standard syntax */
+@keyframes myMenu {
+    0%   { left:-300px; }
+    100% { left:0px; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*---Max 767----*/
 }
 @media (min-width:641px) and (max-width: 767px) {

@@ -1,7 +1,9 @@
 angular.module("dashBoard", ["ui.router","multipleSelect","profileController", "HelpController","companyDetailController",
 "projectDetailController","createProjectController","fileUploadDirective","companyService","serverController",
 "manageUsersController","mfaPageController","manageRolesController","createRoleController","manageGroupController",
-"createGroupController","manageUsersController","inviteUsersController","eachServerDetailController"])
+"createGroupController","manageUsersController","inviteUsersController", 
+"userListController", "processListController", "auditLoginController", "getAccessKeyController", "runScriptController", "serverTerminalController","eachServerDetailController","ServerDetailDirective",
+"lockDownServerController", "envListController"])
 .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
     .state('dashboard', {
@@ -18,11 +20,6 @@ angular.module("dashBoard", ["ui.router","multipleSelect","profileController", "
       url: '/server',
       templateUrl: 'pages/serverDetails.html',
       controller: 'serverController'
-    })
-    .state('eachServer', {
-      url: '/eachServer',
-      templateUrl: 'pages/eachServerDetail.html',
-      controller: 'eachServerDetailController'
     })
     .state('profile', {
       url: '/profile',
@@ -68,6 +65,52 @@ angular.module("dashBoard", ["ui.router","multipleSelect","profileController", "
       url: '/inviteUsers',
       templateUrl: 'pages/inviteUser.html',
       controller: 'inviteUsersController'
+    })
+    .state('eachServer', {
+      url: '/eachServer',
+      abstract: true,
+      templateUrl: 'pages/eachServerDetail.html',
+      controller: "eachServerDetailController"
+    })
+    .state('eachServer.userList', {
+      url: '',
+      templateUrl: 'pages/userList.html',
+      controller: 'userListController'
+    })
+    .state('eachServer.processList', {
+      url: '/processList',
+      templateUrl: 'pages/processList.html',
+      controller: 'processListController'
+    })
+    .state('eachServer.auditLogin', {
+      url: '/auditLogin',
+      templateUrl: 'pages/auditLogin.html',
+      controller: 'auditLoginController'
+    })
+    .state('eachServer.getAccessKey', {
+      url: '/getAccessKey',
+      templateUrl: 'pages/getAccessKey.html',
+      controller: 'getAccessKeyController'
+    })
+    .state("eachServer.runScript", {
+      url: "/runScript",
+      templateUrl: "pages/runScript.html",
+      controller: "runScriptController"
+    })
+    .state("eachServer.serverTerminal", {
+      url: "/serverTerminal",
+      templateUrl: "pages/serverTerminal.html",
+      controller: "serverTerminalController"
+    })
+    .state("eachServer.lockDownServer", {
+      url: "/lockDownServer",
+      templateUrl: "pages/lockDownServer.html",
+      controller: "lockDownServerController"
+    })
+    .state("eachServer.envList", {
+      url: "/envList",
+      templateUrl: "pages/envList.html",
+      controller: "envListController"
     })
     $urlRouterProvider.otherwise('/');
 

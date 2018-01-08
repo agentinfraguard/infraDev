@@ -7,7 +7,7 @@ angular.module("profileController", []).controller("profileController",
      	$scope.ssh_err_msg = "";
      	$scope.infoSuccess = false;
      	$scope.shell = "/bin/bash";
-     	$scope.visible = false;
+     	$rootScope.visible = false;
      	$rootScope.visible_help = false;
      	$rootScope.visible_company = false;
      	$rootScope.visible_project = false;
@@ -169,12 +169,13 @@ getAccountDetails($window.localStorage.getItem('currentAccount'),$window.localSt
 			companyService.setId(id);
 		};
 
-		$scope.showOptions = function(index) {
+		$scope.showOptions = function(index,$event) {
 			if(local_index != index){
-				$scope.visible = false;
+				$rootScope.visible = false;
 			}
 			local_index = index;
-			$scope.visible = $scope.visible ? false : true;
+			$rootScope.visible = $rootScope.visible ? false : true;
+			 $event.stopPropagation();
 		};
 
 		$scope.showHelpModal = function() {

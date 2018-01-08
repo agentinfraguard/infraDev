@@ -1,7 +1,7 @@
 angular.module("serverController", []).controller("serverController", 
 function($scope, $http, $rootScope, companyService, $window, $timeout, $document) {
 
-	$scope.visible = false;
+	$rootScope.visible = false;
 	$scope.servers = "";
 	$rootScope.listStatus = false;
 	$rootScope.emailValid = true;
@@ -32,13 +32,25 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
     $scope.createStyle={display:'none'};
     var sCount = true;
 
-    $scope.showOptions = function(index) {
+    $scope.showOptions = function(index,$event) {
 		if(local_index != index){
-			$scope.visible = false;
+			$rootScope.visible = false;
+
 		}
 		local_index = index;
-		$scope.visible = $scope.visible ? false : true;
+		visibility_status=1
+		$rootScope.visible = $rootScope.visible ? false : true;
+		  $event.stopPropagation();
+          // $event.preventDefault();
+         
 	};
+	 // $rootScope.showMessage = function() {
+  //     if ($scope.visible == true){
+  //            $scope.visible = false;
+  //               console.log("true");
+
+  //         }  
+  //  }
 
  	var id = companyService.getId();	
  		//console.log(id,"ip")

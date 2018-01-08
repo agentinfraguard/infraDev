@@ -1,6 +1,6 @@
 angular.module("companyDetailController", []).controller("companyDetailController", 
 function($scope, $rootScope, $http, companyService, $window, $document, $timeout) {
-	$scope.visible = false;
+	$rootScope.visible = false;
     $rootScope.visible_project = false;
 	$rootScope.errName = false;
     $rootScope.projectName = "";
@@ -25,7 +25,6 @@ function($scope, $rootScope, $http, companyService, $window, $document, $timeout
  	$window.localStorage.setItem('companyId', id);
 
 // server polling starts 
-
 var loadTime = 5000, //Load the data every second
     errorCount = 0, //Counter for the server errors
     loadPromise; //Pointer to the promise created by the Angular $timout service
@@ -165,12 +164,13 @@ var loadTime = 5000, //Load the data every second
 		
 	};
 
-	$scope.showOptions = function(index) {
+	$scope.showOptions = function(index,$event) {
 		if(local_index != index){
-			$scope.visible = false;
+			$rootScope.visible = false;
 		}
 		local_index = index;
-		$scope.visible = $scope.visible ? false : true;
+		$rootScope.visible = $rootScope.visible ? false : true;
+		  $event.stopPropagation();
 	};
 
 	$scope.showProjectModal = function() {
