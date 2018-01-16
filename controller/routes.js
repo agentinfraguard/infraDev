@@ -193,10 +193,11 @@ if(con == null)
 con = db.openCon(con);
 var data = {
 companyName : req.body.cname,
+accountId : req.body.accountId,
 companyCreator : req.session.uid
 };
 
-con.query("select * from companydetails where companyCreator = ? and companyName = ?", [req.session.uid,req.body.cname], function(err, result){
+con.query("select * from companydetails where companyCreator = ? and accountId = ?", [req.session.uid,req.body.accountId], function(err, result){
 	if(err){
 		res.json({success : 2, err_desc : err});
 		return;
@@ -223,10 +224,11 @@ if(con == null)
 con = db.openCon();	
 var data = {
 projectName : req.body.pname,
+accountId : req.body.accountId,
 companyId : req.body.cid
 };
 
-con.query("select * from projectdetails where projectName = ? and companyId = ?", [req.body.pname,req.body.cid], function(err, result){
+con.query("select * from projectdetails where projectName = ? and accountId = ?", [req.body.pname,req.body.accountId], function(err, result){
 	if(err){
 		res.json({success : 0, err_desc : err});
 		return;
@@ -1266,12 +1268,32 @@ var obj = {};
   }),
   
  ]).then(function(results){
-  obj.userdata = results[1];
-  obj.serverDetail= results[0];
+    obj.serverDetail= results[0];
+    obj.userdata = results[1];
   res.status(200).json(obj);
  });
  
 });
+
+
+app.post("/editCompanyName", function(req, res){
+ if(con == null)
+ con = db.openCon(con);
+ con.query("update companydetails set companyName = ?  where id like ?", [req.body.companyName,req.body.id], function(err, result){
+  if(err)console.log(err.stack);
+  res.status(200).json(result);
+ });
+});
+
+app.post("/editProjectName", function(req, res){
+ if(con == null)
+ con = db.openCon(con);
+ con.query("update projectdetails set projectName = ?  where id like ?", [req.body.projectName,req.body.id], function(err, result){
+  if(err)console.log(err.stack);
+  res.status(200).json(result);
+ });
+});
+
 
 }
 
@@ -1478,7 +1500,7 @@ function getUserData(req, res){
 		}),
 		
 		new Promise((resolve, reject) => {
-			con.query("SELECT * FROM companydetails WHERE companyCreator = ? ", [accountOwnerId], function(err, result){
+			con.query("SELECT * FROM companydetails WHERE accountId = ?", [accountId], function(err, result){
 				if(err)console.log(err.stack);
 				if(result.length > 0){
 					resolve(result);
@@ -1489,7 +1511,7 @@ function getUserData(req, res){
 
 		new Promise((resolve, reject) => {
 			con.query("SELECT * FROM companydetails c INNER JOIN projectdetails p ON c.id = p.companyId "+
-				"WHERE c.companyCreator = ? ", [accountOwnerId], function(err, result){
+				"WHERE c.accountId = ?", [accountId], function(err, result){
 				if(err)console.log(err.stack);
 				if(result.length > 0){
 					resolve(result);
@@ -1522,7 +1544,17 @@ function getUserData(req, res){
 				}
 				resolve(null);
 			});
-		})
+		}),
+
+		new Promise((resolve, reject) => {
+			con.query("SELECT * FROM servers WHERE accountId = ? ", [accountId], function(err, result){
+				if(err)console.log(err.stack);
+				if(result.length > 0){
+					resolve(result);
+				}
+				resolve(null);
+			});
+		}),
 
 	]).then(function(results){
 		obj.userdata = results[0];
@@ -1530,6 +1562,7 @@ function getUserData(req, res){
 		obj.projectdata = results[2];
 		obj.accountdata = results[3];
 		obj.userroles = results[4];
+		obj.serverdata = results[5];
 		res.status(200).json(obj);
 	});
 	
