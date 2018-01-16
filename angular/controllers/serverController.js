@@ -35,15 +35,17 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
     $scope.showOptions = function(index,$event) {
 		if(local_index != index){
 			$rootScope.visible = false;
-
 		}
 		local_index = index;
 		visibility_status=1
 		$rootScope.visible = $rootScope.visible ? false : true;
 		  $event.stopPropagation();
           // $event.preventDefault();
-         
 	};
+
+
+
+
 	 // $rootScope.showMessage = function() {
   //     if ($scope.visible == true){
   //            $scope.visible = false;
@@ -70,42 +72,49 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
     loadPromise; //Pointer to the promise created by the Angular $timeout service
 
 
-	  var getData = function() {
+	var getData = function() {
 	   
-		$http({
-		method : "post",
-		url : "/getServerPageDetails",
-		headers : {"Content-Type" : "application/json"},
-		data : {id : id}
-		})
-		/*$http({
-		method : "get",
-		url : serverPageDetailsUrl+"?id="+id,
-		})*/
-		.success(function(data) {
-			$scope.project = data.project;
-           
-			if(data.servers == null && sCount==true){
-					$scope.createStyle={display:'block'};
-					sCount=false;
-				}
-				
-			for(var x in data.servers){
-				var users = [];
-				data.servers[x].users = [];
-				if(data.servers[x].userList != null)
-				users = data.servers[x].userList.toString().split(",");
-				data.servers[x].users = users;
+	$http({
+	method : "post",
+	url : "/getServerPageDetails",
+	headers : {"Content-Type" : "application/json"},
+	data : {id : id}
+	})
+	/*$http({
+	method : "get",
+	url : serverPageDetailsUrl+"?id="+id,
+	})*/
+	.success(function(data) {
+		$scope.project = data.project;
+       
+		if(data.servers == null && sCount==true){
+			$scope.createStyle={display:'block'};
+			sCount=false;
+		}
+		$rootScope.isIAMAllowed = JSON.parse($window.localStorage.getItem('validResouceList')).iamAllowed;
+		if(data.servers == null){
+			$scope.servers = [];
+		}
+		else{
+			var validServerList = JSON.parse($window.localStorage.getItem('validResouceList')).listOfServerIds;
+			for(var x = data.servers.length-1; x>=0; x--){
+				if(validServerList.indexOf('All')>=0 || validServerList.indexOf(data.servers[x].id)>=0){
+		            console.log("Allowed ServerId = : "+data.servers[x].id+" Name  = : "+data.servers[x].serverName);
+		        	var users = [];
+					data.servers[x].users = [];
+					if(data.servers[x].userList != null)
+					users = data.servers[x].userList.toString().split(",");
+					data.servers[x].users = users;
+		        }else{
+		        	data.servers.splice(x,1);
+		        }
 			}
 			$scope.servers = data.servers;
-			if($scope.servers == null){
-				$scope.servers = [];
-			}
-			errorCount = 0;
-			//nextLoad();
-  		 });
-
-	  };
+		}
+		errorCount = 0;
+		//nextLoad();
+	});
+	};
 
 	  var cancelNextLoad = function() {
 	    $timeout.cancel(loadPromise);
@@ -127,16 +136,14 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 	  getData();
 
 	  //Always clear the timeout when the view is destroyed, otherwise it will keep polling
-	  $scope.$on('$destroy', function() {
+	$scope.$on('$destroy', function() {
 	    cancelNextLoad();
-	  });
+	});
 
   
-     $scope.setServerIp = function(ip) {
-             companyService.setId(ip);
-           //console.log(ip,"EachServerIp")
-     
-     }
+    $scope.setServerIp = function(ip) {
+        companyService.setId(ip);
+    }
 
 	  $rootScope.close = function(value) {
 	  	if(value == "user_ok"){
@@ -441,17 +448,17 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
     	   		$rootScope.envdata="";
     	   		$rootScope.user =userDataEnv;
 				console.log("envVarUserSpecific clicked");
-			//$http({
-			//	url: "/refreshEnvironmentVars",
-			//	method: "POST",
-			//	data: {serverIp:ip_addr,name:$rootScope.name},
-			///	headers: {"Content-Type": "application/json"}
-			//})
-			//.success(function(data){
-                var data={"envList":{"govind":"$GOPATH/bin","GOPATH":"$HOME/go_workspace","GOROOT":"/usr/lib/go-1.6","PATH":"$PATH:$GOROOT/bin:$GOBIN","VAR":"HELLO_WORLD"}}
+			    $http({
+				url: "/refreshEnvironmentVars",
+				method: "POST",
+				data: {serverIp:ip_addr,name:$rootScope.name},
+				headers: {"Content-Type": "application/json"}
+			})
+			.success(function(data){
+             
 				$rootScope.envdata=data.envList;
 			  console.log(data.envList);
-			//});
+			});
     	   }
 
     	   
@@ -467,12 +474,12 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 				headers: {"Content-Type": "application/json"}
 			})
 			.success(function(data){
-			
-				var data = JSON.parse(data[0].envVars);
+			console.log(data[0].envVars)
+				var dataa = JSON.parse(data[0].envVars);
 				userDataEnv="system"
             if (data!=null) {
 	            $rootScope.user =userDataEnv;  
-	           	$rootScope.envdata=data.envList;
+	           	$rootScope.envdata=dataa.envList;
 			  }
 			});
     	   }
@@ -482,11 +489,13 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 
 	$scope.showCommandModal = function() {
 			$rootScope.visible_command = $rootScope.visible_command ? false : true;
+			var accountId = $window.localStorage.getItem('currentAccount');
+			var companyId = $window.localStorage.getItem('companyId');
 			if ($rootScope.visible_command) {
 				// install agent from production repository 
 				//$rootScope.commandText = "bash <(wget -qO- https://raw.githubusercontent.com/agentinfraguard/agent/master/scripts/agentInstaller.sh --no-check-certificate) '"+serverName+"' "+ $scope.project.id+" "+"LicenseKey";
-				// install agent from development repository
-				$rootScope.commandText = "bash <(wget -qO- https://raw.githubusercontent.com/spiyushk/agent/master/scripts/agentInstaller.sh --no-check-certificate) '"+serverName+"' "+ $scope.project.id+" "+"LicenseKey";
+				// install agent from development repository i.e. agentglobe
+				$rootScope.commandText = "bash <(wget -qO- https://raw.githubusercontent.com/spiyushk/agent/master/scripts/agentInstaller.sh --no-check-certificate) '"+serverName+"' "+ $scope.project.id+" "+"LicenseKey "+accountId+" "+companyId;
 				body.addClass("overflowHidden");
 				$rootScope.modal_class = "modal-backdrop fade in";
 			} else {
@@ -843,15 +852,13 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 	};
 
 	function generatePassw(size, mode) {
-    var mask = '';
-    if (mode.indexOf('a') > -1) mask += 'abcdefghijklmnopqrstuvwxyz';
-    if (mode.indexOf('A') > -1) mask += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    if (mode.indexOf('#') > -1) mask += '0123456789';
-    if (mode.indexOf('!') > -1) mask += '~`!@#$%^&*()_+-={}[]:";\'<>?,./|\\';
-    var result = '';
-    for (var i = size; i > 0; --i) result += mask[Math.round(Math.random() * (mask.length - 1))];
-    return result;
-}
-
-
+	    var mask = '';
+	    if (mode.indexOf('a') > -1) mask += 'abcdefghijklmnopqrstuvwxyz';
+	    if (mode.indexOf('A') > -1) mask += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	    if (mode.indexOf('#') > -1) mask += '0123456789';
+	    if (mode.indexOf('!') > -1) mask += '~`!@#$%^&*()_+-={}[]:";\'<>?,./|\\';
+	    var result = '';
+	    for (var i = size; i > 0; --i) result += mask[Math.round(Math.random() * (mask.length - 1))];
+	    return result;
+	}
 });

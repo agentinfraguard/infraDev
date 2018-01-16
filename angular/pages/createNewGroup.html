@@ -1,18 +1,18 @@
 <section class="CreateNewGroupSec">
     <div class="manageRoleRight">
-        <div class="manageRoleHeading">{{editCreateGroup}}</div>
-        <p class="pageNavigation"> <a ui-sref="iam.manageGroup">Manage Group > </a> {{editCreateGroup}}  </p>
+        <div class="manageRoleHeading">{{createEditType}}</div>
+        <p class="pageNavigation"> <a ui-sref="iam.manageGroup">Manage Group > </a> {{createEditType}}  </p>
         <div class="roleDetailsSec">
             <form class="createNewGroup">
                 <div class="formWrapper">
                     <label class="formlabel" for="male">Group Name</label>
-                    <input type="text" ng-model="groupName" class="inputTextArea">
+                    <input type="text" ng-model="groupName" class="inputTextArea" ng-disabled="createEditType == 'Edit Group'">
                     <span style="color:red" ng-if="groupName.length==0"><b>{{groupNameValidation}}</b></span>
                 </div>
                 <div class="clear"></div>
                     <div class="formWrapper">
                     <label class="formlabel">Select Group Members</label>
-                    <div class="fastselectMainDiv">
+                    <div class="fastselectMainDiv emailButtonWrap">
                         <multiple-autocomplete ng-model="users" suggestions-arr="userList" after-select-item="afterSelectItem" after-remove-item="afterRemoveItem">
                         </multiple-autocomplete>
                     </div>
@@ -28,7 +28,8 @@
                 </div>
                 <div class="formWrapper">
                 <label class="formlabel formLabelBlanck"> &nbsp; </label>
-                <button class="createRoleBtn" ng-click="createEditGroup()"> {{editCreateGroup}} </button>
+                <button class="createRoleBtn" ng-click="createEditGroup()" ng-if="createEditType=='Create Group'"> Create Group </button>
+                <button class="createRoleBtn" ng-click="createEditGroup()" ng-if="createEditType=='Edit Group'"> Update </button>
                 <button class="cancelRoleBtn" ng-click="gotoManageGroups()"> Cancel </button>
                 </div>
             </form>

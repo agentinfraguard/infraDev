@@ -34,9 +34,9 @@
         </tr>
     </thead>
 <tbody>
-     <tr class="trclass" ng-repeat="(key,value) in envdata">
-                    <td> {{key}}</td>
-                    <td>{{value}}</td>             
+     <tr class="trclass" ng-repeat="x in envdata.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+                    <td> {{x[0]}}</td>
+                    <td>{{x[1]}}</td>             
      </tr>
           
     </tbody>      
@@ -45,10 +45,9 @@
 </div>
 <button class="cancelRoleBtn refreshBtn" type="button" ng-click="close('refreshEnvVarsButton')" class="btn btn-primary" data-dismiss="modal">Refresh</button>
 
-<div class="clear"></div>
   <div class="paginationClass">
   <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"
-   class="pagination-sm" items-per-page="itemsPerPage"  ng-hide="envdata.length<1">
+   class="pagination-sm" items-per-page="itemsPerPage">
 </pagination>
 </div>  
 <div class="clear"></div>         

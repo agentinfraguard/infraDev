@@ -4,8 +4,9 @@
                 
                 <div class="clear">&nbsp;</div>
             <div class="col-xs-12 col-sm-6 perCompanyBox" ng-repeat="company in companies">
-                <div class="profileHead2" ng-init="limit = 15; moreShown = false"> <span class="companyIconClass"> </span> <a href="#/project" ng-click="setCompanyId(company.id)">{{company.companyName | limitTo: limit}}{{company.companyName.length > limit ? '...' : ''}}</a></div>
-                <a href="javascript:void(0)" ng-click="$parent.selectedIndex = $index;showOptions($index,$event)" class="settingsIcon"> <span class="companySettingIcon"></span> 
+                <div class="profileHead2" ng-init="limit = 13; moreShown = false"> <span class="companyIconClass"> </span> <a href="#/project" ng-click="setCompanyId(company.id)">{{company.companyName | limitTo: limit}}{{company.companyName.length > limit ? '...' : ''}}</a></div>
+                <a href="javascript:void(0)" ng-click="$parent.selectedIndex = $index;showOptions($index,$event)" class="settingsIcon companySettingIcon"> </a>
+                  <!-- <span class="companySettingIcon"></span>  -->
                 <div class="settingsPop" ng-show="$parent.selectedIndex == $index?visible:false">
                         <ul>
                             <li><a href="javascript:void(0)" ng-click="showCompanyPopup('EditCompany',company.id,company.companyName )">Edit Company</a></li>
@@ -25,16 +26,16 @@
                 <p>Set up <a href="#/mfa" >MFA</a> for extra layer of security.</p>
                 </div>
           </div> -->
-          <div class="page_messages">
+        <div class="page_messages">
               
-           <div class="slidePopUpCommon projectSlidePopUp" ng-show="mfaStyle">
+           <div class="slidePopUpCommon projectSlidePopUp" ng-show="mfaStyle" >
                <h3 class="whiteText boldFont">Secure your login</h3>
                 <p class="whiteText">Set up <a href="#/mfa" >MFA</a> for extra layer of security.</p>
-                <i id="projectCloseBtn" class="fa fa-times secureLoginCloseIcon"></i>
+                <i id="projectCloseBtn" class="fa fa-times secureLoginCloseIcon" ng-click="mfaStyle=false"></i>
            </div>
             <div class="slidePopUpCommon companySlidePopUp" ng-show="createStyle">
                <h3 class="whiteText boldFont">Create new company</h3>
-               <i id="companyCloseBtn" class="fa fa-times secureLoginCloseIcon"></i>
+               <i id="companyCloseBtn" class="fa fa-times secureLoginCloseIcon" ng-click="createStyle=false"></i>
            </div>
             
           </div>

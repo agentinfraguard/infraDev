@@ -13,6 +13,8 @@ angular.module("profileController", []).controller("profileController",
      	$rootScope.visible_project = false;
      	$rootScope.visibleEditCompanyName=false;
      	$rootScope.visibleDeleteCompanyName=false;
+     	 $rootScope.menuIcon=false;
+     	  $rootScope.menuIconDiv = false ;    
      	$rootScope.company_err_msg = "";
      	$rootScope.modal_class = "";
      	$rootScope.userAccounts = JSON.parse($window.localStorage.getItem('userAccounts'));
@@ -23,6 +25,7 @@ angular.module("profileController", []).controller("profileController",
 		$scope.mfaStyle = false;
 		$scope.companyId ="";
         $rootScope.companyName="";
+        $rootScope.isIAMAllowed=false;
      	$rootScope.getAccountData = function(accountId,accountOwnerId) {
 			console.log(" accountId = : "+accountId+" Account Owner Id = : "+accountOwnerId+" Current User = : "+$window.localStorage.getItem('loggedInUser'));
 			$window.localStorage.setItem('currentAccount', accountId);
@@ -35,7 +38,74 @@ angular.module("profileController", []).controller("profileController",
 			showCompanyModal();
 		}
 
-  
+		function filterCompanyDataForUser(data){
+			var policyList = [];
+			var userRoles = JSON.parse(data.userroles);
+			for(var x in userRoles){
+				var policies = JSON.parse(userRoles[x].policy);
+				for(i=0;i<policies.length;i++){
+					policyList.push(policies[i]);
+				}
+			}
+			console.log(" policyList = : "+JSON.stringify(policyList));
+			$window.localStorage.setItem('userPolicyList', JSON.stringify(policyList));
+			//now based on policy list filter company page data
+			var listOfCompanyIds = [];
+			var listOfProjectIds = [];
+			var listOfServerIds = [];
+			var iamAllowed = false;
+			for(j=0;j<policyList.length;j++){
+				// create list of companies to be accessible by the user
+				if(policyList[j].access == 'allow'){
+					if(policyList[j].resource == 'Server'){
+						for(k=0;k<data.serverdata.length;k++){
+							if(data.serverdata[k].serverName == policyList[j].resourceId){
+								listOfCompanyIds.push(data.serverdata[k].companyId);
+								listOfProjectIds.push(data.serverdata[k].projectId);
+								listOfServerIds.push(data.serverdata[k].id);
+							}
+						}
+					}
+					else if(policyList[j].resource == 'Project'){
+						for(l=0;l<data.projectdata.length;l++){
+							if(data.projectdata[l].projectName == policyList[j].resourceId){
+								listOfCompanyIds.push(data.projectdata[l].companyId);
+								listOfProjectIds.push(data.projectdata[l].id);
+							}
+						}
+					}
+					else if(policyList[j].resource == 'Company'){
+						for(m=0;m<data.companydata.length;m++){
+							if(data.companydata[m].companyName == policyList[j].resourceId){
+								listOfCompanyIds.push(data.companydata[m].id);
+							}
+						}
+					}
+					else if(policyList[j].resource == 'IAM'){
+						iamAllowed = true;
+						$rootScope.isIAMAllowed = true;
+					}
+					else if(policyList[j].resource == 'All'){
+						listOfCompanyIds = [];
+						listOfProjectIds = [];
+						listOfServerIds = [];
+						listOfCompanyIds.push('All');
+						listOfProjectIds.push('All');
+						listOfServerIds.push('All');
+						$rootScope.isIAMAllowed = true;
+						iamAllowed = true;
+						break;
+					}
+				}
+			}
+			var validResouceList = {};
+			validResouceList.listOfCompanyIds = listOfCompanyIds;
+			validResouceList.listOfProjectIds = listOfProjectIds;
+			validResouceList.listOfServerIds = listOfServerIds;
+			validResouceList.iamAllowed = iamAllowed;
+			$window.localStorage.setItem('validResouceList', JSON.stringify(validResouceList));
+			return validResouceList;
+		}
 
      	var getAccountDetails = function(accountId,accountOwnerId){
      		$http({
@@ -66,12 +136,13 @@ angular.module("profileController", []).controller("profileController",
 				}
 
             // filter data to display based on policies
-            if(data.userroles != null){
-            	console.log(" Userroles = : "+data.userroles);
-                console.log(" Policies = : "+JSON.parse(data.userroles)[0].policy);
-           }
-				for(var x in data.companydata){
-					var projects = [];
+            var validCompanyList = filterCompanyDataForUser(data).listOfCompanyIds;
+            	console.log(" Allowed listOfCompanyIds = : "+validCompanyList);
+
+            	for(x = data.companydata.length-1; x>=0; x--){
+            		if(validCompanyList.indexOf('All')>=0 || validCompanyList.indexOf(data.companydata[x].id)>=0){
+            		console.log("Allowed CompanyId = : "+data.companydata[x].id+" Name  = : "+data.companydata[x].companyName);
+            		var projects = [];
 					data.companydata[x].projects = [];
 					for(var y in data.projectdata){
 						if(data.projectdata[y].companyId == data.companydata[x].id){
@@ -79,7 +150,12 @@ angular.module("profileController", []).controller("profileController",
 							data.companydata[x].projects = projects;
 						}
 					}
+            		}else{
+            			data.companydata.splice(x,1);
+            		}
 				}
+				console.log(" companydata  = : "+JSON.stringify(data.companydata));
+				
 				$rootScope.companies = data.companydata;	
 				
 				if (typeof data.userdata.shell !== "undefined" && data.userdata.shell != "" && data.userdata.shell != null) {
@@ -93,7 +169,9 @@ angular.module("profileController", []).controller("profileController",
                 }
         	});
 		};
+		
 getAccountDetails($window.localStorage.getItem('currentAccount'),$window.localStorage.getItem('currentAccountOwner'));
+		
 		$scope.editUser = function() {
 			$scope.edit = false;
 		};
@@ -162,7 +240,6 @@ getAccountDetails($window.localStorage.getItem('currentAccount'),$window.localSt
 
 		$rootScope.setCompanyId = function(id) {
 			companyService.setId(id);
-			//console.log(id)
 		};
 
 		$rootScope.setProjectId = function(id) {
@@ -178,7 +255,7 @@ getAccountDetails($window.localStorage.getItem('currentAccount'),$window.localSt
 			 $event.stopPropagation();
 		};
 
-		$scope.showHelpModal = function() {
+ 		$scope.showHelpModal = function() {
 			$rootScope.visible_help = $rootScope.visible_help ? false : true;
 			if ($rootScope.visible_help) {
 				body.addClass("overflowHidden");
@@ -188,19 +265,7 @@ getAccountDetails($window.localStorage.getItem('currentAccount'),$window.localSt
 				$rootScope.modal_class = "";
 			}
 		};
-		/*$scope.showCompanyModal = function() {
-			$rootScope.visible_company = $rootScope.visible_company ? false : true;
-			$rootScope.errName = false;
-			$rootScope.companyName = "";
-			$rootScope.company_err_msg = "";
-			if ($rootScope.visible_company) {
-				body.addClass("overflowHidden");
-				$rootScope.modal_class = "modal-backdrop fade in";
-			} else {
-				body.removeClass("overflowHidden");
-				$rootScope.modal_class = "";
-			}
-		};*/
+		
 		var showCompanyModal = function() {
 			$rootScope.visible_company = $rootScope.visible_company ? false : true;
 			$rootScope.errName = false;
@@ -230,6 +295,7 @@ getAccountDetails($window.localStorage.getItem('currentAccount'),$window.localSt
 					var cname = "";
 					$rootScope.errName = false;
 					cname = $rootScope.companyName;
+					var accountId = $window.localStorage.getItem('currentAccount');
 					if(cname == undefined || cname.trim().length <= 0){
 						$rootScope.errName = true;
 						return;
@@ -238,7 +304,7 @@ getAccountDetails($window.localStorage.getItem('currentAccount'),$window.localSt
 						$http({
 							method : "POST",
 							url : "/createCompany",
-							data : {cname : cname.trim()},
+							data : {cname : cname.trim(), accountId: accountId},
 							headers : {"Content-Type" : "application/json"}
 						}).success(function(data){
 							if(data.success == 1){
@@ -273,12 +339,12 @@ getAccountDetails($window.localStorage.getItem('currentAccount'),$window.localSt
 				            $rootScope.modal_class = "";
                             $http({
 							  method : "POST",
-							  url : "/EditCompany",
+							  url : "/editCompanyName",
 					 	      data : {id: $scope.companyId,companyName:$rootScope.companyName},
 						 	  headers : {"Content-Type" : "application/json"}
 						    }) 
                             .success(function(data){
-
+                                console.log(data)
 
 
 						})
@@ -335,6 +401,5 @@ getAccountDetails($window.localStorage.getItem('currentAccount'),$window.localSt
 		    e'};
 		}, 5000);*/
 
-	
+})
 
-});

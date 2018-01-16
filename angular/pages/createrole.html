@@ -2,7 +2,7 @@
 	<div class="manageRoleRight">
 		<div class="manageRoleHeading"> {{editCreateRole}}</div>
 		<p class="pageNavigation"> <a ui-sref="iam.manageroles">Manage Role > </a> {{editCreateRole}}  </p>
-		<div class="roleDetailsSec ">
+		<div class="roleDetailsSec paddingBtmManageRole">
 			<div class="table-wrapper">
 			<form>
 				<div class="formWrapper">
@@ -14,7 +14,7 @@
 
 				<div class="policiesMain formWrapper">
 				<label class="formlabel" for="male">Policies</label>
-				<div id="tableMainWrapper">
+				<div class="tableMainWrapper">
 					
 				<table class="policiesDetails commonTbMain" ng-if = "policies.length>0">
 
@@ -39,6 +39,9 @@
 						</tr>
 					</tbody>
 				</table>
+			</div>
+			<label class="formlabel" for="male">&nbsp;</label>
+			<div class="tableMainWrapper">
 				<table class="tbDetailsSec commonTbMain">
 						<tr>
 							<th class="accessDiv">Access</th>
@@ -84,7 +87,8 @@
 				<div class="clear"></div>
 				<div class="formWrapper">
 				<label class="formlabel formLabelBlanck"> &nbsp;</label>
-				<button class="createRoleBtn" ng-click="createEditRole()"> {{editCreateRole}} </button>
+				<button class="createRoleBtn" ng-click="createEditRole()" ng-if="editCreateRole=='Edit Role'"> Update </button>
+				<button class="createRoleBtn" ng-click="createEditRole()" ng-if="editCreateRole=='Create Role'"> Create Role </button>
 				<button class="cancelRoleBtn" ng-click="gotoManageRoles()"> Cancel</button>
 				</div>
 			</form>

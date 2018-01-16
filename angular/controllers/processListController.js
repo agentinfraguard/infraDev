@@ -9,7 +9,7 @@ function($scope, $http, $rootScope, companyService, $window) {
 
 $rootScope.close = function(value) {
 
-      		/*$http({
+      		$http({
 				url: "/refreshProcessListData",
 				method: "POST",
 				data: {serverIp:ip,name:$rootScope.name},
@@ -19,10 +19,10 @@ $rootScope.close = function(value) {
 			         $rootScope.visibleUserList = $rootScope.visibleUserList ?false : true;
                      var obj=JSON.parse(data[0].processList);
                      if (obj!=null) {
-                          $rootScope.processLstdata=obj.processLst;
-                          var processDataLength = Object.keys($rootScope.processLstdata).length;             
-	                      var dataObj=[];               
-	                      for(var k=7;k<processDataLength;k++){
+	                        $rootScope.processLstdata=obj.processLst;
+	                        var processDataLength = Object.keys($rootScope.processLstdata).length;             
+		                    var dataObj=[];               
+	                       for(var k=7;k<processDataLength;k++){
 		                      var datas=obj.processLst[k];
 		                      var trimdata=datas.trim();
 		                      var datareplace=trimdata.replace(/\s+/g,' ');
@@ -37,14 +37,12 @@ $rootScope.close = function(value) {
                             $scope.itemsPerPage = $scope.viewby;
                             $scope.maxSize = processDataLength/10; //Number of pager buttons to show
                         }
-			   });*/
+			   });
     	
 
 
 }
   var ProcessListPgeLoadDetail= function() {
-	  	          $scope.totalItems ="";
-                  $scope.maxSize = ""; 
           			$http({
 						url: "/showProcessListData",
 						method: "POST",
@@ -52,22 +50,19 @@ $rootScope.close = function(value) {
 						headers: {"Content-Type": "application/json"}
 					})
 					.success(function(data){
-					  $rootScope.visibleUserList = $rootScope.visibleUserList ?false : true;
-					  $rootScope.visible_Process_List = $rootScope.visible_Process_List ? false : true;
-                      var obj=JSON.parse(data[0].processList);
-                  
-	                  if (obj!=null) {
-	                     $rootScope.processLstdata=obj.processLst;
-	                     var processDataLength = Object.keys($rootScope.processLstdata).length;      
-		                 var dataObj=[];
-	                            
-	                     for(var k=7;k<processDataLength;k++){
-				             var datas=obj.processLst[k];
-				             var trimdata=datas.trim();
-				             var datareplace=trimdata.replace(/\s+/g,' ');
-				             var datasplit=datareplace.split(" ");
-				             dataObj.push(datasplit);
-	                        }
+                          var obj=JSON.parse(data[0].processList);
+                         if (obj!=null) {
+		                     $rootScope.processLstdata=obj.processLst;
+		                     var processDataLength = Object.keys($rootScope.processLstdata).length;             
+			                 var dataObj=[];                  
+					         for(var k=7;k<processDataLength;k++){
+							        var datas=obj.processLst[k];
+							        var trimdata=datas.trim();
+							        var datareplace=trimdata.replace(/\s+/g,' ');
+							        var datasplit=datareplace.split(" ");
+							        dataObj.push(datasplit);
+					            }
+                          $rootScope.processLst=dataObj;
 		                  $rootScope.processLst=dataObj;
 		                  $scope.viewby = 5;
 		                  $scope.totalItems =processDataLength-7;

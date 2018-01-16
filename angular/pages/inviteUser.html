@@ -1,56 +1,31 @@
-
 <section class="inviteUserSection">
     <div class="manageRoleRight">
-        <div class="manageRoleHeading">Invite User</div>
+        <div class="manageRoleHeading">{{inviteEditType}}</div>
+        <p class="pageNavigation"> <a ui-sref="iam.manageUsers">Manage User > </a> {{inviteEditType}}  </p>
         <div class="roleDetailsSec">
-            <form class="createNewGroup">
+            <form class="inviteNewUser">
                 <div class="formWrapper">
-                    <label class="formlabel" for="male">User Email(s)</label>
-                    <input type="text" name="role" class="inputTextArea">
+                    <label class="formlabel">User Email</label>
+                    <input type="email" name="email" ng-model="userEmail" class="inputTextArea" ng-disabled="inviteEditType == 'Edit User'">
+                    <span style="color:red" ng-if="userEmail.length==0"><b>{{userEmailValidation}}</b></span>
                 </div>
                 <div class="clear"></div>
-                <div class="formWrapper">
+                <div class="formWrapper inviteFormWrapper">
                     <label class="formlabel">Groups</label>
-
                     <div class="fastselectMainDiv">
-                        <select class="multipleSelect" multiple name="">
-                            <option value="Afghanistan">Afganistan</option>
-                            <option value="Albania">Albania</option>
-                            <option value="Algeria">Algeria</option>
-                            <option value="Andorra">Andorra</option>
-                            <option value="Angola">Angola</option>
-
-                        </select>
-                        <script>
-                            $('.multipleSelect').fastselect();
-                        </script>
+                        <multiple-autocomplete ng-model="groups" suggestions-arr="groupList" after-select-item="afterGroupSelect" after-remove-item="afterGroupRemove">
+                        </multiple-autocomplete>
                     </div>
                 </div>
                 <div class="clear"></div>
+                {{superAdminValidation}}
                 <div class="formWrapper">
-                    <label class="formlabel">Select Group Role</label>
-                    <div class="fastselectMainDiv">
-                        <select class="multipleSelect" multiple name="">
-                            <option value="Afghanistan">Afganistan</option>
-                            <option value="Albania">Albania</option>
-                            <option value="Algeria">Algeria</option>
-                            <option value="Andorra">Andorra</option>
-                            <option value="Angola">Angola</option>
-
-                        </select>
-                        <script>
-                            $('.multipleSelect').fastselect();
-                        </script>
-                    </div>
-                    </div>
-
-                    <div class="formWrapper">
-                    	<label class="formlabel formLabelBlanck"> &nbsp;</label>
-					<button class="createRoleBtn">Invite User</button>  
-					<button class="cancelRoleBtn"> Cancel</button>
-
-                    </div>
-            </form>
-        </div>
-    </div>
+                   <label class="formlabel formLabelBlanck"> &nbsp;</label>
+                   <button class="createRoleBtn" ng-click="inviteEditUser()" ng-if="inviteEditType == 'Invite User'">Invite User</button>
+                   <button class="createRoleBtn" ng-click="inviteEditUser()" ng-if="inviteEditType == 'Edit User'">Update</button>
+                   <button class="cancelRoleBtn" ng-click="gotoManageUsers()"> Cancel</button>
+               </div>
+           </form>
+       </div>
+   </div>
 </section>

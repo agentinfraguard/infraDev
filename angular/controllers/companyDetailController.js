@@ -1,7 +1,7 @@
 angular.module("companyDetailController", []).controller("companyDetailController", 
 function($scope, $rootScope, $http, companyService, $window, $document, $timeout) {
 	$rootScope.visible = false;
-    $rootScope.visible_project = false;
+	$rootScope.visible_project = false;
 	$rootScope.errName = false;
     $rootScope.projectName = "";
 	$rootScope.project_err_msg = "";
@@ -11,7 +11,10 @@ function($scope, $rootScope, $http, companyService, $window, $document, $timeout
 	$rootScope.updateServerKey = false;
 	$rootScope.visibleEditProjectName=false;
 	$rootScope.projectId = "";
-    $rootScope.projectName = "";     
+    $rootScope.projectName = ""; 
+     $rootScope.menuIcon = false ;   
+     $rootScope.menuIconDiv = false ; 
+        
 	var local_index = -1;
     var body = angular.element($document[0].body);
    // var projectPageDetailsUrl="";
@@ -25,6 +28,7 @@ function($scope, $rootScope, $http, companyService, $window, $document, $timeout
  	$window.localStorage.setItem('companyId', id);
 
 // server polling starts 
+
 var loadTime = 5000, //Load the data every second
     errorCount = 0, //Counter for the server errors
     loadPromise; //Pointer to the promise created by the Angular $timout service
@@ -42,61 +46,66 @@ var loadTime = 5000, //Load the data every second
 		url : projectPageDetailsUrl+"?id="+id,
 		}).*/
 		success(function(data) {
-			$scope.company_name = data.company.companyName;
-			$scope.company_notes = data.company.companyNotes;
-            
-			if(data.projects == null && pCount==true){
-					$scope.createStyle={display:'block'};
-					pCount=false;
-				}
-
-
-			for(var x in data.projects){
-			var servers = [];
-			data.projects[x].servers = [];
-				for(var y in data.servers){
-					if(data.servers[y].projectId == data.projects[x].id){
-						servers.push(data.servers[y]);
-						data.projects[x].servers = servers;
-				    }
-			    }
+		$scope.company_name = data.company.companyName;
+		$scope.company_notes = data.company.companyNotes;
+        
+		if(data.projects == null && pCount==true){
+			$scope.createStyle={display:'block'};
+			pCount=false;
+		}
+        $rootScope.isIAMAllowed = JSON.parse($window.localStorage.getItem('validResouceList')).iamAllowed;
+        if(data.projects == null){
+			$scope.projects = [];
+		}
+		else{
+			var validProjectList = JSON.parse($window.localStorage.getItem('validResouceList')).listOfProjectIds;
+			for( x = data.projects.length-1; x>=0; x--){
+				if(validProjectList.indexOf('All')>=0 || validProjectList.indexOf(data.projects[x].id)>=0){
+		            console.log("Allowed ProjectId = : "+data.projects[x].id+" Name  = : "+data.projects[x].projectName);
+		            var servers = [];
+					data.projects[x].servers = [];
+						for(var y in data.servers){
+							if(data.servers[y].projectId == data.projects[x].id){
+								servers.push(data.servers[y]);
+								data.projects[x].servers = servers;
+						    }
+					    }
+		        }else{
+					data.projects.splice(x,1);
+		        }
 		    }
 		    $scope.projects = data.projects;
-			if($scope.projects == null){
-				$scope.projects = [];
-			}
+		}
 			errorCount = 0;
 			//nextLoad();
 		});
-
-		
-      };
+    };
 
 	$rootScope.addFunction = function() {
-			$rootScope.visible_project = $rootScope.visible_project ? false : true;
-			$rootScope.errName = false;
-			$rootScope.projectName = "";
-			$rootScope.project_err_msg = "";
-			if ($rootScope.visible_project) {
-				body.addClass("overflowHidden");
-				$rootScope.modal_class = "modal-backdrop fade in";
-			} else {
-				body.removeClass("overflowHidden");
-				$rootScope.modal_class = "";
-			}
+		$rootScope.visible_project = $rootScope.visible_project ? false : true;
+		$rootScope.errName = false;
+		$rootScope.projectName = "";
+		$rootScope.project_err_msg = "";
+		if ($rootScope.visible_project) {
+			body.addClass("overflowHidden");
+			$rootScope.modal_class = "modal-backdrop fade in";
+		} else {
+			body.removeClass("overflowHidden");
+			$rootScope.modal_class = "";
 		}
+	}
 		
-	  var cancelNextLoad = function() {
-	    $timeout.cancel(loadPromise);
-	  };
+  	var cancelNextLoad = function() {
+    	$timeout.cancel(loadPromise);
+  	};
 
-	  var nextLoad = function(mill) {
+	 var nextLoad = function(mill) {
 	    mill = mill || loadTime;
 	    
 	    //Always make sure the last timeout is cleared before starting a new one
 	    cancelNextLoad();
 	    loadPromise = $timeout(getData, mill);
-	  };
+	};
 
 	  //Start polling the server by getData() first fetch url from properties file
 	 // $http.get('environment.properties').then(function (response) {
@@ -105,9 +114,9 @@ var loadTime = 5000, //Load the data every second
        // });
 	  
 	  //Always clear the timeout when the view is destroyed, otherwise it will keep polling
-	  $scope.$on('$destroy', function() {
+	$scope.$on('$destroy', function() {
 	    cancelNextLoad();
-	  });
+	});
 
 // server polling ends
 	
@@ -120,6 +129,7 @@ var loadTime = 5000, //Load the data every second
 			var pname = "";
 			$rootScope.errName = false;
 			pname = $rootScope.projectName;
+			var accountId = $window.localStorage.getItem('currentAccount');
 			if(pname == undefined || pname.trim().length <= 0){
 				$rootScope.errName = true;
 				return;
@@ -128,7 +138,7 @@ var loadTime = 5000, //Load the data every second
 				$http({
 					method : "POST",
 					url : "/createProject",
-					data : {pname : pname.trim(), cid : companyService.getId()},
+					data : {pname : pname.trim(), cid : companyService.getId(), accountId: accountId},
 					headers : {"Content-Type" : "application/json"}
 				}).
 				success(function(data){
@@ -172,6 +182,7 @@ var loadTime = 5000, //Load the data every second
 		$rootScope.visible = $rootScope.visible ? false : true;
 		  $event.stopPropagation();
 	};
+
 
 	$scope.showProjectModal = function() {
 		$rootScope.visible_project = $rootScope.visible_project ? false : true;
@@ -305,13 +316,13 @@ var loadTime = 5000, //Load the data every second
 			//console.log($rootScope.projectName,projectId);
 			$rootScope.visibleEditProjectName = $rootScope.visibleEditProjectName ? false : true;
 			$http({
-			url: "/EditProjectName",
+			url: "/editProjectName",
 			method: "POST",
 			data: {id : $rootScope.projectId,projectName:$rootScope.projectName},
 			headers: {"Content-Type": "application/json"}
 			})
 			.success(function(data){
-			
+			 console.log(data)
 			});
 		}
     };

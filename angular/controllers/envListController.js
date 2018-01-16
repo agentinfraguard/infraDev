@@ -13,29 +13,45 @@ $rootScope.close = function(value) {
 
       
 		if(value == "envVarUserSpecificEach"){
-    	   		userDataEnv="user";
-    	   		$rootScope.envdata="";
-    	   		$rootScope.userData =userDataEnv;
-				console.log("envVarUserSpecific clicked");
-			    //$http({
-			   //	url: "/envVarUserSpecific",
-			  //	method: "POST",
-			//	    data: {serverIp:ip_addr,name:$rootScope.name},
-			///	    headers: {"Content-Type": "application/json"}
-			//    })
-			//      .success(function(data){
-		            var data={"envList":{"govind":"$GOPATH/bin","GOPATH":"$HOME/go_workspace","GOROOT":"/usr/lib/go-1.6","PATH":"$PATH:$GOROOT/bin:$GOBIN","VAR":"HELLO_WORLD"}}
-					$rootScope.envdata=data.envList;
-					console.log(data.envList);
-			//});
+    	   		$scope.totalItems ="";
+                $scope.maxSize = ""; 	
+			    $http({
+			   	url: "/envVarUserSpecific",
+			  	method: "POST",
+				    data: {serverIp:ip,name:$rootScope.name},
+				    headers: {"Content-Type": "application/json"}
+			    })
+			      .success(function(data){
+			            if (data!=null) {
+		                       var data = JSON.parse(data[0].envVars);
+						       var envListDataLength = Object.keys(data.envList).length; 
+						       var dataObj=[];
+						       userDataEnv="system"
+						       var dataEnv=data.envList;
+				               $.each(dataEnv, function(k, v) {
+					              var dataObjEnvList=[]; 
+	                              dataObjEnvList.push(k);
+	                              dataObjEnvList.push(v);
+	                              dataObj.push(dataObjEnvList)
+                               });                  
+		                      	  $scope.envdata=dataObj;
+		                      	  $scope.viewby = 5;
+			                      $scope.totalItems =envListDataLength;
+			                      $scope.currentPage = 1;
+			                      $scope.itemsPerPage = $scope.viewby;
+			                      $scope.maxSize = envListDataLength/5;
+			                }
+
+			       });
     	   }
 
     	   
             else if(value == "envVarSystemSpecificEach"){
+            	$scope.totalItems ="";
+                $scope.maxSize = ""; 
     	   		userDataEnv="system";
     	   		$rootScope.envdata="";
     	   		$rootScope.userData =userDataEnv;
-				//console.log("envVarSystemSpecific clicked");
 		    	 $http({
 				      url: "/showEnvironmentVariablesData",
 				      method: "POST",
@@ -43,64 +59,105 @@ $rootScope.close = function(value) {
 				      headers: {"Content-Type": "application/json"}
 			       })
 			     .success(function(data){
-				      var data = JSON.parse(data[0].envVars);
-				      userDataEnv="system"
-                     if (data!=null) {
-	                     $rootScope.userData =userDataEnv;  
-	           	         $rootScope.envdata=data.envList;
-			            }
-			       });
+			        if (data!=null) {
+                      var data = JSON.parse(data[0].envVars);
+				      var envListDataLength = Object.keys(data.envList).length; 
+				       var dataObj=[];
+				       userDataEnv="system"
+				       var dataEnv=data.envList;
+				       $.each(dataEnv, function(k, v) {
+				              var dataObjEnvList=[]; 
+                              dataObjEnvList.push(k);
+                              dataObjEnvList.push(v);
+                              dataObj.push(dataObjEnvList)
+                          });
+	                      	  $scope.envdata=dataObj;
+	                      	  $scope.viewby = 5;
+		                      $scope.totalItems =envListDataLength;
+		                      $scope.currentPage = 1;
+		                      $scope.itemsPerPage = $scope.viewby;
+		                      $scope.maxSize = envListDataLength/5;
+			                }
+        
+			  });
     	    }
 
      else if(value == "refreshEnvVarsButton"){
 			
-			/*$http({
+			$http({
 				url: "/refreshEnvironmentVars",
 				method: "POST",
 				data: {serverIp:ip,name:$rootScope.name},
 				headers: {"Content-Type": "application/json"}
 			})
-			 .success(function(data){
-			 	  var data = JSON.parse(data[0].envVars);
-				
-                 if (data!=null) {
-	                 $rootScope.user = "SYSTEM";
-	             	 $rootScope.envdata=data.envList;
-			        }
+			   .success(function(data){
+			      if (data!=null) {
+                      var data = JSON.parse(data[0].envVars);
+				      var envListDataLength = Object.keys(data.envList).length; 
+				       var dataObj=[];
+				       userDataEnv="system"
+				       var dataEnv=data.envList;
+				       $.each(dataEnv, function(k, v) {
+				              var dataObjEnvList=[]; 
+                              dataObjEnvList.push(k);
+                              dataObjEnvList.push(v);
+                              dataObj.push(dataObjEnvList)
+                          });
+	                      	  $scope.envdata=dataObj;
+	                      	  $scope.viewby = 5;
+		                      $scope.totalItems =envListDataLength;
+		                      $scope.currentPage = 1;
+		                      $scope.itemsPerPage = $scope.viewby;
+		                      $scope.maxSize = envListDataLength/5;
+			                }
 
-			   });*/
+		                  
+			  });
    	 }
     	 
 }
 
 
  var enviVarLoadDetail= function() {
-		                $scope.totalItems ="";
-                        $scope.maxSize = ""; 
-                        $rootScope.visibleUserList = $rootScope.visibleUserList ?false : true;
 						userDataEnv="system";
     	   		        $rootScope.envdata="";
-    	   		
 			            $http({
 							url: "/showEnvironmentVariablesData",
 							method: "POST",
 							data:{serverIp:ip},
 							headers: {"Content-Type": "application/json"}
 				        })
-				       .success(function(data){
-					       var data = JSON.parse(data[0].envVars);
-	                       if (data!=null) {
-		                      $rootScope.userData =userDataEnv;
-		                      $rootScope.envdata=data.envList;
-				            }
-				       });
+				        .success(function(data){
+                         if (data!=null) {
+	                          var data = JSON.parse(data[0].envVars);
+					          var envListDataLength = Object.keys(data.envList).length; 
+					          var dataObj=[];
+					          userDataEnv="system"
+					          var dataEnv=data.envList;
+				             $.each(dataEnv, function(k, v) {
+						          	var dataObjEnvList=[];
+		                            console.log(k + ' is ' + v);
+		                            dataObjEnvList.push(k);
+		                            dataObjEnvList.push(v);
+		                            dataObj.push(dataObjEnvList)
+                               });
+		                      	  $scope.envdata=dataObj;
+		                      	  $scope.viewby = 5;
+			                      $scope.totalItems =envListDataLength;
+			                      $scope.currentPage = 1;
+			                      $scope.itemsPerPage = $scope.viewby;
+			                      $scope.maxSize = envListDataLength/5;
+			                }
+
+		                     
+			           });
 		 
-          }
+                 }
 
 
   enviVarLoadDetail()
 
-      $scope.setPage = function (pageNo) {
+     	$scope.setPage = function (pageNo) {
                   $scope.currentPage = pageNo;
                 };
 
@@ -108,7 +165,7 @@ $rootScope.close = function(value) {
                    console.log('Page changed to: ' + $scope.currentPage);
                 };
 
-               $scope.setItemsPerPage = function(num) {
+               	$scope.setItemsPerPage = function(num) {
                  $scope.itemsPerPage = num;
                  $scope.currentPage = 1; //reset to first page
                  }

@@ -1,20 +1,28 @@
 angular.module("manageRolesController", []).controller("manageRolesController", 
-function($scope, $http, $rootScope, companyService, $window, $state) {
+function($scope, $http, $rootScope, companyService, $window, $state, $document) {
 
 //$rootScope.createEditDeleteRoleStatus = '';
+$scope.success ='success';
 $scope.rolesData = '';
 $rootScope.editCreateRole = 'Create Role';
 $scope.selectedIndex = -1;
-$scope.visible = false;
+$rootScope.visible = false;
+$rootScope.visibleDeleteUserData=false;
+$rootScope.deleteButtonValue="";
+var indexValue="";
+var body = angular.element($document[0].body);
 
-$scope.showRoleOptions = function(index) {
+$scope.showRoleOptions = function(index,$event) {
 	if($scope.selectedIndex != index){
-		$scope.visible = false;
+		$rootScope.visible = false;
 	}
 	$scope.selectedIndex = index;
-	$scope.visible = $scope.visible ? false : true;
+	$rootScope.visible = $scope.visible ? false : true;
+	  $event.stopPropagation();
 };
-
+$scope.removeAlert=function(){    
+    $scope.success =null;
+  }
 var getRolesData = function() {
     var accountId = $window.localStorage.getItem('currentAccount');
 	var userId = $window.localStorage.getItem('loggedInUser');
@@ -38,12 +46,55 @@ var getRolesData = function() {
 
 getRolesData();
 
-$scope.deleteRole = function(index) {
-    var accountId = $window.localStorage.getItem('currentAccount');
-	var userId = $window.localStorage.getItem('loggedInUser');
-	var roleId = $scope.rolesData[index].roleId;
-	console.log(JSON.stringify($scope.rolesData));
-	console.log(" delete index = : "+index+ " Delete Row Id = : "+$scope.rolesData[index].roleId);
+$rootScope.openPopUp = function(value,index) {
+	if(value=="DeleteRole"){
+    $rootScope.deleteRoleName=" Delete Role ";
+	$rootScope.deleteValue="Role";
+	$rootScope.deleteButtonValue="deleteRole"
+	$rootScope.visibleDeleteUserData = $rootScope.visibleDeleteUserData ? false : true;
+    $('.afterloginBody').addClass("overflowHidden");
+	$rootScope.modal_class = "modal-backdrop fade in";
+	indexValue=index;
+
+	}
+	else if (value=="Delete"){
+     $rootScope.visibleDeleteUserData = $rootScope.visibleDeleteUserData ? false : true;
+     $('.afterloginBody').removeClass("overflowHidden");
+     $rootScope.modal_class = "";
+       deleteRoles(indexValue)
+
+	}
+
+ };
+$rootScope.close = function() {
+   $rootScope.visibleDeleteUserData = $rootScope.visibleDeleteUserData ? false : true;
+  $('.afterloginBody').removeClass("overflowHidden");
+  $rootScope.modal_class = "";
+  
+}
+
+
+$rootScope.addFunction = function() {
+	console.log(" Add new Role ");
+	$window.localStorage.setItem('editRoleData', '');
+	$rootScope.editCreateRole = 'Create Role';
+	$state.go('iam.createEditRole');
+}
+
+$scope.editRole = function(index){
+	console.log(" Edit Role index = "+index+"   RoleData = "+JSON.stringify($scope.rolesData[index]));
+	$window.localStorage.setItem('editRoleData', JSON.stringify($scope.rolesData[index]));
+	$rootScope.editCreateRole = 'Edit Role'
+	$state.go('iam.createEditRole');
+}
+
+function deleteRoles(indexValue){
+	console.log(indexValue)
+     var accountId = $window.localStorage.getItem('currentAccount');
+	 var userId = $window.localStorage.getItem('loggedInUser');
+	 var roleId = $scope.rolesData[indexValue].roleId;
+	 console.log(JSON.stringify($scope.rolesData));
+	 console.log(" delete index = : "+indexValue+ " Delete Row Id = : "+$scope.rolesData[indexValue].roleId);
 	$http({
 		method : "post",
 		url : "/deleteRole",
@@ -59,20 +110,8 @@ $scope.deleteRole = function(index) {
 	    	$rootScope.createEditDeleteRoleStatus = " Something went wrong.Please try again !"
 	    }
 	});
-};
 
-$rootScope.addFunction = function() {
-	console.log(" Add new Role ");
-	$window.localStorage.setItem('editRoleData', '');
-	$rootScope.editCreateRole = 'Create Role';
-	$state.go('iam.createEditRole');
 }
 
-$scope.editRole = function(index){
-	console.log(" Edit Role index = "+index+"   RoleData = "+JSON.stringify($scope.rolesData[index]));
-	$window.localStorage.setItem('editRoleData', JSON.stringify($scope.rolesData[index]));
-	$rootScope.editCreateRole = 'Edit Role'
-	$state.go('iam.createEditRole');
-}
 	
 });

@@ -18,18 +18,11 @@ angular.module("createGroupController", []).controller("createGroupController",
 			}
 			return o;
 		};
-
+		console.log(" page type = : "+$rootScope.createEditType);
 		var editGroupData = $window.localStorage.getItem('editGroupData');
-		console.log("editGroupData = : "+editGroupData.groupId);
 		if (editGroupData != null && editGroupData != '' && editGroupData != undefined){
 			editGroupData = JSON.parse($window.localStorage.getItem('editGroupData'));
-			console.log(" editGroupData = : "+editGroupData.groupName+editGroupData.userids+editGroupData.usernames+editGroupData.roleids+editGroupData.rolenames);
-			console.log(" userids type = : "+typeof(editGroupData.userids)+"   roleids type = : "+typeof(editGroupData.roleids));
-		/*$scope.oldUserIds = editGroupData.userids;
-		$scope.oldRoleIds = editGroupData.roleids;
-		$scope.userIds = editGroupData.userids;
-		$scope.roleIds = editGroupData.roleids;*/
-		
+			console.log("editGroupData = : "+editGroupData.groupId);
 		// save selected userids to userIds & oldUserIds
 		if(editGroupData.userids.indexOf(",")>0){
 			$scope.oldUserIds = editGroupData.userids.split(",").map(Number);
@@ -65,11 +58,11 @@ angular.module("createGroupController", []).controller("createGroupController",
 			$scope.roles.push(editGroupData.rolenames);
 		}
 		$scope.groupName = editGroupData.groupName;
-		$rootScope.editCreateGroup = 'Edit Group';
+		$rootScope.createEditType = 'Edit Group';
 	}else{
 		$scope.userList = [];
 		$scope.roleList = [];
-		$rootScope.editCreateGroup = 'Create Group';
+		$rootScope.createEditType = 'Create Group';
 		$scope.groupName = '';
 	}
 
@@ -101,6 +94,11 @@ angular.module("createGroupController", []).controller("createGroupController",
 
 	$rootScope.addFunction = function() {
 		console.log(" Add new User ");
+		$window.localStorage.setItem('editGroupData', '');
+		$scope.userList = [];
+		$scope.roleList = [];
+		$rootScope.createEditType = 'Create Group';
+		$scope.groupName = '';
 		$state.go('iam.createGroup');
 	}
 
@@ -121,36 +119,36 @@ angular.module("createGroupController", []).controller("createGroupController",
 		}
 		var accountId = $window.localStorage.getItem('currentAccount');
 		console.log(" groupName = : "+$scope.groupName+" users = : "+$scope.users+" roles = : "+$scope.roles+"  accountId = : "+accountId);
-		createNewGroup();
-		/*if($rootScope.createEditGroup == 'Edit Group'){
-       		modifyGroup();
-        }else{
-        	createNewGroup();
-        }*/
-    }
+		console.log(" createEditType = : "+$rootScope.createEditType);
+		if($rootScope.createEditType == 'Edit Group'){
+			modifyGroup();
+		}else if($rootScope.createEditType == 'Create Group'){
+			createNewGroup();
+		}
+	}
 
-    $scope.afterSelectItem = function(item){
-    // perform operation on this item after selecting it.
-    if(item.indexOf("@")>0){
-    	console.log("user email = : "+ item.split("(")[1].split(")")[0]);
-    	for(var x in $scope.usersAndGroupsData.userList){
-    		if($scope.usersAndGroupsData.userList[x].email == (item.split("(")[1].split(")")[0]))
-    			$scope.userIds.push($scope.usersAndGroupsData.userList[x].userId);
-    	}
-    	console.log(" $scope.userIds = : "+$scope.userIds);
-    	console.log(" $scope.oldUserIds = : "+$scope.oldUserIds);
-    }else{
-    	console.log("roleName = : "+ item);
-    	for(var x in $scope.usersAndGroupsData.roleList){
-    		if($scope.usersAndGroupsData.roleList[x].roleName == item)
-    			$scope.roleIds.push($scope.usersAndGroupsData.roleList[x].roleId);
-    	}
-    	console.log(" $scope.roleIds = : "+$scope.roleIds);
-    	console.log(" $scope.oldRoleIds = : "+$scope.oldRoleIds);
-    }
-}
+	$scope.afterSelectItem = function(item){
+		/*perform operation on this item after selecting it.*/
+		if(item.indexOf("@")>0){
+			console.log("user email = : "+ item.split("(")[1].split(")")[0]);
+			for(var x in $scope.usersAndGroupsData.userList){
+				if($scope.usersAndGroupsData.userList[x].email == (item.split("(")[1].split(")")[0]))
+					$scope.userIds.push($scope.usersAndGroupsData.userList[x].userId);
+			}
+			console.log(" $scope.userIds = : "+$scope.userIds);
+			console.log(" $scope.oldUserIds = : "+$scope.oldUserIds);
+		}else{
+			console.log("roleName = : "+ item);
+			for(var x in $scope.usersAndGroupsData.roleList){
+				if($scope.usersAndGroupsData.roleList[x].roleName == item)
+					$scope.roleIds.push($scope.usersAndGroupsData.roleList[x].roleId);
+			}
+			console.log(" $scope.roleIds = : "+$scope.roleIds);
+			console.log(" $scope.oldRoleIds = : "+$scope.oldRoleIds);
+		}
+	}
 
-$scope.afterRemoveItem = function(item){
+	$scope.afterRemoveItem = function(item){
     // perform operation on this item after removing it.
     console.log(" afterRemoveItem item = :  "+item);
     if(item.indexOf("@")>0){
@@ -160,6 +158,7 @@ $scope.afterRemoveItem = function(item){
     			var index = $scope.userIds.indexOf($scope.usersAndGroupsData.userList[x].userId);
     			if (index > -1) {
     				$scope.userIds.splice(index, 1);
+    				break;
     			}
     		}
     	}
@@ -175,6 +174,7 @@ $scope.afterRemoveItem = function(item){
     			console.log(" role index = : "+index);
     			if (index > -1) {
     				$scope.roleIds.splice(index, 1);
+    				break;
     			}
     		}
     	}
@@ -199,6 +199,35 @@ function createNewGroup(){
 		if(data.success==1){
 			console.log(" New Group Created ");
 			$rootScope.createEditDeleteGroupStatus = " New group created successfully !";
+			$state.go('iam.manageGroup');
+		}
+	});
+}
+
+function modifyGroup(){
+	var accountId = $window.localStorage.getItem('currentAccount');
+	console.log(" groupName = : "+$scope.groupName + " groupId= : "+editGroupData.groupId);
+	console.log(" userIds "+$scope.userIds + " oldUserIds = : "+$scope.oldUserIds);
+	console.log(" roleIds "+$scope.roleIds+ " oldRoleIds = : "+$scope.oldRoleIds);
+	$http({
+		method : "post",
+		url : "/modifyGroup",
+		headers : {"Content-Type" : "application/json"},
+		data : {
+			accountId : accountId,
+			groupName : $scope.groupName,
+			groupId : editGroupData.groupId,
+			users : $scope.userIds,
+			oldUsers : $scope.oldUserIds,
+			roles : $scope.roleIds,
+			oldRoles : $scope.oldRoleIds
+
+		}
+	})
+	.success(function(data) {
+		if(data.success==1){
+			console.log("  Group Modified ");
+			$rootScope.createEditDeleteGroupStatus = " Group modified successfully !";
 			$state.go('iam.manageGroup');
 		}
 	});

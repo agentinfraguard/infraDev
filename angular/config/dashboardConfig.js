@@ -2,8 +2,8 @@ angular.module("dashBoard", ["ui.router","multipleSelect","profileController", "
 "projectDetailController","createProjectController","fileUploadDirective","companyService","serverController",
 "manageUsersController","mfaPageController","manageRolesController","createRoleController","manageGroupController",
 "createGroupController","manageUsersController","inviteUsersController", 
-"userListController", "processListController", "auditLoginController", "getAccessKeyController", "runScriptController", "serverTerminalController","eachServerDetailController","ServerDetailDirective",
-"lockDownServerController", "envListController"])
+"userListController", "processListController", "auditLoginController", "getAccessKeyController", "runScriptController", "serverTerminalController","eachServerDetailController","managePopUpDirective",
+"lockDownServerController", "envListController","iammanagementController","scrollEffectDirective"])
 .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
     .state('dashboard', {
@@ -35,6 +35,7 @@ angular.module("dashBoard", ["ui.router","multipleSelect","profileController", "
       url: '/iam',
       abstract: true,
       templateUrl: 'pages/iammanagement.html',
+      controller:'iammanagementController'
     })
     .state('iam.manageroles', {
       url: '',

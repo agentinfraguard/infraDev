@@ -11,44 +11,56 @@
     position: fixed;
     bottom: 0;
 }
-.Profilesection{
-    min-height: 817px;
+.profilesection {
+    min-height: 817px;    
 } 
 .rowMain{ 
     min-height: 750px;
-}   
+}  
+
 }
 @media (min-width:1367px) and (max-width:1600px) {
     .content-wrapper {
     margin: 0 auto;
     max-width: 1260px;
 }
-.Profilesection{
+.profilesection{
     min-height: 817px;
 }
 .rowMain{ 
     min-height: 600px;
 }
-    /*---1367 to 1600---*/
+.profilesection {
+    min-height: 817px;
 }
+.beforeloginBody .footerSection {
+    position: fixed;
+    bottom: 0;
+}
+}
+    /*---1367 to 1600---*/
+
 @media (min-width:1280px) and (max-width:1366px) {
 	.content-wrapper {
     max-width: 1260px;
 }
-.Profilesection{
-    min-height: 495px;
+.profilesection{
+    min-height: 600px;
 }
 .rowMain{ 
     min-height: 600px;
 }
+/*.profilesection {
+    min-height: 660px;
+}*/
+/*.beforeloginBody .footerSection {
+    position: fixed;
+    bottom: 0;
+}*/
 }
 @media (min-width:1200px) and (max-width:1279px) {
 	.content-wrapper {
     max-width: 1170px;
-}
-
-.manageRoleRight {
-    width: 79%;
 }
 
 .perCompanyBox {
@@ -58,7 +70,21 @@
 .serverBoxCommon {
     width: 32.4%;
 }
-
+.rightWrapper {
+    width: 79%;
+}
+.tableMainWrapper {
+    width: 88%;
+}
+.radio-inline, .checkbox-inline {
+    display: inline-block;
+    width: 100%;
+    margin: 4px 10px !important;
+    float: left;
+}
+.perCompanyBox {
+    width: 32%;
+}
 /*---1200 to 1279----*/
 }
 
@@ -67,12 +93,12 @@
 .roleDetailsSec {
     padding: 15px;
     overflow: auto;
+    padding-bottom: 100px;
 }
 
 .table-wrapper{
     overflow-x:auto;
     overflow-y: hidden;
-    padding: 0 0 20px 0;
 }
 .CreateNewGroupSec .roleDetailsSec {
     overflow: initial;
@@ -81,16 +107,6 @@
 .inviteUserSection .roleDetailsSec {
     overflow: initial;
 }
-/*.manageRolesTbMain {
-    width: 907px;
-    display: block;
-}*/
-
-
-/*.manageRolesTbMain {
-    width: 907px !important;
-    display: block;
-}*/
 
 .commonTbMain { 
     width: 1000px;
@@ -100,11 +116,11 @@
     margin: 8px 0px 20px 0px;
 }
 
-#tableMainWrapper .commonTbMain{
+.tableMainWrapper .commonTbMain{
     width: 820px !important
 }
 
-#tableMainWrapper{
+.tableMainWrapper{
     overflow-x: auto;
     overflow-y: hidden;
     /*margin-right: 10px;*/
@@ -123,16 +139,22 @@
     margin: 10px 0;
 }
 
-.actionList {
-    right: 19px;
-}
 
 .multiFactor {
     width: 100% !important;
 }
-
+.createNewGroup .formlabel {
+    width: 165px;
+    text-align: left;
+}
 .formlabel{
     margin-bottom:10px;
+}
+.fastselectMainDiv {
+    width: 100%;
+}
+.inputTextArea {
+    width: 100%;
 }
 /*----max-1199px----*/
 }
@@ -151,13 +173,25 @@
 .perCompanyBox {
     width: 31.5%;
 }
- .manageRoleRight {
-        width: 73.8%;
-    }
+.rightWrapper {
+    width: 73%;
+}
 
     .serverBoxCommon {
         width: 49%;
     }
+    .inputTextArea {
+    width: 100%;
+}
+.tbDetailsSec {
+    margin-bottom: 20px;
+}
+.profilesection{
+    min-height: 660px;
+}
+.perCompanyBox {
+    width: 48%;
+}
 /*---992 to 1199----*/
 
 
@@ -167,8 +201,8 @@
     max-width: 740px;
 }
 
-.manageRoleRight {
-    width: 68.2%;
+.rightWrapper {
+    width:68%;
 }
 
 .serverBoxCommon {
@@ -179,14 +213,17 @@
         width: 32.5%;
         margin: 0 0px 6px 6px;
     }
+.profilesection{
+    min-height: 660px;
+}
+.perCompanyBox {
+    width: 48.8%;
+}
 /*---768 to 991---*/
 }
 @media (max-width:767px) {
 
-/*.leftMenuWrapper {
-    width: 100%;
-    margin-right:0px;
-}*/
+/
 
 .manageRoleRight {
     width: 100%;
@@ -194,8 +231,9 @@
 }
 
 .roleDetailsSec {
-    padding: 30px 10px 20px;
+    padding: 15px;
     overflow-x: scroll;
+    padding-bottom: 200px;
 }
 
 .leftMenuMain {
@@ -216,7 +254,7 @@
 }
 
 .homeListUl {
-    margin: 0;
+    margin: 7px 0 0 0;
     width: 100%;
 }
 
@@ -225,136 +263,141 @@
     height: auto;
 }
 
-.beforeloginBody .navbar-default {
-    position: absolute !important;
-    background: #709d34;
-    top: 65px;
-    border-radius: 0 0 2px 2px;
-    margin: 0;
-    z-index: 99999;
-    border-color:transparent;
-}
+.navbar-default .navbar-collapse, .navbar-default .navbar-form{
+        position: absolute !important;
+        background: #709d34;
+        width: 150px;
+        left: initial;
+        right: 0;
+        top: 50px;
+        bottom: initial;
+    }
 
-.headersection .navbar {
+    .beforeloginBody .topLinkUl li {
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #86bb40;
+    }
+
+    .beforeloginBody .nav > li > a {
+        padding: 8px 10px;
+    }
+
+    .navbar-collapse{
+        box-shadow:none !important;
+        padding-right: 0; 
+        padding-left: 0; 
+    }
+    .navbar-toggle {
+        padding: 5px 5px;
+        margin-top: 12px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        background-color: transparent;
+        background-image: none;
+        border: 1px solid #709d34;
+        border-radius: 3px;
+    }
+    .headersection .navbar {
     padding-top: 0px;
 }
 
-.beforeloginBody .topLinkUl li {
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid #86bb40;
-}
-/*.beforeloginBody .topLinkUl li a:hover{
-    color: red;
-} */
+    .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+        border-color: #709d34;
+        background: #709d34;
+    }
+    .navbar-default .navbar-toggle {
+        border-color: #709d34;
+        background: #709d34;
+    }
+    .navbar-default .navbar-toggle .icon-bar {
+        background: #fff;
+        width: 20px;
+    }
 
-.navbar-nav {
-    margin: auto;
-}
-.navbar {
-    border: none !important;
-}
-.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-     background-color: transparent; 
-}
-
-.nav > li > a {
-    padding: 10px 0px;
-}
-
-.navbar-nav > li > a {
-     padding-top: 10px; 
-     padding-bottom: 10px; 
-     line-height: 20px; 
-}
-
-.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-     background-color: none; 
-}
-.navbar-toggle {
-    padding: 0;
-    margin-top: 20px;
-    background-color: transparent;
-    background-image: none;
-    border:none;
-    margin-right: 22px;
+    .navbar {
+        border: none !important;
+    }
+    .navbar-nav{
+        margin: 0;
+    }
+.loginBtnMain {
+    float: left;
+    margin: 11px 19px 0px 0;
 }
 
 
-
-
-.multiFactor .mfaLeft h1 {
-    font-size: 20px;
-}
-
-.navbar-default .navbar-toggle .icon-bar {
-    background-color: #fff;
-    cursor: pointer;
-}
-
-.beforeloginBody .nav > li > a {
-     padding: 10px; 
-     display: block;
-}
-
-.beforeloginBody .nav > li > a:hover{
-   background: #99c75b;
-}
-.navbar-collapse .collapse .in{
-    width: 150px;
-}
-
-/*.beforeloginBody .headersection {
-     height: 87px;
-}*/
-
- .navbar-default .navbar-toggle {
-    width: auto;
-    position: absolute;
-    top: -60px;
-    left: -44px; 
-}
-.navbar-collapse {
-    padding-right: 0;
-    padding-left: 0; 
-}
 
 .serverBoxCommon {
     margin: 0 0 5px;
 }
 
+.LoginBtnMain {
+    float: left;
+    margin-right:20px; 
+}
+
 
 /*----Responsive menu section----*/
+.menuIconMain {
+    float: left;
+    border: 1px solid #709d34;
+    background: #709d34;
+    height: 33px;
+    padding: 7px;
+    margin: 9px 10px 0 0;
+    z-index: 999999;
+    border-radius: 3px;
+}
+
+.afterloginBody .topLinkUl li {
+    margin-top: 16px;
+}
+
+/*.menuIconMain {
+    float: left;
+    border: 1px solid #709d34;
+    background: #709d34;
+    height: 33px;
+     width: 33px; 
+    padding: 7px;
+     top: 15px; 
+    margin: 15px 10px 0 0;
+    z-index: 999999;
+    border-radius: 3px;
+    
+}*/
+
 
 .menuiconBefore {
     top: 8px;
+    bottom: initial;
     color: #2a2a2a!important;
     font-weight: normal!important;
-    font-family: Arial;
-    position: absolute;
-    width: 30px;
+    position: relative;
+    width: 18px;
     height: 2px;
-    background: #2670b7;
+    background: #fff;
     display: block;
-    right: -31px;
-    left: initial;
-     
+    right: initial;
+    left: 0;
+    right: 0;
 }
 
 .menuiconBefore:before {
     content: "";
-    top: -7px;
+    top: -6px;
     position: absolute;
-    border-top: 2px solid #2670b7;
+    border-top: 2px solid #fff;
     left: 0;
     right: 0;
 }
 
 .menuiconBefore:after {
     content: "";
-    margin: 7px auto;
+    margin: 6px auto;
     position: absolute;
-    border-bottom: 2px solid #2670b7;
+    border-bottom: 2px solid #fff;
     top: 0px;
     left: 0;
     right: 0;
@@ -363,22 +406,26 @@
 
 
 .leftMenuWrapper{
-    position: absolute;
+    position: fixed;
     width: 200px;
-    clear:both;
-    top:70px;
+   bottom: initial;
+    top: 50px;
     z-index: 9999;
-    min-height: 200px;
+    min-height: 146px;
     height: auto;
-    /*-webkit-transition:  height 2s; 
-    transition:  height 2s;*/
-    left: -201px;
-    -webkit-animation-name:myMenu; 
-    -webkit-animation-duration: .5s; 
-    animation-name: myMenu;
-    animation-duration: .5s;
-    animation-fill-mode: forwards;
+    webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    left:-200px;
 }
+
+.responsiveMenu {
+    height: auto;
+    display: block;
+    bottom: initial;
+    top: 50px;
+    left:0;
+}
+
 
 .row [class*="col-"] {
     margin-bottom: 0;
@@ -391,64 +438,96 @@
     float: right;
 }
 
-/*.leftMenuMain{
-    display: none;
-}*/
-
-
-/*.responsiveMenu {
-    position: fixed;
-    top: initial;
-    right: -300px;
-    padding: 10px 9px 10px 10px;
-    width: 300px;
-    height: auto;
-    bottom: 0px;
-    -webkit-animation-name:myMenu; 
-    -webkit-animation-duration: 5s; 
-    animation-name: myMenu;
-    animation-duration: 5s;
-    animation-delay: 2s;
-    animation-timing-function: linear;
-}*/
-
-
-
-@-webkit-keyframes myMenu {
-    0%   { left:0px; }
-    100% { left:0px; }
-    
-}
-
-/* Standard syntax */
-@keyframes myMenu {
-    0%   { left:-300px; }
-    100% { left:0px; }
+  .headersection {
+    height: 51px;
 }
 
 
 
+.beforeloginBody .headerLogodiv {
+    width: 180px;
+    margin-top: 5px;
+} 
+
+ .afterloginBody .headerLogodiv {
+    margin-top: 5px;
+} 
+
+
+.headerLogodiv a {
+    display: block;
+    padding-left: 0;
+}
 
 
 
+.largeLogoDiv{
+     background: url(../images/smallLogo.png) left top no-repeat;
+     width: 46px;
+}
+
+
+   .largeLogoText{
+    background:url(../images/logoText.png) right bottom no-repeat;
+     background-size: 120px 34px;
+     width: 120px;
+     height: 34px;
+     margin-top: 2px;
+} 
+
+#addUserDetailsWrapper {
+    width: 45px;
+    height: 55px;
+}
+
+#addUserDetailsWrapper:before {
+    width: 45px;
+}
+
+.addUserWhiteMain {
+    right: 9px;
+    top: 12px;
+}
 
 
 
+.rightWrapper {
+    padding-left: 0;
+    padding-right: 0;
+}
 
+.emailButtonWrap .form-item-container .list-inline li span {
+    word-break: break-word;
+    white-space: normal;
+}
 
+#userDropdown {
+    top: 50px;
+}
 
+/*.beforeloginBody .marginTopAll {
+    margin-top: 60px;
+}
 
+.afterloginBody .marginTopAll {
+    margin-top: 80px;
+}*/
 
-
-
-
-
+.marginTopAll {
+    margin-top: 80px;
+}
 
 /*---Max 767----*/
 }
 @media (min-width:641px) and (max-width: 767px) {
 	.content-wrapper {
     max-width: 600px;
+}
+.inputTextArea {
+    width: 100%;
+}
+.profileHead2 {
+    font-size: 22px;
 }
 /*---641 to 767----*/
 }
@@ -486,11 +565,6 @@
 .inviteUserSection .roleDetailsSec {
     padding: 0 10px 20px;
 }
-
-.CreateNewGroupSec .roleDetailsSec {
-    padding: 0 10px 20px;
-}
-
 .perCompanyBox {
     width: 100%;
     margin: 0 auto 10px;
@@ -507,6 +581,15 @@
     font-size: 25px;
 }
 
+.charWithoutLimit {
+    display: none;
+}
+
+.charSetLimit{
+    display: block;
+}
+
+
 /*---Max 640----*/
 }
 @media (min-width:481px) and (max-width:640px) {
@@ -522,6 +605,10 @@ a.setupMFABtn, .changePasswordBtn, .profileForm .saveBtn {
 
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
      background-color: none !important;
+}
+
+.headerLogodiv {
+    width: 170px;
 }
 /*---481 to 640----*/
 }
@@ -593,15 +680,11 @@ a.setupMFABtn {
     padding: 6px 3px;
 }
 
-.headerLogodiv {
-    /*margin: 9px 0 8px 40px;*/
-        clear: both;
-}
+
 
 .menuDiv {
     margin: 0 auto;
     float: none;
-    width: 70%;
 }
 
 .beforeloginBody .topLinkUl li {
@@ -614,43 +697,33 @@ a.setupMFABtn {
 }
 
 #addUserDetailsWrapper {
-    position: absolute;
-    width: 50px;
-    height: 71px;
-    background: #709d34;
-    -moz-border-radius: 50% / 10%;
-    -webkit-border-radius: 50% / 10%;
-    border-radius: 50% / 10%;
     right: 0px;
     z-index: 999;
-    top: 0;
 }
 
-.topLinkUl {
+
+
+.beforeloginBody .topLinkUl {
     float: right;
     margin: -8px 0 7px 0;
 }
 
-.profileHead {
+
+/*.profileHead {
     margin: 20px 0;
-}
+}*/
 
 .addUserWhiteMain {
     top: 23px;
 }
 
 #addUserDetailsWrapper {
-    height: 77px;
+    height: 57px;
 }
 
-
-.headerLogodiv {
-    width: 200px;
-    height: 43px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+#addUserDetailsWrapper:before {
+    width: 39px;
 }
-
 .headerLogodiv img{
     width: 100%;
 }
@@ -663,19 +736,19 @@ a.setupMFABtn {
 
 .profileHead {
     font-size: 20px;
-    margin: 20px 0 0 0;
 }
 
 #userDropdown {
-    top: 70px;
+    top: 50px;
 }
 
 .signUpBtn {
-        padding: 2px 10px 5px;
+    padding: 18px 17px 5px;
+    background: #efefef url(../images/sprite.png) -445px 4px no-repeat;
 }
 
 .loginBtn {
-   padding: 2px 10px 5px;
+       padding: 3px 10px 4px 8px;
 }
 .loginBox {
     width: 100%;
@@ -683,50 +756,160 @@ a.setupMFABtn {
 }
 
 .beforeloginBody .headerLogodiv {
-    width: 200px;
-    height: 43px;
-    margin: 5px auto;
-    float: none;
+    width: 162px;
+    margin: 0;
 
 }
-.LoginBtnMain {
-    width: 154px;
-    margin: 3px 0 0;
+.loginBtnMain {
+    width: 74px;
+    margin: 8px 0px 0 24px;
 }
 
 .navbar-toggle {
-    margin: 2px 0px 10px 16px;
+    margin: 7px 0 0px 0;
+    padding: 4px;
 }
 
-.afterloginBody .topLinkUl {
-    float: left;
-    margin: -30px 0 5px 51px;
-}
-.navbar-default .navbar-toggle {
-    left: -8px;
-    top: -27px;
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    top: 43px;
+    bottom: initial;
 }
 
-.beforeloginBody .headersection {
-     height: 87px;
-}
-.multiFactor .mfaLeft h1 {
-    font-size: 16px;
+.beforeloginBody .topLinkUl {
+    float: right;
+     margin: 0 ;
 }
 
-.serverBoxCommon {
-    margin: 0 0 10px;
+.headersection {
+    padding: 3px 0;
 }
 
+.loginBtnMain .loginBtn span {
+    display: none;
+}
 
-.beforeloginBody .navbar-default {
-    top: 33px;
-    left: 9px;
+.afterloginBody .headerLogodiv {
+    width: 170px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.navbar {
+    float: right;
+    padding-top: 0px;
 }
 
 .afterloginBody .headersection {
-    height: 72px;
+    height: 54px;
 }
+
+.headersection .navbar {
+    padding-top: 0px;
+}
+/*.resMenu .headerLogodiv img {
+    width:auto;
+}*/
+.resMenu .largeLogo{
+    display: none;
+}
+.resMenu .smallLogo{
+    display: block;
+    margin-top: 2px;
+    webkit-transition: all 1s ease;
+    transition: all 1s ease;
+}
+/*.resMenu .headerLogodiv{
+    margin-left: 0;
+    margin-bottom: 3px;
+}*/
+
+ #addUserDetailsWrapper:before {
+    width: 39px;
+}
+ #addUserDetailsWrapper {
+    width: 39px;
+}
+
+ .addUserWhiteMain {
+    top: 12px;
+    left: 5px;
+}
+ 
+
+.afterloginBody .topLinkUl li {
+    float: left;
+    margin-left: 92px;
+    margin-top: -20px;
+}
+
+.topLinkUl {
+    float: left;
+}
+.afterloginBody .resMenu .topLinkUl li {
+           margin-top: -33px;
+}
+ .largeLogoDiv{
+    background: url(../images/smallLogo.png) no-repeat;
+    margin-top: 3px;
+}
+
+.beforeloginBody .largeLogoDiv{
+    margin-top: 0px;
+}
+.plusIconMain {
+    margin-right: 0px;
+    position: absolute;
+    top: -2px;
+    right: 0px;
+}
+
+
+.menuIconMain {
+    margin: 8px 10px 0 0;
+}
+
+.resMenu .menuIconMain {
+     margin: 8px 10px 0 0;
+}
+
+
+.largeLogoText {
+    position: absolute;
+    background: url(../images/logoText.png) 2px -4px no-repeat;
+    background-size: 110px 31px;
+    height: 34px;
+    float: right;
+}
+
+.beforeloginBody .largeLogoText {
+    width: 113px;
+    background: url(../images/logoText.png) 2px 0 no-repeat;
+    background-size: 110px 31px;
+}
+
+.resMenu .largeLogoText {
+    position: absolute;
+     background: url(../images/logoText.png) 2px -30px no-repeat;
+     background-size: 110px 31px;
+}
+
+.beforeloginBody .headersection {
+    height: 47px;
+}
+
+.profileHead {
+    margin: 0;
+}
+
+.signUpBtn span{
+    display: none;
+}
+
+ 
+ .manageRoleHeading {
+    text-align: center;
+}
+
 /*---Max 480----*/
 }
 

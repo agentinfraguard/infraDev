@@ -1,20 +1,37 @@
 angular.module("manageUsersController", []).controller("manageUsersController", 
-function($scope, $http, $rootScope, companyService, $window, $state) {
-
+function($scope, $http, $rootScope, companyService, $window, $state, $document) {
+$scope.success ='success';
+$rootScope.inviteEditType = 'Invite User';
 $scope.usersData = [];
-$scope.visible = false;
+$rootScope.visible = false;
 var local_index = -1;
+var indexValue="";
+var body = angular.element($document[0].body);
+$rootScope.visibleDeleteUserData =false;
 
-$scope.showOptions = function(index) {
+$scope.accountOwnerId = $window.localStorage.getItem('currentAccountOwner');
+
+
+$scope.showOptions = function(index,$event) {
 	if(local_index != index){
-		$scope.visible = false;
+		$rootScope.visible = false;
 	}
 	local_index = index;
-	$scope.visible = $scope.visible ? false : true;
+	$rootScope.visible = $rootScope.visible ? false : true;
+	 $event.stopPropagation();
 };
+
+
+  $scope.removeAlert=function(){    
+    $scope.success =null;
+  }
+
+
 
 $rootScope.addFunction = function() {
 	console.log(" Add new User ");
+	$window.localStorage.setItem('editUserData', '');
+	$rootScope.inviteEditType = 'Invite User';
 	$state.go('iam.inviteUsers');
 }
 
@@ -51,10 +68,48 @@ function putUsersIntoArray(groupName,userName,userEmail,userId){
 	array.push({'groupName':groupName,'userName':userName,'email':userEmail,'userId':userId});
 }
 
-$scope.deleteUser = function(index) {
-    var accountId = $window.localStorage.getItem('currentAccount');
-	var userId = $scope.usersData[index].userId;// userId to delete not loggedIn user
-	 console.log("accountId = : "+accountId+" userId = : "+userId);
+
+$rootScope.openPopUp = function(value,index) {
+	if(value=="DeleteUser"){
+    $rootScope.deleteRoleName=" Delete User ";
+	$rootScope.deleteValue="User";
+	$rootScope.visibleDeleteUserData = $rootScope.visibleDeleteUserData ? false : true;
+    $('.afterloginBody').addClass("overflowHidden");
+     $rootScope.modal_class = "modal-backdrop fade in";
+	indexValue=index;
+
+	}
+	else if (value=="Delete"){
+     $rootScope.visibleDeleteUserData = $rootScope.visibleDeleteUserData ? false : true;
+    $('.afterloginBody').removeClass("overflowHidden");
+	$rootScope.modal_class = "";
+     deleteUser(indexValue);
+       //console.log("Delete")
+
+	}
+
+ };
+$rootScope.close = function() {
+   $rootScope.visibleDeleteUserData = $rootScope.visibleDeleteUserData ? false : true;
+   $('.afterloginBody').removeClass("overflowHidden");
+   $rootScope.modal_class = "";
+  
+}
+
+
+
+$scope.editUser = function(index) {
+    $rootScope.inviteEditType = 'Edit User';
+    console.log("$scope.usersData = : "+JSON.stringify($scope.usersData[index]));
+    $window.localStorage.setItem('editUserData', JSON.stringify($scope.usersData[index]));
+	$state.go('iam.inviteUsers');	
+};
+
+function deleteUser(indexValue){
+  var accountId = $window.localStorage.getItem('currentAccount');
+
+ 	var userId = $scope.usersData[indexValue].userId;// userId to delete not loggedIn user
+ 	 console.log("accountId = : "+accountId+" userId = : "+userId);
 	$http({
 		method : "post",
 		url : "/deleteUser",
@@ -70,6 +125,5 @@ $scope.deleteUser = function(index) {
 	    	$rootScope.createEditDeleteUserStatus = " Something went wrong.Please try again !"
 	    }
 	});
-};
-
+}
 });

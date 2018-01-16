@@ -94,27 +94,68 @@ $scope.roleName = '';
 
 	$scope.getResourceDetails = function(newResource){
 
-		console.log(" getResourceDetails for = : "+newResource);
-		$scope.newActivities = [];
-		$scope.activityList = [];
-		$scope.resourceList = [];
-		if(newResource == 'All'){
-			$scope.activityList = ['All','Read Only'];
-			$scope.resourceList = ['All'];
-		}
-		else if (newResource == 'Company'){
+			console.log(" getResourceDetails for = : "+newResource);
+			var accountId = $window.localStorage.getItem('currentAccount');
+			var accountData = {accountId: accountId};
+			$scope.newActivities = [];
 			$scope.activityList = [];
-			$scope.resourceList = ['Samsung','Genpact','Globe','JFC','Singapore Telecom'];
+			$scope.resourceList = [];
+			if(newResource == 'All'){
+				$scope.activityList = ['All','Read Only'];
+				$scope.resourceList = ['All'];
+			}
+			else if (newResource == 'Company'){
+				$scope.activityList = [];
+				$http({
+					url: "/getCompanyList",
+					data: accountData,
+					method: "POST",
+					headers: {"Content-Type": "application/json"}
+				})
+				.success(function(data){
+					if(data != null){
+						$.each(data, function(key,value){
+							$scope.resourceList.push(value.companyName);
+						});
+					}
+				});
+			//$scope.resourceList = ['Samsung','Genpact','Globe','JFC','Singapore Telecom'];
 			$scope.activityList = ['Create Company','Add User','Create Policy'];
 		}
 		else if (newResource == 'Project'){
 			$scope.activityList = [];
-			$scope.resourceList = ['SSH Samsung','MySamsung','GalaxyLife','FileCloud','Bastion Servers'];
+			$http({
+				url: "/getProjectList",
+				data: accountData,
+				method: "POST",
+				headers: {"Content-Type": "application/json"}
+			})
+			.success(function(data){
+				if(data != null){
+					$.each(data, function(key,value){
+						$scope.resourceList.push(value.projectName);
+					});
+				}
+			});
+			//$scope.resourceList = ['SSH Samsung','MySamsung','GalaxyLife','FileCloud','Bastion Servers'];
 			$scope.activityList = ['Create Project','Add User','Create Policy','Start/Stop Auto Key Rotation','Change Server Key'];
 		}
 		else if (newResource == 'Server'){
 			$scope.activityList = [];
-			$scope.resourceList = ['JFC-DASHBOARD-DEV-1A','JFC-DASHBOARD-DEV-1A','SWS-RAILO-JOB-DEV-1A','SWS-RAILO-WEB-UAT-1A','SWS-RAILO-WEB-PROD'];
+			$http({
+				url: "/getServerList",
+				data: accountData,
+				method: "POST",
+				headers: {"Content-Type": "application/json"}
+			})
+			.success(function(data){
+				if(data != null){
+					$.each(data, function(key,value){
+						$scope.resourceList.push(value.serverName);
+					});
+				}
+			});
+			//$scope.resourceList = ['JFC-DASHBOARD-DEV-1A','JFC-DASHBOARD-DEV-1A','SWS-RAILO-JOB-DEV-1A','SWS-RAILO-WEB-UAT-1A','SWS-RAILO-WEB-PROD'];
 			$scope.activityList = ['Get Access Key','Add User','Delete User','Change Privilege','Lock/Unlock Server','Get/Set Enviroment Variables','Process List','Audit Login','Run Script'];
 		}
 		else if (newResource == 'IAM'){
@@ -149,7 +190,7 @@ $scope.roleName = '';
 		}
 		if($rootScope.editCreateRole == 'Edit Role'){
        		modifyRole();
-        }else{
+        }else if($rootScope.editCreateRole == 'Create Role'){
         	createNewRole();
         }
     }
