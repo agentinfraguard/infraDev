@@ -2,13 +2,21 @@
 <div class="clear"></div>
 <div class="blueHeading boldFont"> Process List</div>
 <div class="clear"></div>
+<div  ng-show="processLstdata.length<1">
+
+                    <p>
+                        There is no data in proccess list   
+                    </p>
+                   <p>please refresh the page to get current result .it will take 5 minutes .</p>
+                </div> 
+         <div class="emptyProccessList" ng-hide="processLstdata.length<1">
 <div class="processUpdateDetails"  ng-repeat="(key,value) in processLstdata " ng-if="key <5">
  <div>{{value}}</div>  
 </div>
 <div class="clear"></div>
 <div class="tableDv">
 <div class="clear"></div>
- <table class="commonTbMain commonThpadding">
+ <table class="commonTbMain commonThpadding processListMainTable">
     <thead>
                 <tr>
                     <th>PID</th>
@@ -44,10 +52,11 @@
           </tbody>      
             </table>
             </div>
+            </div>
             <div class="clear"></div>
              <button class="cancelRoleBtn refreshBtn" type="button" ng-click="close('refreshProcessListButton')" data-dismiss="modal">Refresh</button>
 
-  <div class="clear"></div>           
+        
  <div class="paginationClass">
   <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"
    class="pagination-sm" items-per-page="itemsPerPage"></pagination>

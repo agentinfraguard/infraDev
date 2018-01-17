@@ -1,6 +1,8 @@
 <section>
             <div class="companyDetailsBg">
-                <div class="profileHead">Server Details For Project : {{project.projectName}}</div>
+                <!-- <div class="profileHead">Server Details For Project : {{project.projectName}}</div> -->
+                <div class="profileHead">Server Details</div>
+                <p class="pageNavigation ng-binding detailPages"> <a href="#">{{company_name}}  </a> &gt; <a href="#">{{project.projectName}}</a> &gt;  Project Details  </p>
                 <!--<div class="topButtonDv">
                     <a href="javascript:void(0)" ng-click="showServerModal()" class="addButton"><i class="fa fa-plus" aria-hidden="true"></i> Add Server</a>
                      <a href="#/users" class="manageButton"><i class="fa fa-user" aria-hidden="true"></i> User Management</a> 
@@ -15,8 +17,8 @@
             <div class="clear">&nbsp;</div>
                
                 <div ng-class="{0 : 'last'}[($index+1) % 4]" class="perCompanyBox "  data-ng-repeat="server in servers">
-                    <div class="profileHead2"><a href="#/eachServer" ng-click="setServerIp(server.serverIP)" class="serverHeading"><span class="serverIconClass"> </span>{{ server.serverName }}</a></div>
-                    <a href="javascript:void(0)" ng-click="$parent.selectedIndex = $index;showOptions($index)" class="settingsIcon"><span class="companySettingIcon"></span></a>
+                    <div class="profileHead2" ng-init="limit = 13; moreShown = false"><a href="#/eachServer" ng-click="setServerIp(server.serverIP)" class="serverHeading"><span class="serverIconClass"> </span>{{ server.serverName | limitTo: limit}}{{server.serverName.length > limit ? '...' : ''}}</a></div>
+                    <a href="javascript:void(0)" ng-click="$parent.selectedIndex = $index;showOptions($index,$event);" class="settingsIcon"><span class="companySettingIcon"></span></a>
                     <div class="settingsPop" ng-show="$parent.selectedIndex == $index?visible:false">
                         <ul>
                             <li ng-if = "server.users.indexOf(name.toLowerCase()) != -1"><a href="javascript:void(0)" ng-click="showUserModal('getAccessKey', server.serverIP)">Get Access Key</a></li>
