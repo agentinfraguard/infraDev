@@ -1,0 +1,54 @@
+<section class="processListTbSec">
+<div class="blueHeading boldFont">Enviroment variable</div>
+<div class="clear"></div>
+ 
+   <div class="padding10 " ng-show="envdata.length<1">
+                    <p>
+                        There is no data in enviroment list   
+                    </p>
+                   <p>please refresh the page to get current result .it will take 5 minutes .</p>
+                </div>
+                <div ng-hide="envdata.length<1">
+<!-- <div class="enviromentScopeUser"><div>scope:{{userData}}</div></div> -->
+<div class="clear"></div>
+
+                <!-- <input class="createRoleBtn" type="submit" ng-click="close('envVarUserSpecificEach')" value="USER SPECIFIC DATA" class="btn btn-primary" />
+                <input class="createRoleBtn" type="submit" ng-click="close('envVarSystemSpecificEach')" value="SYSTEM SPECIFIC DATA" class="btn btn-primary" /> -->
+
+  <div class="clear"></div>
+
+  <!-- Tab started -->
+<tabset>
+
+    <tab heading="USER SPECIFIC DATA" ng-click="close('envVarUserSpecificEach')"></tab>
+    <tab heading="SYSTEM SPECIFIC DATA" ng-click="close('envVarSystemSpecificEach')"></tab>
+  </tabset>
+
+  <!-- Tab end -->
+<div class="tableTabBg">
+ <table class="commonTbMain commonThpadding enviromentTable">
+    <thead>
+         <tr>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+<tbody>
+     <tr class="trclass" ng-repeat="x in envdata.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+                    <td> {{x[0]}}</td>
+                    <td>{{x[1]}}</td>             
+     </tr>
+          
+    </tbody>      
+</table>
+</div>
+</div>
+<button class="cancelRoleBtn refreshBtn" type="button" ng-click="close('refreshEnvVarsButton')" class="btn btn-primary" data-dismiss="modal">Refresh</button>
+
+  <div class="paginationClass">
+  <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"
+   class="pagination-sm" items-per-page="itemsPerPage">
+</pagination>
+</div>  
+<div class="clear"></div>         
+</section>

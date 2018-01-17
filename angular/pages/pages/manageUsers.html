@@ -1,0 +1,46 @@
+<section class="manageGroupSection alertMain">
+    <div class="rowMain margin-none">
+        <div class="manageRoleRight">
+            <div class="manageRoleHeading">Manage User</div>
+            <div class="clear"></div>
+            <alert class="alert-success" ng-show='success' type="{{success}}" close='removeAlert()'>Success Message</alert>
+            <!-- <alert class="alert-danger" ng-show='success' type="{{success}}" close='removeAlert()'>sdfds</alert>
+            <alert class="alert-warning" ng-show='success' type="{{success}}" close='removeAlert()'>sdfds</alert> -->
+
+            {{inviteUserStatus}}
+            <div class="roleDetailsSec">
+             <div class="table-wrapper">
+                <table class="commonTbMain commonThpadding mansgeGroupSection manageUserTable">
+                 <thead> 
+                    <tr>
+                        <th>User Name</th>
+                        <th>Email Address</th>
+                        <th>Group</th>
+                        <!-- <th>Last Login</th> -->
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="trclass" ng-repeat="user in usersData">
+                        <td> {{user.userName}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.groupName}} </td>
+                        <!-- <td>22 Nov 2017 18:22 </td> -->
+                        <td class="actionTdwidth">
+                            <div class="actionTdwidth">
+                            <i id="I4" class="fa fa-caret-down dropdownRoleDetails" aria-hidden="true" ng-click="$parent.selectedIndex = $index;showOptions($index,$event)"></i>
+                            <div class="clear"></div>
+                            <ul class="settingsPop actionList" ng-show="$parent.selectedIndex == $index?visible:false">
+                                <li><a href="javascript:void(0)" ng-click="editUser($index)">Edit User</a></li>
+                                <li><a href="javascript:void(0)" ng-click="openPopUp('DeleteUser',$index)" ng-hide="user.userId == accountOwnerId ">Delete User</a></li>
+                            </ul>
+                        </div>
+                        </td>
+                    </tr>
+                </tbody> 
+            </table>
+        </div> 
+    </div>
+</div>
+</div>
+</section>

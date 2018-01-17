@@ -1,0 +1,101 @@
+<!--<section class="manageRolesSec"> -->
+	<div class="manageRoleRight">
+		<div class="manageRoleHeading"> {{editCreateRole}}</div>
+		<p class="pageNavigation"> <a ui-sref="iam.manageroles">Manage Role > </a> {{editCreateRole}}  </p>
+		<div class="roleDetailsSec paddingBtmManageRole">
+			<div class="table-wrapper">
+			<form>
+				<div class="formWrapper">
+				<label class="formlabel" for="male">Role Name</label>
+				<input type="text" name="role" ng-model="roleName" class="inputTextArea">
+				<span style="color:red" ng-if="roleName.length==0"><b>{{roleNameValidation}}</b></span>
+			    </div>
+				<div class="clear"></div>
+
+				<div class="policiesMain formWrapper">
+				<label class="formlabel" for="male">Policies</label>
+				<div class="tableMainWrapper">
+					
+				<table class="policiesDetails commonTbMain" ng-if = "policies.length>0">
+
+					<thead>
+					<tr>
+						<th>Access</th>
+						<th>Resource</th>
+						<th>Resource Name</th>
+						<th>Action</th>
+						<th>Remove</th>
+					</tr>
+					</thead>
+					<tbody>
+
+						<tr class="trclass" ng-repeat="policy in policies">
+							<td>{{policy.access}}</td>
+							<td>{{policy.resource}}</td>
+							<td>{{policy.resourceId}}</td>
+							<td>{{policy.activities}}</td>
+							<td class="removeXicon" ng-click="removeRow(policy.resource,policy.resourceId)"> <i class="fa fa-times" aria-hidden="true"></i> </td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<label class="formlabel" for="male">&nbsp;</label>
+			<div class="tableMainWrapper">
+				<table class="tbDetailsSec commonTbMain">
+						<tr>
+							<th class="accessDiv">Access</th>
+							<th class="resourceDiv">Resource</th>
+							<th class="resourceDiv">Resource Name</th>
+							<th class="actionDiv">Action</th>
+							<th class="backgroundWhite" rowspan="2">
+							<button class="addPolicyBtn" ng-click="addRow()">Add policy</button>
+						    </th>
+						</tr>
+
+						<tr>
+							<td class="accessRedio">
+								<label class="radio-inline">
+	      						<input type="radio" name="optradio" ng-model="newAccess" value="allow">Allow
+	      						<span class="checkmark"></span>
+	    						</label>
+	    						<label class="radio-inline">
+	      						<input type="radio" name="optradio" ng-model="newAccess" value="deny">Deny
+	      						<span class="checkmark"></span>
+	    						</label>
+	    					</td>
+
+							<td>
+							<select ng-options="resource for resource in resources" ng-model="newResource" ng-change="getResourceDetails(newResource)"></select>
+							</td>
+
+							<td class="resourceDiv">
+								<select ng-model="newResourceId" ng-options="resource for resource in resourceList" ng-change="getActivityList(newResourceId)">
+								</select>
+							</td>
+
+							<td class="actionInput">
+							<multiple-autocomplete ng-model="newActivities" suggestions-arr="activityList">
+							</multiple-autocomplete>
+        					</td>
+
+							</tr>
+					</table>
+					<p style="color:red"><b>{{policyValidation}}</b></p>
+				</div>
+                </div>
+				<div class="clear"></div>
+				<div class="formWrapper">
+				<label class="formlabel formLabelBlanck"> &nbsp;</label>
+				<button class="createRoleBtn" ng-click="createEditRole()" ng-if="editCreateRole=='Edit Role'"> Update </button>
+				<button class="createRoleBtn" ng-click="createEditRole()" ng-if="editCreateRole=='Create Role'"> Create Role </button>
+				<button class="cancelRoleBtn" ng-click="gotoManageRoles()"> Cancel</button>
+				</div>
+			</form>
+		</div>
+		</div>
+	</div>
+
+	
+<!-- </section>
+

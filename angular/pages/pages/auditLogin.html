@@ -1,0 +1,38 @@
+<section class="processListTbSec">
+  <div class="clear"></div>
+  <div class="blueHeading boldFont">Audit Login List</div>
+  <div class="clear"></div>
+  <div class="tableDv">
+    <div class="clear"></div>
+    <table class="commonTbMain commonThpadding auditLoginTable">
+      <thead>
+        <tr>
+          <th>USERNAME</th>
+          <th>TERMINAL</th>
+          <th>SERVER IP</th>
+          <th>LOGIN TIME</th>
+          <th>TOTAL TIME</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr class="trclass" ng-repeat="x in auditLogin.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+          <td>{{x[0]}}</td>
+          <td>{{x[1]}}</td>
+          <td>{{x[2]}}</td>
+          <td>{{x[3]}}</td>
+          <td>{{x[4]}}</td>                 
+        </tr>
+      </tbody>      
+    </table>
+  </div>      
+
+  <div class="clear"></div>
+  <button class="cancelRoleBtn refreshBtn" type="button" ng-click="close()" data-dismiss="modal">Refresh</button>
+
+  <div class="paginationClass">
+    <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"
+    class="pagination-sm" items-per-page="itemsPerPage">
+  </pagination>
+</div>        
+</section>

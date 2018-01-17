@@ -1,0 +1,24 @@
+<section class="processListTbSec" ng-if="LockdownServer ==1">
+  <div class="runScriptBox">
+    <div class="clear">&nbsp;</div>
+                    <div class="blueHeading boldFont msgBoxHeader">Do you want to lockdown the server?</div>
+                    <div class="clear"></div>
+                    <div class="runScriptBoxFooter">
+            <input class="cancelRoleBtn" type="submit" ng-click="close('serverLockdownOkButton')" value="OK" />
+        <!--     <button class="cancelRoleBtn" type="button" ng-click="close('serverLockdownCancelButton')" data-dismiss="modal">Cancel</button>   -->
+            </div>              
+       </div>
+</section>
+
+
+<section class="processListTbSec" ng-if="LockdownServer ==0">
+  <div class="runScriptBox">
+                <div class="clear">&nbsp;</div>
+                   <div class="blueHeading boldFont msgBoxHeader">Do you want to unlock the server?</div>
+              <div class="clear"></div>
+              <div class="runScriptBoxFooter">                
+                <input type="submit" ng-click="close('serverUnlockOkButton')" value="OK" class="cancelRoleBtn" />
+               <!--  <button type="button" ng-click="close('serverUnlockCancelButton')" class="cancelRoleBtn" data-dismiss="modal">Cancel</button> -->
+              </div>
+            </div>
+</section>            

@@ -1,0 +1,31 @@
+<section class="inviteUserSection">
+    <div class="manageRoleRight">
+        <div class="manageRoleHeading">{{inviteEditType}}</div>
+        <p class="pageNavigation"> <a ui-sref="iam.manageUsers">Manage User > </a> {{inviteEditType}}  </p>
+        <div class="roleDetailsSec">
+            <form class="inviteNewUser">
+                <div class="formWrapper">
+                    <label class="formlabel">User Email</label>
+                    <input type="email" name="email" ng-model="userEmail" class="inputTextArea" ng-disabled="inviteEditType == 'Edit User'">
+                    <span style="color:red" ng-if="userEmail.length==0"><b>{{userEmailValidation}}</b></span>
+                </div>
+                <div class="clear"></div>
+                <div class="formWrapper inviteFormWrapper">
+                    <label class="formlabel">Groups</label>
+                    <div class="fastselectMainDiv">
+                        <multiple-autocomplete ng-model="groups" suggestions-arr="groupList" after-select-item="afterGroupSelect" after-remove-item="afterGroupRemove">
+                        </multiple-autocomplete>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                {{superAdminValidation}}
+                <div class="formWrapper">
+                   <label class="formlabel formLabelBlanck"> &nbsp;</label>
+                   <button class="createRoleBtn" ng-click="inviteEditUser()" ng-if="inviteEditType == 'Invite User'">Invite User</button>
+                   <button class="createRoleBtn" ng-click="inviteEditUser()" ng-if="inviteEditType == 'Edit User'">Update</button>
+                   <button class="cancelRoleBtn" ng-click="gotoManageUsers()"> Cancel</button>
+               </div>
+           </form>
+       </div>
+   </div>
+</section>
