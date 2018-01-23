@@ -1,5 +1,5 @@
 angular.module("myApp", ["ui.router", "loginController", "signupController", "homeController", 
-"passwValidation"]).config(function($stateProvider, $urlRouterProvider) {
+"passwValidation","resetpwdController"]).config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 	.state('homePage', {
       url: '/',
@@ -16,5 +16,11 @@ angular.module("myApp", ["ui.router", "loginController", "signupController", "ho
       templateUrl: 'pages/register.html',
       controller: 'signupCtrl'
     })
+    .state('resetPassword', {
+      url: '/resetPassword',
+      templateUrl: 'pages/resetPwdPage.html',
+      controller: 'resetpwdController'
+    })
     $urlRouterProvider.otherwise('/');
+    
 });

@@ -3,7 +3,7 @@ angular.module("dashBoard", ["ui.router","multipleSelect","profileController", "
 "manageUsersController","mfaPageController","manageRolesController","createRoleController","manageGroupController",
 "createGroupController","manageUsersController","inviteUsersController", 
 "userListController", "processListController", "auditLoginController", "getAccessKeyController", "runScriptController", "serverTerminalController","eachServerDetailController","managePopUpDirective",
-"lockDownServerController", "envListController","iammanagementController","scrollEffectDirective"])
+"lockDownServerController", "envListController","iammanagementController","scrollEffectDirective","resetpwdController"])
 .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
     .state('dashboard', {
@@ -112,6 +112,11 @@ angular.module("dashBoard", ["ui.router","multipleSelect","profileController", "
       url: "/envList",
       templateUrl: "pages/envList.html",
       controller: "envListController"
+    })
+     .state('resetPassword', {
+      url: '/updatePassword',
+      templateUrl: 'pages/resetPwdPage.html',
+      controller: 'resetpwdController'
     })
     $urlRouterProvider.otherwise('/');
 

@@ -421,11 +421,11 @@ h5 a:link, h5 a:visited, h5 a:active {
         padding-top: 11px;
     }
     .navbar-default {
-       background-color:#333 ; 
-       border-color:#333; 
-   }
+     background-color:#333 ; 
+     border-color:#333; 
+ }
 
-   .navbarright {
+ .navbarright {
     float: right;
     padding-top: 11px;
     padding-right: 90px;
@@ -902,17 +902,17 @@ h5 a:link, h5 a:visited, h5 a:active {
     }
 
     .companyArrowIcon {
-     background: url(../images/sprite.png) no-repeat -93px 5px;
-     width: 20px;
-     height: 15px;
-     float: right;
- }
+       background: url(../images/sprite.png) no-repeat -93px 5px;
+       width: 20px;
+       height: 15px;
+       float: right;
+   }
 
- .moreClass:hover .companyArrowIcon {
-     background: url(../images/sprite.png) no-repeat -92px -10px;
- }
+   .moreClass:hover .companyArrowIcon {
+       background: url(../images/sprite.png) no-repeat -92px -10px;
+   }
 
- .topButtonDv {
+   .topButtonDv {
     float: right;
     width: auto;
     margin-top: -40px;
@@ -1132,6 +1132,12 @@ a.divSaveBtn:hover {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     color: #666;
+    
+}
+
+.profileForm input[type="text"]{
+    padding: 8px 5px;
+    line-height: 0;
 }
 .editSaveDv select {
     padding: 7px 5px;
@@ -1836,6 +1842,18 @@ a:hover {
     width: 500px;
 }
 
+.modalMargin input[type="text"] {
+     margin:0 !important;
+}
+
+.modalMargin p{
+    text-align: left !important;
+    font-size: 15px !important;
+}
+
+
+
+
 .enableBox .modal-dialog {
     width: 900px;
 }
@@ -1910,7 +1928,7 @@ a:hover {
     background-color: #df5b37;
 }
 
-.authenticationBox .close, .resetBox .close, .enableBox .close {
+/*.authenticationBox .close, .resetBox .close, .enableBox .close {
     font-size: 24px;
     font-weight: normal;
     line-height: 28px;
@@ -1930,7 +1948,7 @@ a:hover {
     -moz-box-shadow: 4px -2px 3px #666;
     -webkit-box-shadow: 4px -2px 3px #666;
     box-shadow: 4px -2px 3px #666;
-}
+}*/
 
 a.setupMFABtn, .changePasswordBtn, .profileForm .saveBtn {
     background: #2670b7;
@@ -2091,12 +2109,13 @@ a.setupMFABtn:hover{
     float: none !important;
     margin: 0 auto;
     width: 75% !important;
+    display:flex;  
 }
 
 .mfaLeft p {
     padding: 10px;
     background: #fafafa;
-    margin: 10px 0 0 0;
+    margin: 50px 0 0 0;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
@@ -2119,7 +2138,7 @@ a.setupMFABtn:hover{
 
 .headerQuestionMark {
     float: right;
-    margin: -17px 0 0 0;
+    margin: 0;
     font-size: 20px;
     color: #2670b7;
 }
@@ -2567,7 +2586,6 @@ a.userUpgradeBtn {
     float: right;
     margin: 33px 0 0px 0;
 }
-
 .pageNavigation {
     width: 63% !important;
     text-align: center !important;
@@ -2576,12 +2594,11 @@ a.userUpgradeBtn {
     border-radius: 20px;
     display: table;
     margin: 0 auto;
-        box-shadow: 0px 0px 6px #ddd;
+    box-shadow: 0px 0px 6px #ddd;
     border: 1px solid #ddd;
 }
-
 .pageNavigation a {
-        font-size: 18px;
+    font-size: 18px;
     color: #2670b7;
     text-decoration: none;
 }
@@ -2589,7 +2606,14 @@ a.userUpgradeBtn {
     text-decoration: none;
     color: #222;
 }
-
+.rightWrapper .pageNavigation {
+    width: 100% !important;
+    text-align: left !important;
+    border-radius: 2px;
+    box-shadow: 0px 0px 0px #ddd;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
 .manageRoleHeading {
     font-size: 30px;
     float: left;
@@ -3038,15 +3062,15 @@ a.userUpgradeBtn {
 
 
     .actionList{
-     min-width: 115px;
-     width: auto;
-     bottom: initial;
-     top: 34px;
-     right: 7px;
-     text-align: left;
-     padding: 3px 0;
- }
- .actionListNone{
+       min-width: 115px;
+       width: auto;
+       bottom: initial;
+       top: 34px;
+       right: 7px;
+       text-align: left;
+       padding: 3px 0;
+   }
+   .actionListNone{
     display: none;
 }
 .actionListBlock{
@@ -3193,17 +3217,17 @@ a.userUpgradeBtn {
 
     }
     .serverStatusHead{
-       color: #333;
-       text-decoration: none;
-       padding: 7px;
-       font-size: 1em
-       width: 100%;
-       display: block;   
-   }
-   .bodyModal .serverStatusHead{
-       color: #fff;  
-   }
-   .processListClass {
+     color: #333;
+     text-decoration: none;
+     padding: 7px;
+     font-size: 1em
+     width: 100%;
+     display: block;   
+ }
+ .bodyModal .serverStatusHead{
+     color: #fff;  
+ }
+ .processListClass {
     width: 1053px;
     top: 100px;
 }
@@ -3246,9 +3270,9 @@ a.userUpgradeBtn {
 }
 
 .hostNameIconCommon{
- width: 66px;
- height: 66px;
- float: left;
+   width: 66px;
+   height: 66px;
+   float: left;
 }
 
 .textCommon{
@@ -3316,7 +3340,7 @@ a.userUpgradeBtn {
 }
 
 .serverBoxCommon:hover .serverHostNameIcon {
-   background: url(../images/sprite.png) no-repeat -7px -109px;
+ background: url(../images/sprite.png) no-repeat -7px -109px;
 }
 
 
@@ -3328,7 +3352,7 @@ a.userUpgradeBtn {
 }
 
 .serverBoxCommon:hover .serverCpuIcon {
- background: url(../images/sprite.png) no-repeat -85px -110px;
+   background: url(../images/sprite.png) no-repeat -85px -110px;
 }
 
 .ServerRamIcon {
@@ -3443,7 +3467,7 @@ a.userUpgradeBtn {
     height: 15px;
 }
 .eachServiceDetailsSec .commonTbMain tr td:nth-child(4), .eachServiceDetailsSec .commonTbMain tr td:nth-child(5) {
- text-align: center;
+   text-align: center;
 }
 
 .addUserButton{    
@@ -3479,8 +3503,8 @@ a.userUpgradeBtn {
     float: left;
 }
 .refreshBtn{
- float: right;
- margin-top: 17px;
+   float: right;
+   margin-top: 17px;
 }
 .paginationMain{
     width: auto;
@@ -3890,7 +3914,7 @@ button.close {
     background: #fff;
 }
 .userListModalTable{
-    height: 216px;
+    height: 150px;
     overflow: auto;
     display: inline-block;
     width: 100%;
@@ -4003,9 +4027,9 @@ button.close {
         vertical-align: top;
     }
     .environmenModalTable th:first-child, .environmenModalTable td:first-child {
-       width: 185px;
-   }
-   .environmenModalTable th:nth-child(2), .environmenModalTable td:nth-child(2){
+     width: 185px;
+ }
+ .environmenModalTable th:nth-child(2), .environmenModalTable td:nth-child(2){
     width: 295px;
 }
 
@@ -4046,7 +4070,7 @@ table.processListTable th, table.processListTable td
     vertical-align: top;
 }
 .processListTable th:first-child, .processListTable td:first-child {
-   width:60px; 
+ width:60px; 
 }
 .processListTable th:nth-child(2), .processListTable td:nth-child(2){
   width:80px; 
@@ -4113,7 +4137,7 @@ table.auditDataTable th, table.auditDataTable td
     vertical-align: top;
 }
 .auditDataTable th:first-child, .auditDataTable td:first-child {
-   width:190px; 
+ width:190px; 
 }
 .auditDataTable th:nth-child(2), .auditDataTable td:nth-child(2){
   width:120px; 
@@ -4217,10 +4241,10 @@ table.auditDataTable th, table.auditDataTable td
 }
 
 .largeLogoDiv{
-   background: url(../images/logoIcon.png) left top no-repeat;
-   width: 53px;
-   height: 45px;
-   float: left;
+ background: url(../images/logoIcon.png) left top no-repeat;
+ width: 53px;
+ height: 45px;
+ float: left;
 }
 .largeLogoText{
     background:url(../images/logoText.png) right bottom no-repeat;
@@ -4246,20 +4270,96 @@ table.auditDataTable th, table.auditDataTable td
         margin-top: 69px;
         }*/
         .buttonLink{
-           padding: 0px 16px 2px;
-           float: none;
-           background: #2670b7;
-           color: #fff !important;
-           font-family: 'Gadugi-Bold';
-           border: 1px solid #2670b7;
-           border-radius: 2px;
-           margin: 0 auto;
-       }
+         padding: 0px 16px 2px;
+         float: none;
+         background: #2670b7;
+         color: #fff !important;
+         font-family: 'Gadugi-Bold';
+         border: 1px solid #2670b7;
+         border-radius: 2px;
+         margin: 0 auto;
+     }
 
-       .marginTopAll{
+     .marginTopAll{
         margin-top: 65px !important;
     }
-.pageNavigation i{
-    margin: 0 2px 0 0;
-    font-weight: bold;
-} 
+    .pageNavigation i{
+        margin: 0 2px 0 0;
+        font-weight: bold;
+    } 
+
+
+
+.qusDownArrow {
+    position: relative;
+    background: #f5f4f4;
+    border: 1px solid #d8d8d8;
+    float: right;
+    padding: 0px 10px;
+    margin-top: 8px;
+}
+.qusDownArrow:after, .qusDownArrow:before {
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.qusDownArrow:after {
+    border-top-color: #f4f2f3;
+    border-width: 5px;
+    margin-left: -5px;
+}
+.qusDownArrow:before {
+    border-top-color: #d3d3d3;
+    border-width: 6px;
+    margin-left: -6px;
+}
+
+.mfaHeading {
+    color: #333;
+    font-size: 30px;
+    line-height: 120%;
+    float: left;
+    width: 100%;
+    display: block;
+}
+
+.policiesDetails tr th:nth-last-child(3) {
+    width: 132px;
+}
+
+
+
+.notAuthorised .modal-content {
+    background:#fff;
+}
+
+.notAuthorised .modal-content .close i.fa-times{
+    color: #ff6b6b;
+        text-shadow: none;
+}
+
+.notAuthorised .modal-footer{
+    background: #ff6b6b;
+}
+
+.notAuthorisedIcon{
+    font-size: 80px;
+    color: #ff6b6b;
+}
+
+.notAuthorised .modal-footer {
+    margin-top: 0;
+}
+
+.notAuthorised .modal-footer p {
+    color: #fff;
+    font-size: 30px;
+    text-align: center;
+}
+
