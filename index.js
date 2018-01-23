@@ -10,6 +10,13 @@ require("./controller/routes")(app);
 require("./controller/mailController")(app);
 require("./controller/iamController")(app);
 
+/*function modify(req, res, next){
+ console.log(" Intercepting Request ");
+
+  next();
+}
+app.use(modify);*/
+
 var server = app.listen(8088, function(){
 console.log("server started at http://127.0.0.1:8088");
 });

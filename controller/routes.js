@@ -37,6 +37,14 @@ cron.schedule('0 0 * * *', function(){
 });
 
 module.exports = function(app){
+
+/*	function modifyResponseBody(req, res, next) {
+    console.log(" NodeJS Interceptor RouteJs");
+    next();
+}
+
+app.use(modifyResponseBody);*/
+
 app.use(bodyParser.json());
 app.get("/", function(request, response){
 
@@ -55,15 +63,15 @@ app.get("/resetPassword", function(request, response){
     var data = new Buffer(request.query.data, 'base64').toString().split("&");
 	var id = data[0].split("id=")[1];
 	var time = data[1].split("timeStamp=")[1];
-	var timeDiffHrs = (Date.now() - time)/(1000*60*60);
-
-	if(timeDiffHrs >= 24) {
+	console.log(data+"data0")
+	var timeDiffHrs = (Date.now() - time)/(1000*60);
+	if(timeDiffHrs >= 2) {
 	    response.writeHead(200, {'Content-Type': 'text/plain'});
 	    response.end('Hello ! Your link has expired. It is valid for 24 Hrs only. Please try again !\n');
 	}
 	else {
 		// show the password reset page
-		response.sendFile(process.cwd() + "/angular/pages/resetpwdPage.html");
+		//response.sendFile(process.cwd() + "/angular/pages/resetpwdPage.html");
 		response.status(200);
 	}
 });
@@ -196,7 +204,7 @@ companyName : req.body.cname,
 accountId : req.body.accountId,
 companyCreator : req.session.uid
 };
-
+console.log(req.body.accountId,"req.body.accountId","req.body.cname",req.body.cname)
 con.query("select * from companydetails where companyCreator = ? and accountId = ?", [req.session.uid,req.body.accountId], function(err, result){
 	if(err){
 		res.json({success : 2, err_desc : err});
@@ -993,7 +1001,7 @@ record = {
 	activityName: "getEnv",
 	requiredData: JSON.stringify({
 		userName: data.name,
-		scope:"system_speciifc"
+		scope:data.scope
 	}),
 	status: "0"
 };
@@ -1214,11 +1222,10 @@ Promise.all([
 app.post("/scriptExecuttionStatus", function(req, res){
 if(con == null)
 con = db.openCon(con);
-var auditData = req.body.data;
 var serverIp = req.body.serverIp;
 var id = req.body.id;
 var status = req.body.status;
-console.log("serverIp = : "+serverIp+"   id = : "+id+"   status = : "+status+"  processData = : "+processData);
+console.log("serverIp = : "+serverIp+"   id = : "+id+"   status = : "+status);
 	if(status==0){
 		Promise.all([
 			new Promise((resolve, reject) => {

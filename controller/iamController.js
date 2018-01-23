@@ -3,11 +3,19 @@ var bcryptPassw = require(process.cwd() + "/util/bcryptPassword");
 var con = null;
 module.exports = function(app){
 
+
+/*function modifyResponseBody(req, res, next) {
+    console.log(" NodeJS Interceptor IAM ");
+     next();
+}
+
+app.use(modifyResponseBody);*/
+
 	app.post("/getManageRolesData", function(req,res){
 		var accountId = req.body.accountId;
 		var userId = req.body.userId;
 		if(con == null)
-			con = db.openCon(con);
+		con = db.openCon(con);
 		Promise.all([
 			new Promise((resolve, reject) => {
 				con.query("SELECT * FROM roles WHERE (accountId = ? or accountId = ? )", [0,accountId], function(err, result){
@@ -19,10 +27,10 @@ module.exports = function(app){
 					resolve(result);
 				});
 			})
-			]).then((results) => {
-				console.log(" roles Data = : "+results[0]);
-				res.status(200).json({success: 1,roleData : results[0]});
-			});
+		]).then((results) => {
+			console.log(" roles Data = : "+results[0]);
+			res.status(200).json({success: 1,roleData : results[0]});
+		});
 	});
 
 	app.post("/createNewRole", function(req, res){
@@ -39,7 +47,7 @@ module.exports = function(app){
 			type : "user-defined"
 		};
 		if(con == null)
-			con = db.openCon(con);
+		con = db.openCon(con);
 		Promise.all([
 			new Promise((resolve, reject) => {
 				con.query("insert into roles set ?", [roleData], function(err, result){
