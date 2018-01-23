@@ -2,7 +2,7 @@
             <div class="companyDetailsBg">
                 <!-- <div class="profileHead">Server Details For Project : {{project.projectName}}</div> -->
                 <div class="profileHead">Server Details</div>
-                <p class="pageNavigation ng-binding detailPages"> <a href="#">{{company_name}}  </a> &gt; <a href="#">{{project.projectName}}</a> &gt;  Project Details  </p>
+                <p class="pageNavigation ng-binding detailPages"> <a href="#/"> {{company_NameServer}}  </a> &gt; <a href="#/project">{{project.projectName}}</a> &gt; Server details</p>
                 <!--<div class="topButtonDv">
                     <a href="javascript:void(0)" ng-click="showServerModal()" class="addButton"><i class="fa fa-plus" aria-hidden="true"></i> Add Server</a>
                      <a href="#/users" class="manageButton"><i class="fa fa-user" aria-hidden="true"></i> User Management</a> 
@@ -19,18 +19,27 @@
                 <div ng-class="{0 : 'last'}[($index+1) % 4]" class="perCompanyBox "  data-ng-repeat="server in servers">
                     <div class="profileHead2" ng-init="limit = 13; moreShown = false"><a href="#/eachServer" ng-click="setServerIp(server.serverIP)" class="serverHeading"><span class="serverIconClass"> </span>{{ server.serverName | limitTo: limit}}{{server.serverName.length > limit ? '...' : ''}}</a></div>
                     <a href="javascript:void(0)" ng-click="$parent.selectedIndex = $index;showOptions($index,$event);" class="settingsIcon"><span class="companySettingIcon"></span></a>
-                    <div class="settingsPop" ng-show="$parent.selectedIndex == $index?visible:false">
+                    <div ng-if="server.activities.length > 0"class="settingsPop" ng-show="$parent.selectedIndex == $index?visible:false">
                         <ul>
-                            <li ng-if = "server.users.indexOf(name.toLowerCase()) != -1"><a href="javascript:void(0)" ng-click="showUserModal('getAccessKey', server.serverIP)">Get Access Key</a></li>
-                            <li><a href="javascript:void(0)" ng-click="showUserModal('adduser', server.serverIP)">Add User</a></li>
-                            <li><a href="javascript:void(0)" ng-click="showUserModal('deleteuser', server.serverIP)">Delete User</a></li>
-                            <li><a href="javascript:void(0)" ng-click="showUserModal('changeprivilege', server.serverIP)">Change Privilege</a></li>
-                            <li ng-if = "server.lockedDown==0"><a href="javascript:void(0)" ng-click="showUserModal('serverLockdown', server.serverIP)">LockDown Server</a></li>
-                            <li ng-if = "server.lockedDown==1"><a href="javascript:void(0)" ng-click="showUserModal('serverUnlock', server.serverIP)">Unlock Server</a></li>
-                              <li><a href="javascript:void(0)" ng-click="showUserModal('enviromentVariable', server.serverIP)">Enviroment variable</a></li>
-                             <li><a href="javascript:void(0)" ng-click="showUserModal('processList', server.serverIP)">Process List</a></li>
-                             <li><a href="javascript:void(0)" ng-click="showUserModal('auditLogin', server.serverIP)">AuditLogin List</a></li>
-                              <li><a href="javascript:void(0)" ng-click="showUserModal('runScript', server.serverIP)">Run Script</a></li>
+                            <li ng-if = "server.users.indexOf(name.toLowerCase()) != -1" ng-show="server.activities.indexOf('All')>=0 || server.activities.indexOf('Get Access Key')>=0"><a href="javascript:void(0)" ng-click="showUserModal('getAccessKey', server.serverIP)">Get Access Key</a></li>
+                            
+                            <li ng-show="server.activities.indexOf('All')>=0 || server.activities.indexOf('Add User')>=0"><a href="javascript:void(0)" ng-click="showUserModal('adduser', server.serverIP)">Add User</a></li>
+                            
+                            <li ng-show="server.activities.indexOf('All')>=0 || server.activities.indexOf('Delete User')>=0"><a href="javascript:void(0)" ng-click="showUserModal('deleteuser', server.serverIP)">Delete User</a></li>
+                            
+                            <li ng-show="server.activities.indexOf('All')>=0 || server.activities.indexOf('Change Privilege')>=0"><a href="javascript:void(0)" ng-click="showUserModal('changeprivilege', server.serverIP)">Change Privilege</a></li>
+                            
+                            <li ng-if = "server.lockedDown==0" ng-show="server.activities.indexOf('All')>=0 || server.activities.indexOf('Lock/Unlock Server')>=0"><a href="javascript:void(0)" ng-click="showUserModal('serverLockdown', server.serverIP)">LockDown Server</a></li>
+                            
+                            <li ng-if = "server.lockedDown==1" ng-show="server.activities.indexOf('All')>=0 || server.activities.indexOf('Lock/Unlock Server')>=0"><a href="javascript:void(0)" ng-click="showUserModal('serverUnlock', server.serverIP)">Unlock Server</a></li>
+                            
+                            <li ng-show="server.activities.indexOf('All')>=0 || server.activities.indexOf('Get/Set Enviroment Variables')>=0"><a href="javascript:void(0)" ng-click="showUserModal('enviromentVariable', server.serverIP)">Enviroment variable</a></li>
+                            
+                            <li ng-show="server.activities.indexOf('All')>=0 || server.activities.indexOf('Process List')>=0"><a href="javascript:void(0)" ng-click="showUserModal('processList', server.serverIP)">Process List</a></li>
+                            
+                            <li ng-show="server.activities.indexOf('All')>=0 || server.activities.indexOf('Audit Login')>=0"><a href="javascript:void(0)" ng-click="showUserModal('auditLogin', server.serverIP)">AuditLogin List</a></li>
+                            
+                            <li ng-show="server.activities.indexOf('All')>=0 || server.activities.indexOf('Run Script')>=0"><a href="javascript:void(0)" ng-click="showUserModal('runScript', server.serverIP)">Run Script</a></li>
                         </ul>
                     </div>
                     <ul class="projectUl">
@@ -40,4 +49,10 @@
                 </div>
             
             </div>
+          <div class="page_messages">
+            <div class="slidePopUpCommon companySlidePopUp" ng-show="createServerPopUp">
+               <h3 class="whiteText boldFont">Create new Server</h3>
+               <i id="companyCloseBtn" class="fa fa-times secureLoginCloseIcon" ng-click="createServerPopUp=false"></i>
+           </div>  
+          </div>
 </section>

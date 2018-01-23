@@ -4,17 +4,20 @@
                 
                 <div class="clear">&nbsp;</div>
             <div class="col-xs-12 col-sm-6 perCompanyBox" ng-repeat="company in companies">
-                <div class="profileHead2" ng-init="limit = 13; moreShown = false"> <span class="companyIconClass"> </span> <a href="#/project" ng-click="setCompanyId(company.id)">{{company.companyName | limitTo: limit}}{{company.companyName.length > limit ? '...' : ''}}</a></div>
+                <div class="profileHead2" ng-init="limit = 13; moreShown = false"> <span class="companyIconClass"> </span> <a href="#/project" ng-click="setCompanyId(company.id,company.companyName)">{{company.companyName | limitTo: limit}}{{company.companyName.length > limit ? '...' : ''}}</a></div>
                 <a href="javascript:void(0)" ng-click="$parent.selectedIndex = $index;showOptions($index,$event)" class="settingsIcon companySettingIcon"> </a>
                   <!-- <span class="companySettingIcon"></span>  -->
-                <div class="settingsPop" ng-show="$parent.selectedIndex == $index?visible:false">
-                        <ul>
-                            <li><a href="javascript:void(0)" ng-click="showCompanyPopup('EditCompany',company.id,company.companyName )">Edit Company</a></li>
-                            <li><a href="javascript:void(0)" ng-click="showCompanyPopup('DeleteCompany',company.id,company.companyName)">Delete Company</a></li></ul></div>
+                <div ng-if="company.projects.length > 0 && company.activities.length > 0"class="settingsPop" ng-show="$parent.selectedIndex == $index?visible:false">
+                  <ul>
+                      <li ng-show="company.activities.indexOf('All')>=0 || company.activities.indexOf('Edit Company')>=0"><a href="javascript:void(0)" ng-click="showCompanyPopup('EditCompany',company.id,company.companyName )">Edit Company</a></li>
+                      
+                      <li ng-show="company.activities.indexOf('All')>=0 || company.activities.indexOf('Delete Company')>=0"><a href="javascript:void(0)" ng-click="showCompanyPopup('DeleteCompany',company.id,company.companyName)">Delete Company</a></li>
+                  </ul>
+                </div>
                 <ul class="projectUl">
-                   <li ng-repeat="project in company.projects" ng-if="$index <= 1"><a href="#/project" ng-click="setCompanyId(company.id)">{{ project.projectName}}</a></li>
+                   <li ng-repeat="project in company.projects" ng-if="$index <= 1"><a href="#/project" ng-click="setCompanyId(company.id,company.companyName)">{{ project.projectName}}</a></li>
                 </ul>
-                <a class="moreClass" ng-click="setCompanyId(company.id)" ng-if="company.projects.length > 2" href="#/project">more <span class="companyArrowIcon"> </span></a>
+                <a class="moreClass" ng-click="setCompanyId(company.id,company.companyName)" ng-if="company.projects.length > 2" href="#/project">more <span class="companyArrowIcon"> </span></a>
             </div>
                 
             </div>
@@ -39,37 +42,4 @@
            </div>
             
           </div>
-
-<script>
-// $(document).ready(function(){
-
-//     $(".page_messages").animate({right: "0"}, "slow").delay(10000)
-//     .animate({right: '-300px'}, "slow");
-
-
-//     $('#projectCloseBtn').click ( function(){
-
-//         $('.projectSlidePopUp').hide();
-
-//     });
-
-//     $('#companyCloseBtn').click ( function(){
-
-//         $('.companySlidePopUp').hide();
-
-//     });
-
-   
-
-
-
-// setTimeout(function(){
-//         $('.page_messages').hide(500);
-//     }, 5000);
-
-// });
-
-
-
-</script>
 </section>

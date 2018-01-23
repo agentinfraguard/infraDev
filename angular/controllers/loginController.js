@@ -188,7 +188,7 @@ angular.module("loginController", []).controller("loginCtrl",
 		}else if(value == "pwdResetOk"){
 
 	      if(emailPattern.test($rootScope.email)){
-				$rootScope.pwdMsg = "";
+		    $rootScope.pwdMsg = "";
 			$http({
 			method : "post",
 			url : "/checkEmail",
@@ -201,8 +201,9 @@ angular.module("loginController", []).controller("loginCtrl",
 
 					$rootScope.pwdMsg = "You will receive an email.";
 					var href = "id="+data.result.id+"&timeStamp="+Date.now();
+					console.log(encodedString)
 					var encodedString = btoa(href); // base64 encode the parameters for password reset
-					var psswdResetUrl = "http://"+$window.location.host+"/resetPassword?data="+encodedString;
+					var psswdResetUrl = "http://"+$window.location.host+"#/resetPassword?data="+encodedString;
 					var pwdReset = {
 							    		psswdResetUrl : psswdResetUrl,
 							    		email : data.result.email

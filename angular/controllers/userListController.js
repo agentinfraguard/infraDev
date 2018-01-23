@@ -2,185 +2,158 @@ angular.module("userListController", ['ui.bootstrap']).controller("userListContr
 	function($scope, $http, $rootScope, companyService, $window, $timeout, $document) {
 
 		$scope.visible = false;
-		$rootScope.visibleUserList =true;
-	// $rootScope.visible_Process_List = false;
-	// $rootScope.enviromentVariable = false;
-	// $rootScope.visible_audit_Login = false;
-	// $rootScope.visibleUnlockEachServer= false;
- //    $rootScope.visibleLockdownEachServer= false;
-	// $rootScope.visibleGetAccessKey = false;
- //    $rootScope.visibleGetAccessKeyEachPage  = false;
-	// $rootScope.visibleRunScript = false;
-	$rootScope.visibleRootAccess  = false;
-	$rootScope.visibleAllReadyUser  = false;
-	$rootScope.visibleDeleteUser = false;
-	$rootScope.visible_AddUser = false;
-	$rootScope.listStatus = false;
-	$scope.users = [];
-	var accessUser="";
-	var user_obj = {};
-	var emailPattern = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
-	var deleteUser="";
-	var userListArrUser="";
-	var local_index = -1;
-	var body = angular.element($document[0].body);
-	var user=[];
-	var ip = companyService.getId();
-	if(ip==undefined){
-		ip = $window.localStorage.getItem('serverIp');
-	}
-	$window.localStorage.setItem('serverIp', ip);
-	companyService.setId(null);
-
-
-	
-	var serverDetails = function() {
-		$http({
-			method : "post",
-			url : "/eachServerPageDetails",
-			headers : {"Content-Type" : "application/json"},
-			data : {serverIp:ip}
-		})
-		.success(function(data) {
-			$rootScope.serverName=data.serverDetail.serverName;
-			$rootScope.user=data.serverDetail.userList;
-			$rootScope.lockdownServerDetail1=data.serverDetail.lockedDown;
-			$rootScope.hostNameDetails=data.serverDetail.hostname;
-			$rootScope.serverIpDetails=data.serverDetail.serverIP;
-			$rootScope.ServerIPpublic=data.serverDetail.publicIP;
-			var cpuDetail=data.serverDetail.cpu.split(",");
-			$rootScope.cpu=cpuDetail[0];
-			$rootScope.cpuDetails=data.serverDetail.cpu;
-			$rootScope.ramDetails=data.serverDetail.ram;
-			var ramDetail=data.serverDetail.ram.split(",");
-			ramDetailString=String(ramDetail[0])
-			ramDetail=ramDetailString.split(":")
-			$rootScope.ram="Total  "+ramDetail[1];
-			var KeyRotationDetails=data.serverDetail.autoKeyRotation;
-			if(KeyRotationDetails=0){
-				$scope.KeyRotation="User Managed"
-			}
-			else{
-				$rootScope.KeyRotation="Auto"
-			}
-			var lockdownServerDetails=data.serverDetail.lockedDown;
-			if(lockdownServerDetails=0){
-				$rootScope.LockdownServer="Unlocked"
-			}
-			else{
-				$rootScope.LockdownServer="Locked"
-			}
-			var userListData=data.serverDetail.userList;
-			userListData=userListData.split(",");
-			var userListDataArr=[];
-			for(var i=0;i<userListData.length;i++){
-				var userListArr=[];
-				if(userListData[i] !="syslog"){
-					userListArr.push(userListData[i])
-					userListArr.push(data.userdata[i].privilegeStatus);
-					userListDataArr.push(userListArr)
-				}
-			}
-			$rootScope.userListName=userListDataArr;
-			
-		})
-
-	}
-	
-	serverDetails();
-
-	$scope.GetDetailsindex = function (userListArr) {
-		var accessRoot=""
-		var userName=userListArr;
-		accessRoot=userListArr[1];
-		userListArrUser=userListArr[0];
-		accessUser="root";
-		if(accessRoot=="root"){
-			$rootScope.userAccessChange="user"
-			$rootScope.routeAccess=userListArr[1];
-			$rootScope.visibleRootAccess = $rootScope.visibleRootAccess ? false : true;
-			$rootScope.modal_class = "modal-backdrop fade in";            
+		$rootScope.visibleUserList =true;		
+		$rootScope.visibleRootAccess  = false;
+		$rootScope.visibleAllReadyUser  = false;
+		$rootScope.visibleDeleteUser = false;
+		$rootScope.visible_AddUser = false;
+		$rootScope.listStatus = false;
+		$scope.users = [];
+		var accessUser="";
+		var user_obj = {};
+		var emailPattern = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+		var deleteUser="";
+		var userListArrUser="";
+		var local_index = -1;
+		var body = angular.element($document[0].body);
+		var user=[];
+		var ip = companyService.getId();
+		if(ip==undefined){
+			ip = $window.localStorage.getItem('serverIp');
 		}
-		else if (accessRoot="user"){
-			$rootScope.userAccessChange="root"
-			console.log(accessRoot,"accessRoot");
-			$rootScope.visibleAllReadyUser = $rootScope.visibleAllReadyUser ? false : true;
-			$rootScope.modal_class = "modal-backdrop fade in";
-			
-		}
-		
-	};
-
-	$scope.GetDetailsindexUser = function (userListArr) {
-		var accessRoot="";
-		var userName=userListArr;
-		userListArrUser="";
-		accessRoot=userListArr[1];
-		userListArrUser=userListArr[0];
-		accessUser="user";
-		if(accessRoot=="root"){
-			$rootScope.userAccessChange="user";
-			$rootScope.visibleAllReadyUser = $rootScope.visibleAllReadyUser ? false : true;
-			$rootScope.modal_class = "modal-backdrop fade in";
-		}
-		else if (accessRoot="user"){
-			$rootScope.userAccessChange="root";
-			$rootScope.routeAccess=userListArr[1];
-			$rootScope.visibleRootAccess = $rootScope.visibleRootAccess ? false : true;
-			$rootScope.modal_class = "modal-backdrop fade in";
-		}
-		
-	};
+		$window.localStorage.setItem('serverIp', ip);
+		companyService.setId(null);
 
 
-	$scope.deleteUser = function (userListArr) { 
-		deleteUser=userListArr[0];
-		$rootScope.visibleDeleteUser = $rootScope.visibleDeleteUser ? false : true;
-		$rootScope.modal_class = "modal-backdrop fade in";
-	}
-
-
-	
-
-	$rootScope.close = function(value) {
-
-		if(value == "deleteUserOkButton"){ 
-			console.log(deleteUser)
+		var userList = function() {
+			console.log(ip)
 			$http({
-				url: "/deleteUserFromServer",
-				method: "POST",
-				data: {serverIp:ip,uname:deleteUser,search:1},
-				headers: {"Content-Type": "application/json"}
+				method : "post",
+				url : "/eachServerPageDetails",
+				headers : {"Content-Type" : "application/json"},
+				data : {serverIp:ip}
 			})
-			.success(function(data){
-				body.removeClass("overflowHidden");
-				$rootScope.modal_class = "";
-				$rootScope.visibleDeleteUser = $rootScope.visibleDeleteUser ? false : true;
-			});
+			.success(function(data) {
+				$rootScope.userListName="";
+				var userListDataArr=[];	
+				if (data.userdata!==null) {
+					var userdataLength = data.userdata.length; 
+					for(var j=0; j<userdataLength;j++){	
+						var userListData=data.userdata[j].userName;
+						userListData=userListData.split(",");
+						for(var i=0;i<userListData.length;i++){
+							var userListArr=[];
+							if(userListData[i] !="syslog" && userListData[i] !="ec2-user"){		
+								userListArr.push(userListData[i])
+								userListArr.push(data.userdata[j].privilegeStatus);
+								userListDataArr.push(userListArr)
+							}
+
+						}
+
+					}
+
+					$rootScope.userListName=userListDataArr;
+				}
+			})
 
 		}
 
 
+		userList();
 
-	}
+		$scope.GetDetailsindex = function (userListArr) {
+			var accessRoot=""
+			var userName=userListArr;
+			accessRoot=userListArr[1];
+			userListArrUser=userListArr[0];
+			accessUser="root";
+			if(accessRoot=="root"){
+				$rootScope.userAccessChange="user"
+				$rootScope.routeAccess=userListArr[1];
+				$rootScope.visibleRootAccess = $rootScope.visibleRootAccess ? false : true;
+				$rootScope.modal_class = "modal-backdrop fade in";            
+			}
+			else if (accessRoot="user"){
+				$rootScope.userAccessChange="root"
+				console.log(accessRoot,"accessRoot");
+				$rootScope.visibleAllReadyUser = $rootScope.visibleAllReadyUser ? false : true;
+				$rootScope.modal_class = "modal-backdrop fade in";
 
-	$rootScope.open = function(value) {
-		$scope.totalItems ="";
-		$scope.maxSize = ""; 
-		if(value == "userOk"){
-			$scope.visible_AddUser = $rootScope.visible_AddUser ? false : true;
-			body.removeClass("overflowHidden");
-			var required_cond = $scope.emailFormAdd.userEmailAdd.$error.required;
-			$scope.listStatus = false;
-			$scope.users = [];
-			if(emailPattern.test($scope.userEmailAdd)){
-				$rootScope.emailValid = true;
 			}
-			else{
-				$rootScope.emailValid = false;	
+
+		};
+
+		$scope.GetDetailsindexUser = function (userListArr) {
+			var accessRoot="";
+			var userName=userListArr;
+			userListArrUser="";
+			accessRoot=userListArr[1];
+			userListArrUser=userListArr[0];
+			accessUser="user";
+			if(accessRoot=="root"){
+				$rootScope.userAccessChange="user";
+				$rootScope.visibleAllReadyUser = $rootScope.visibleAllReadyUser ? false : true;
+				$rootScope.modal_class = "modal-backdrop fade in";
 			}
-			
-			if (required_cond == undefined && $scope.emailValid) {
+			else if (accessRoot="user"){
+				$rootScope.userAccessChange="root";
+				$rootScope.routeAccess=userListArr[1];
+				$rootScope.visibleRootAccess = $rootScope.visibleRootAccess ? false : true;
+				$rootScope.modal_class = "modal-backdrop fade in";
+			}
+
+		};
+
+
+		$scope.deleteUser = function (userListArr) { 
+			deleteUser=userListArr[0];
+			$rootScope.visibleDeleteUser = $rootScope.visibleDeleteUser ? false : true;
+			$rootScope.modal_class = "modal-backdrop fade in";
+		}
+
+
+
+
+		$rootScope.close = function(value) {
+
+			if(value == "deleteUserOkButton"){ 
+				console.log(deleteUser)
+				$http({
+					url: "/deleteUserFromServer",
+					method: "POST",
+					data: {serverIp:ip,uname:deleteUser,search:1},
+					headers: {"Content-Type": "application/json"}
+				})
+				.success(function(data){
+					body.removeClass("overflowHidden");
+					$rootScope.modal_class = "";
+					$rootScope.visibleDeleteUser = $rootScope.visibleDeleteUser ? false : true;
+				});
+
+			}
+
+
+
+		}
+
+		$rootScope.open = function(value) {
+			$scope.totalItems ="";
+			$scope.maxSize = ""; 
+			if(value == "userOk"){
+				$scope.visible_AddUser = $rootScope.visible_AddUser ? false : true;
+				body.removeClass("overflowHidden");
+				var required_cond = $scope.emailFormAdd.userEmailAdd.$error.required;
+				$scope.listStatus = false;
+				$scope.users = [];
+				if(emailPattern.test($scope.userEmailAdd)){
+					$rootScope.emailValid = true;
+				}
+				else{
+					$rootScope.emailValid = false;	
+				}
+
+				if (required_cond == undefined && $scope.emailValid) {
 				//console.log($rootScope.users = [])
 				$http({
 					url: "/addUserToServer",
@@ -239,7 +212,7 @@ angular.module("userListController", ['ui.bootstrap']).controller("userListContr
 
             }
             else if(value == "userAccessChangeButton"){
-            	
+            	console.log(userListArrUser+"userAccessChangeButton")
             	$http({
             		method: "POST",
             		url: "/getUserEmail",
@@ -251,6 +224,7 @@ angular.module("userListController", ['ui.bootstrap']).controller("userListContr
             		$rootScope.modal_class = "";
             		$rootScope.visibleAllReadyUser = $rootScope.visibleAllReadyUser ? false : true;
             		var userEmail=data;
+            		console.log("userListArrUser"+userListArrUser+"userEmail"+userEmail+"accessUser"+accessUser+"ip")
             		$http({
             			url: "/changeUserPrivilege",
             			method: "POST",

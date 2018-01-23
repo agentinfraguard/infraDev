@@ -18,6 +18,8 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 	$rootScope.visibleauditLogin = false;
 	$rootScope.visible_run_script = false;
     $rootScope.server_err_msg = "";
+    $rootScope.company_NameServer=companyService.getName()
+    $rootScope.createServerPopUp=false;
 	$scope.users = [];
 	var serverName = "";
 	var local_index = -1;
@@ -26,10 +28,9 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 	var user_obj = {};
 	var emailPattern = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
 	var userDataEnv="";
-    //var mailUserCredentialsUrl="";
+     //var mailUserCredentialsUrl="";
     //var serverPageDetailsUrl="";
    // $rootScope.server_ip="";
-    $scope.createStyle={display:'none'};
     var sCount = true;
 
     $scope.showOptions = function(index,$event) {
@@ -74,6 +75,7 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 
 	var getData = function() {
 	   
+
 	$http({
 	method : "post",
 	url : "/getServerPageDetails",
@@ -86,17 +88,16 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 	})*/
 	.success(function(data) {
 		$scope.project = data.project;
-       
-		if(data.servers == null && sCount==true){
-			$scope.createStyle={display:'block'};
-			sCount=false;
-		}
-		$rootScope.isIAMAllowed = JSON.parse($window.localStorage.getItem('validResouceList')).iamAllowed;
+       	$rootScope.isIAMAllowed = JSON.parse($window.localStorage.getItem('validResouceList')).iamAllowed;
+		
 		if(data.servers == null){
+			$rootScope.createProjectPopUp=true;
 			$scope.servers = [];
 		}
 		else{
-			var validServerList = JSON.parse($window.localStorage.getItem('validResouceList')).listOfServerIds;
+			var allvalidData = JSON.parse($window.localStorage.getItem('validResouceList'));
+			var validServerList = allvalidData.listOfServerIds;
+			//var validServerList = JSON.parse($window.localStorage.getItem('validResouceList')).listOfServerIds;
 			for(var x = data.servers.length-1; x>=0; x--){
 				if(validServerList.indexOf('All')>=0 || validServerList.indexOf(data.servers[x].id)>=0){
 		            console.log("Allowed ServerId = : "+data.servers[x].id+" Name  = : "+data.servers[x].serverName);
@@ -105,6 +106,15 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 					if(data.servers[x].userList != null)
 					users = data.servers[x].userList.toString().split(",");
 					data.servers[x].users = users;
+					if(validServerList.indexOf('All')>=0){
+						data.servers[x].activities = allvalidData.allowedAllAndActivities['All'];
+					}
+					else if(validServerList.indexOf(data.servers[x].id)>=0){
+						data.servers[x].activities = allvalidData.allowedServersAndActivities[data.servers[x].id];
+					}
+					else{
+						data.servers[x].activities = [];
+					}
 		        }else{
 		        	data.servers.splice(x,1);
 		        }
@@ -444,7 +454,7 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
     	   }
 
     	   	else if(value == "envVarUserSpecific"){
-    	   		userDataEnv="user";
+    	   		userDataEnv="user_speciifc";
     	   		$rootScope.envdata="";
     	   		$rootScope.user =userDataEnv;
 				console.log("envVarUserSpecific clicked");
@@ -463,7 +473,7 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 
     	   
             else if(value == "envVarSystemSpecific"){
-    	   		userDataEnv="system";
+    	   		userDataEnv="system_speciifc";
     	   		$rootScope.envdata="";
     	   		$rootScope.user =userDataEnv;
 				console.log("envVarSystemSpecific clicked");

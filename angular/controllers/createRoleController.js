@@ -120,7 +120,7 @@ $scope.roleName = '';
 					}
 				});
 			//$scope.resourceList = ['Samsung','Genpact','Globe','JFC','Singapore Telecom'];
-			$scope.activityList = ['Create Company','Add User','Create Policy'];
+			$scope.activityList = ['Create Company','Delete Company','Edit Company'];
 		}
 		else if (newResource == 'Project'){
 			$scope.activityList = [];
@@ -138,7 +138,7 @@ $scope.roleName = '';
 				}
 			});
 			//$scope.resourceList = ['SSH Samsung','MySamsung','GalaxyLife','FileCloud','Bastion Servers'];
-			$scope.activityList = ['Create Project','Add User','Create Policy','Start/Stop Auto Key Rotation','Change Server Key'];
+			$scope.activityList = ['Create Project','Edit Project','Start/Stop Auto Key Rotation','Change Server Key'];
 		}
 		else if (newResource == 'Server'){
 			$scope.activityList = [];
@@ -170,7 +170,7 @@ $scope.roleName = '';
 			$scope.activityList = ['Create Role','Modify Role','Delete Role'];
 		}
 		else if (newResourceId == 'Manage Groups'){
-			$scope.activityList = ['Create Group','Modify Group','Show users in Group','Show roles in Group','Delete Group'];
+			$scope.activityList = ['Create Group','Modify Group','Show users in Group','Delete Group'];
 		}
 		else if (newResourceId == 'Manage Users'){
 			$scope.activityList = ['Edit User Permission','Delete User ','Invite new user'];

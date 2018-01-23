@@ -12,13 +12,15 @@ function($scope, $rootScope, $http, companyService, $window, $document, $timeout
 	$rootScope.visibleEditProjectName=false;
 	$rootScope.projectId = "";
     $rootScope.projectName = ""; 
-     $rootScope.menuIcon = false ;   
-     $rootScope.menuIconDiv = false ; 
-        
+    $rootScope.menuIcon = false ;   
+    $rootScope.menuIconDiv = false ;
+    $rootScope.mfaStyle = false ;
+    $rootScope.createProjectPopUp=false;    
+    $rootScope.company_Name=companyService.getName();
+   // console.log(companyService.getName())
 	var local_index = -1;
     var body = angular.element($document[0].body);
    // var projectPageDetailsUrl="";
-    $scope.createStyle={display:'none'};
     var pCount = true;
 
 	var id = companyService.getId();
@@ -48,17 +50,16 @@ var loadTime = 5000, //Load the data every second
 		success(function(data) {
 		$scope.company_name = data.company.companyName;
 		$scope.company_notes = data.company.companyNotes;
-        
-		if(data.projects == null && pCount==true){
-			$scope.createStyle={display:'block'};
-			pCount=false;
-		}
         $rootScope.isIAMAllowed = JSON.parse($window.localStorage.getItem('validResouceList')).iamAllowed;
-        if(data.projects == null){
+
+		if(data.projects == null ){
+			$rootScope.createProjectPopUp=true;
 			$scope.projects = [];
 		}
 		else{
-			var validProjectList = JSON.parse($window.localStorage.getItem('validResouceList')).listOfProjectIds;
+			var allvalidData = JSON.parse($window.localStorage.getItem('validResouceList'));
+            var validProjectList = allvalidData.listOfProjectIds;
+			//var validProjectList = JSON.parse($window.localStorage.getItem('validResouceList')).listOfProjectIds;
 			for( x = data.projects.length-1; x>=0; x--){
 				if(validProjectList.indexOf('All')>=0 || validProjectList.indexOf(data.projects[x].id)>=0){
 		            console.log("Allowed ProjectId = : "+data.projects[x].id+" Name  = : "+data.projects[x].projectName);
@@ -68,6 +69,15 @@ var loadTime = 5000, //Load the data every second
 							if(data.servers[y].projectId == data.projects[x].id){
 								servers.push(data.servers[y]);
 								data.projects[x].servers = servers;
+							if(validProjectList.indexOf('All')>=0){
+								data.projects[x].activities = allvalidData.allowedAllAndActivities['All'];
+							}
+							else if(validProjectList.indexOf(data.projects[x].id)>=0){
+								data.projects[x].activities = allvalidData.allowedProjectsAndActivities[data.projects[x].id];
+							}
+							else{
+								data.projects[x].activities = [];
+							}
 						    }
 					    }
 		        }else{
@@ -221,6 +231,7 @@ var loadTime = 5000, //Load the data every second
 			$rootScope.modal_class = "modal-backdrop fade in";
 		}else if (mode == "updateServerKey") {
 			$rootScope.projectId = projectId;
+			$rootScope.updateServerKey = $rootScope.updateServerKey ? false : true;
 			$rootScope.modal_class = "modal-backdrop fade in";
 		}
 

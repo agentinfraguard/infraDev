@@ -10,7 +10,7 @@ function($scope, $http, $rootScope, companyService, $window) {
 $rootScope.close = function(value) {
 
       		$http({
-				url: "/refreshProcessListData",
+				url: "/refreshProcessList",
 				method: "POST",
 				data: {serverIp:ip,name:$rootScope.name},
 				headers: {"Content-Type": "application/json"}

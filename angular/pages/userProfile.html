@@ -41,7 +41,7 @@
                         <p ng-show="keySuccess" class="colorGreen">SSH Public Key is Updated Successfully.</p>
                         <p ng-show="ssh_err_display" class="colorRed">{{ssh_err_msg}}</p>
                         <div class="clear"></div>
-                        <input id="Password1" type="button" value="Change Password" class="changePasswordBtn" />
+                        <input id="Password1" type="button" ng-click="changePassKey()" value="Change Password" class="changePasswordBtn" />
                         <!-- <input id="Button1" type="button" value="Setup MFA" ng-click="#/mfa"/> -->
                         <a href="#/mfa" class="setupMFABtn"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Setup MFA</a>
                         <input id="Button2" type="button" ng-click="saveKey()" value="Save" class="saveBtn" />

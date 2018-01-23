@@ -17,9 +17,18 @@ $rootScope.close = function() {
 			})
 			   .success(function(data){
 			      var data=JSON.parse(data[0].auditLogin);
-                  data=data.loginHistory;
-                  dataAuditloginManipulation(data);
-                  $rootScope.auditLogin=dataAuditloginManipulation(data);
+             if(data!==null){
+                    data=data.loginHistory;
+                    dataAuditloginManipulation(data);
+                    var auditLoginDataLen=Object.keys(data).length-2;
+                    $rootScope.auditLogin=dataAuditloginManipulation(data);
+                        $scope.viewby = 5;
+                        $scope.totalItems =auditLoginDataLen;
+                        $scope.currentPage = 1;
+                        $scope.itemsPerPage = $scope.viewby;
+                        $scope.maxSize = auditLoginDataLen/5; 
+           
+                }
 			   });
     	    
 
@@ -37,6 +46,7 @@ $rootScope.close = function() {
 			            })
 			          .success(function(data){
 			              var data=JSON.parse(data[0].auditLogin);
+                    if(data!==null){
 			              data=data.loginHistory;
 			              dataAuditloginManipulation(data);
 			              var auditLoginDataLen=Object.keys(data).length-2;
@@ -46,7 +56,7 @@ $rootScope.close = function() {
 			                  $scope.currentPage = 1;
 			                  $scope.itemsPerPage = $scope.viewby;
 			                  $scope.maxSize = auditLoginDataLen/5; 
-			     
+			                    }
 	                    })
 			        }
 

@@ -1,10 +1,50 @@
-angular.module('resetpwd', []).controller('resetpwdController', function($scope,$window,$http) {
+angular.module('resetpwdController', []).controller('resetpwdController', function($scope,$rootScope,$window,$http) {
     $scope.newpwd = "";
     $scope.cnfpwd = "";
     $scope.newpwdMsg = "";
     $scope.finalpwdMsg = "";
     $scope.pwdResetSuccess = false;
     $scope.loginUrl = "";
+    $rootScope.resetPassPage="true";
+    $rootScope.expireError="false";
+
+
+  var resetpwdAuthorization = function(){
+   
+      
+      var dataurl= window.location.href;
+      var dataurl = dataurl.split("data=");
+    
+     var data = atob(dataurl[1]).toString().split("&");
+    // console.log(data)
+      var id = data[0].split("id=")[1];
+      var time = data[1].split("timeStamp=")[1];
+      var timeDiffHrs = (Date.now() - time)/(1000*60*60);
+
+      if(timeDiffHrs >= 24) {
+        $rootScope.expireError="true";
+         $rootScope.resetPassPage="false";
+          console.log("Hello ! Your link has expired. It is valid for 24 Hrs only. Please try again !\n")
+      }
+      else {
+         console.log("show the password reset page")
+           $rootScope.resetPassPage="true";
+           $rootScope.expireError="false";
+        
+      }
+     
+     
+}
+
+
+    if ($rootScope.changePass!=="changePss") {
+        resetpwdAuthorization();
+}
+// 
+
+  //console.log($rootScope.changePass)
+
+
 
     $scope.resetPassword = function() {
     	$scope.finalpwdMsg = "";
@@ -21,8 +61,17 @@ angular.module('resetpwd', []).controller('resetpwdController', function($scope,
 
         if(newpwd.length==cnfpwd.length && cnfpwd == newpwd){
              // update user password
-             var userId = atob($window.location.href.split("data=")[1]).split("&")[0].split("id=")[1];
              
+              if ($rootScope.changePass == "changePss") {
+                    var userId="";
+                    var userId =  $rootScope.userId;
+                }
+                else{
+                    var userId="";
+                    var userId = atob($window.location.href.split("data=")[1]).split("&")[0].split("id=")[1];
+                }
+            
+             console.log(userId)
             $http({
 			 	url : "/updatePassword",
 			 	data : {userId : userId, pwd : newpwd},

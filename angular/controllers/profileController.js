@@ -1,5 +1,5 @@
 angular.module("profileController", []).controller("profileController",
-	function($scope, $http, $rootScope, companyService, $document, $timeout, $window){
+	function($scope, $http, $rootScope, companyService, $document, $timeout, $window,$location){
      	$scope.edit = true;
      	$scope.uploadSuccess = false;
      	$scope.keySuccess = false;
@@ -13,12 +13,12 @@ angular.module("profileController", []).controller("profileController",
      	$rootScope.visible_project = false;
      	$rootScope.visibleEditCompanyName=false;
      	$rootScope.visibleDeleteCompanyName=false;
-     	 $rootScope.menuIcon=false;
-     	  $rootScope.menuIconDiv = false ;    
+     	$rootScope.menuIcon=false;
+     	$rootScope.menuIconDiv = false ;    
      	$rootScope.company_err_msg = "";
      	$rootScope.modal_class = "";
      	$rootScope.userAccounts = JSON.parse($window.localStorage.getItem('userAccounts'));
-     	$rootScope.currentAccountId=$window.localStorage.getItem('currentAccount');
+     	$rootScope.currentAccountId = $window.localStorage.getItem('currentAccount');
      	var local_index = -1;
      	var body = angular.element($document[0].body);
      	$scope.createStyle = false;
@@ -51,6 +51,11 @@ angular.module("profileController", []).controller("profileController",
 			$window.localStorage.setItem('userPolicyList', JSON.stringify(policyList));
 			//now based on policy list filter company page data
 			var listOfCompanyIds = [];
+			var allowedCompaniesAndActivities = {};
+			var allowedProjectsAndActivities = {};
+			var allowedServersAndActivities = {};
+			var allowedIAMsAndActivities = {};
+			var allowedAllAndActivities = {};
 			var listOfProjectIds = [];
 			var listOfServerIds = [];
 			var iamAllowed = false;
@@ -63,6 +68,10 @@ angular.module("profileController", []).controller("profileController",
 								listOfCompanyIds.push(data.serverdata[k].companyId);
 								listOfProjectIds.push(data.serverdata[k].projectId);
 								listOfServerIds.push(data.serverdata[k].id);
+								//allowedServersAndActivities.push({data.serverdata[k].id,policyList[j].activities});
+								var serverId = data.serverdata[k].id;
+								allowedServersAndActivities[serverId] = policyList[j].activities;
+
 							}
 						}
 					}
@@ -71,6 +80,9 @@ angular.module("profileController", []).controller("profileController",
 							if(data.projectdata[l].projectName == policyList[j].resourceId){
 								listOfCompanyIds.push(data.projectdata[l].companyId);
 								listOfProjectIds.push(data.projectdata[l].id);
+								//allowedProjectsAndActivities.push({data.projectdata[l].id,policyList[j].activities});
+								var projectId = data.projectdata[l].id;
+								allowedProjectsAndActivities[projectId] = policyList[j].activities;
 							}
 						}
 					}
@@ -78,12 +90,18 @@ angular.module("profileController", []).controller("profileController",
 						for(m=0;m<data.companydata.length;m++){
 							if(data.companydata[m].companyName == policyList[j].resourceId){
 								listOfCompanyIds.push(data.companydata[m].id);
+								//allowedCompaniesAndActivities.push({data.companydata[m].id,policyList[j].activities});
+								var companyId = data.companydata[m].id;
+								allowedCompaniesAndActivities[companyId] = policyList[j].activities;
 							}
 						}
 					}
 					else if(policyList[j].resource == 'IAM'){
 						iamAllowed = true;
 						$rootScope.isIAMAllowed = true;
+						var iamId = policyList[j].resourceId;
+						allowedIAMsAndActivities[iamId] = policyList[j].activities;
+
 					}
 					else if(policyList[j].resource == 'All'){
 						listOfCompanyIds = [];
@@ -92,17 +110,26 @@ angular.module("profileController", []).controller("profileController",
 						listOfCompanyIds.push('All');
 						listOfProjectIds.push('All');
 						listOfServerIds.push('All');
+						allowedAllAndActivities['All'] = policyList[j].activities;
 						$rootScope.isIAMAllowed = true;
 						iamAllowed = true;
 						break;
 					}
 				}
 			}
+			console.log("All = : "+allowedAllAndActivities+"   IAM = : "+allowedIAMsAndActivities+" Comapny = : "+allowedCompaniesAndActivities);
+			console.log(" Project = : "+allowedProjectsAndActivities+"      Server = : "+allowedServersAndActivities);
+			console.log(" keys  = : "+Object.keys(allowedServersAndActivities)+" IAM = : "+Object.keys(allowedIAMsAndActivities));
 			var validResouceList = {};
 			validResouceList.listOfCompanyIds = listOfCompanyIds;
 			validResouceList.listOfProjectIds = listOfProjectIds;
 			validResouceList.listOfServerIds = listOfServerIds;
 			validResouceList.iamAllowed = iamAllowed;
+			validResouceList.allowedAllAndActivities = allowedAllAndActivities;
+			validResouceList.allowedIAMsAndActivities = allowedIAMsAndActivities;
+			validResouceList.allowedCompaniesAndActivities = allowedCompaniesAndActivities;
+			validResouceList.allowedProjectsAndActivities = allowedProjectsAndActivities;
+			validResouceList.allowedServersAndActivities = allowedServersAndActivities;
 			$window.localStorage.setItem('validResouceList', JSON.stringify(validResouceList));
 			return validResouceList;
 		}
@@ -120,7 +147,7 @@ angular.module("profileController", []).controller("profileController",
 					$window.location.href = "/";
 				}
 
-				$scope.userId = data.userdata.id;
+				$rootScope.userId = data.userdata.id;
 				$scope.name = data.userdata.uname;
 				$scope.email = data.userdata.email;
 				$rootScope.name=data.userdata.uname;
@@ -136,7 +163,8 @@ angular.module("profileController", []).controller("profileController",
 				}
 
             // filter data to display based on policies
-            var validCompanyList = filterCompanyDataForUser(data).listOfCompanyIds;
+            var allvalidData = filterCompanyDataForUser(data);
+            var validCompanyList = allvalidData.listOfCompanyIds;
             	console.log(" Allowed listOfCompanyIds = : "+validCompanyList);
 
             	for(x = data.companydata.length-1; x>=0; x--){
@@ -148,6 +176,15 @@ angular.module("profileController", []).controller("profileController",
 						if(data.projectdata[y].companyId == data.companydata[x].id){
 							projects.push(data.projectdata[y]);
 							data.companydata[x].projects = projects;
+							if(validCompanyList.indexOf('All')>=0){
+								data.companydata[x].activities = allvalidData.allowedAllAndActivities['All'];
+							}
+							else if(validCompanyList.indexOf(data.companydata[x].id)>=0){
+								data.companydata[x].activities = allvalidData.allowedCompaniesAndActivities[data.companydata[x].id];
+							}
+							else{
+								data.companydata[x].activities = [];
+							}
 						}
 					}
             		}else{
@@ -238,8 +275,10 @@ getAccountDetails($window.localStorage.getItem('currentAccount'),$window.localSt
 			});
 		};
 
-		$rootScope.setCompanyId = function(id) {
+		$rootScope.setCompanyId = function(id,companyName) {
 			companyService.setId(id);
+			companyService.setName(companyName);
+			console.log(companyName)
 		};
 
 		$rootScope.setProjectId = function(id) {
@@ -328,32 +367,29 @@ getAccountDetails($window.localStorage.getItem('currentAccount'),$window.localSt
 			}
                 
 			else if(value == "companyNameEditcancel"){
-                     
-                     $rootScope.visibleEditCompanyName = $rootScope.visibleEditCompanyName ? false : true;
-			         body.removeClass("overflowHidden");
-				     $rootScope.modal_class = "";
+                $rootScope.visibleEditCompanyName = $rootScope.visibleEditCompanyName ? false : true;
+		        body.removeClass("overflowHidden");
+			    $rootScope.modal_class = "";
 			}
 			else if(value == "companyNameEditok"){
-                     $rootScope.visibleEditCompanyName = $rootScope.visibleEditCompanyName ? false : true;
-                            body.removeClass("overflowHidden");
-				            $rootScope.modal_class = "";
-                            $http({
-							  method : "POST",
-							  url : "/editCompanyName",
-					 	      data : {id: $scope.companyId,companyName:$rootScope.companyName},
-						 	  headers : {"Content-Type" : "application/json"}
-						    }) 
-                            .success(function(data){
-                                console.log(data)
-
-
-						})
+                $rootScope.visibleEditCompanyName = $rootScope.visibleEditCompanyName ? false : true;
+                body.removeClass("overflowHidden");
+		        $rootScope.modal_class = "";
+                $http({
+				method : "POST",
+				url : "/editCompanyName",
+			 	data : {id: $scope.companyId,companyName:$rootScope.companyName},
+				headers : {"Content-Type" : "application/json"}
+				}) 
+                .success(function(data){
+                    console.log(data)
+				})
 			}
 
 			else if(value == "DeleteCompanyNameCancel"){
-                     $rootScope.visibleDeleteCompanyName = $rootScope.visibleDeleteCompanyName ? false : true;
-			           body.removeClass("overflowHidden");
-				       $rootScope.modal_class = ""
+                $rootScope.visibleDeleteCompanyName = $rootScope.visibleDeleteCompanyName ? false : true;
+	           	body.removeClass("overflowHidden");
+		       	$rootScope.modal_class = ""
 			}
 
 			else if(value == "deleteCompanyNameOkButton"){
@@ -400,6 +436,14 @@ getAccountDetails($window.localStorage.getItem('currentAccount'),$window.localSt
 		    $scope.mfaStyle={display:'non
 		    e'};
 		}, 5000);*/
+
+	$rootScope.changePassKey = function(){
+
+       $rootScope.changePass="changePss";
+        $location.path("/updatePassword");
+      //var psswdResetUrl = "http://"+$window.location.host+"#/resetPassword";
+   }
+
 
 })
 

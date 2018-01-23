@@ -23,14 +23,21 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 	 		 $scope.hostNameDetails=data.serverDetail.hostname;
 	 		 $scope.serverIpDetails=data.serverDetail.serverIP;
 	 		 $scope.ServerIPpublic=data.serverDetail.publicIP;
-	 		 var cpuDetail=data.serverDetail.cpu.split(",");
-	 		 $scope.cpu=cpuDetail[0];
-	 		 $scope.cpuDetails=data.serverDetail.cpu;
+	 		 if(data.serverDetail.cpu!== null){   
+                 var cpuDetail=data.serverDetail.cpu.split(",");
+                 $scope.cpu=cpuDetail[0];
+	 		     $scope.cpuDetails=data.serverDetail.cpu;
+	 		 }	 		 
+	 		 
 	 		 $scope.ramDetails=data.serverDetail.ram;
-	 		 var ramDetail=data.serverDetail.ram.split(",");
+	 		 if(data.serverDetail.ram!==null){
+                var ramDetail=data.serverDetail.ram.split(",");
 	 		    ramDetailString=String(ramDetail[0])
 	 		    ramDetail=ramDetailString.split(":")
-	 		 $scope.ram="Total  "+ramDetail[1];
+	 		    $scope.ram="Total  "+ramDetail[1];
+
+	 		 }
+	 		
 	 		 var KeyRotationDetails=data.serverDetail.autoKeyRotation;
 	 		  if(KeyRotationDetails=0){
                    $scope.KeyRotation="User Managed"
@@ -45,19 +52,7 @@ function($scope, $http, $rootScope, companyService, $window, $timeout, $document
 	 		     else{
                      $scope.LockdownServer="Locked"
 	 		        }
-	 		      var userListData=data.serverDetail.userList;
-                      userListData=userListData.split(",");
-                      var userListDataArr=[];
-                      for(var i=0;i<userListData.length;i++){
-                      	  var userListArr=[];
-                      	 if(userListData[i] !="syslog"){
-                      	     userListArr.push(userListData[i])
-                      	     userListArr.push(data.userdata[i].privilegeStatus);
-                      	     userListDataArr.push(userListArr)
-                      	    }
-                        }
-                        $scope.userListName=userListDataArr;
-  
+
             })
 
     }

@@ -126,15 +126,15 @@
         </div>
 
         <!-- password reset popup -->
-        <div class="modal fade authenticationBox" ng-class="{true : 'fade1'}[pwdReset]">
+        <div class="modal fade authenticationBox modalMargin" ng-class="{true : 'fade1'}[pwdReset]">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" ng-click="close('pwdResetCancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="close" ng-click="close('pwdResetCancel')" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></button>
                 <h2 class="modal-title">Do you want to recover your password?</h2>
               </div>
               <form>
-              <div class="padding10">
+              <div class="bodyModal">
                    <p>
                         Please enter your Email :
                     </p>
@@ -143,8 +143,10 @@
                 </div>
               <div class="modal-footer">
               
-                <button type="button" ng-click="close('pwdResetCancel')" class="btn btn-default modalButton cancelBtn" data-dismiss="modal">Cancel</button>
-                <input type="submit" ng-click="close('pwdResetOk')" ng-model="email"value="OK" class="btn btn-primary modalButton okBtn" />
+
+                <button type="button" ng-click="close('pwdResetCancel')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" ng-click="close('pwdResetOk')" ng-model="email"value="OK" class="btn btn-primary" />
+
               </div>
               </form>
             </div>
@@ -167,6 +169,7 @@
     <script type="text/javascript" src="controllers/loginController.js"></script>
     <script type="text/javascript" src="controllers/signupController.js"></script>
     <script type="text/javascript" src="controllers/homeController.js"></script>
+    <script type="text/javascript" src="controllers/resetpwdController.js"></script>
     <script type="text/javascript" src="directives/passwValidation.js"></script>
    
     
